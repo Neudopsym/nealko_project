@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SOBEER — Nealkoholické pivo v Praze</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="sobeer.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#"><img src="sobeer_logo.png" alt="SOBEER" style="height:44px;display:block;"/></a>
+  <ul>
+    <li><a href="#bary">Bary</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Průvodce nealkoholickým pivem v Praze</p>
+    <img src="sobeer_logo.png" alt="SOBEER" style="width:min(480px,80vw);display:block;margin:0 auto;opacity:0;animation:fadeUp 1s 0.5s forwards;"/>
+    <p class="hero-sub">Objevte nejlepší bary s nealkoholickým pivem ve městě</p>
+    <a href="#bary" class="hero-cta">Procházet bary</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">Veškerá chuť <span class="ticker-dot"></span> Žádný alkohol <span class="ticker-dot"></span> Nejlepší nealko bary Prahy <span class="ticker-dot"></span> Řemeslné. Uvědomělé. Lahodné. <span class="ticker-dot"></span></div>
+    <div class="ticker-item">Veškerá chuť <span class="ticker-dot"></span> Žádný alkohol <span class="ticker-dot"></span> Nejlepší nealko bary Prahy <span class="ticker-dot"></span> Řemeslné. Uvědomělé. Lahodné. <span class="ticker-dot"></span></div>
+  </div>
+</div>
+
+<!-- BARS -->
+<section id="bary">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-label reveal">Výběr SOBEER</p>
+    <h2 class="section-title reveal">Bary &amp; restaurace</h2>
+  </div>
+
+  <div class="search-bar reveal">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/>
+  </div>
+
+  <div class="filters reveal">
+    <div class="filter-group">
+      <span class="filter-label">Městská část</span>
+      <select id="f-district">
+        <option value="">Všechny části</option>
+        <option>Praha 1</option><option>Praha 2</option>
+        <option>Praha 3</option><option>Praha 7</option><option>Praha 8</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Typ podniku</span>
+      <select id="f-type">
+        <option value="">Vše</option>
+        <option>Hospoda</option><option>Restaurace</option>
+        <option>Lounge</option><option>Craft bar</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Podávání piva</span>
+      <select id="f-serve">
+        <option value="">Oboje</option>
+        <option value="čepované">Čepované</option>
+        <option value="lahvové">Lahvové</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Zahrada</span>
+      <select id="f-garden">
+        <option value="">Nezáleží</option>
+        <option value="ano">Ano</option>
+        <option value="ne">Ne</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="results-count" id="results-count" style="max-width:1200px;margin:0 auto 1.5rem;"></div>
+  <div class="bars-list" id="bars-list"></div>
+  <div class="no-results" id="no-results">Žádné bary neodpovídají vašemu hledání.</div>
+</section>
+
+<!-- MAP -->
+<div id="mapa">
+  <div class="map-header reveal">
+    <p class="section-label">Přehled</p>
+    <h2 class="section-title">Bary na mapě</h2>
+    <p class="map-note">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
+  </div>
+  <div id="overview-map"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="o-nas">
+  <p class="section-label reveal">O projektu</p>
+  <h2 class="section-title reveal">Dobré pivo<br/><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);">nepotřebuje</em> alkohol</h2>
+  <p class="reveal" style="margin-top:1.5rem;">Praha má jednu z nejbohatších pivních kultur na světě. A teď se vyvíjí. Nová generace barů nabízí výjimečná nealkoholická piva — komplexní, nuancovaná a skutečně uspokojující. SOBEER je váš kurátorský průvodce tím nejlepším z nich.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="sobeer_logo.png" alt="SOBEER" style="height:50px;display:block;border-radius:2px;"/>
+  <ul class="footer-links">
+    <li><a href="#bary">Bary</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#">Přidat bar</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 SOBEER. Praha, CZ.</p>
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const BARS = [
+  {
+    id:1, name:"Nealko Lounge", district:"Praha 2", hood:"Vinohrady",
+    type:"Lounge", serve:"čepované", garden:"ano", pet:"ano", food:"ano",
+    beers:["Ležák","Craft IPA","Radler"],
+    hours:"Po–Pá 14:00–23:00 · So–Ne 12:00–24:00",
+    address:"Mánesova 48, Praha 2",
+    desc:"První čistě nealkoholický bar v Praze s více než 30 druhy nealko piv z českých i evropských pivovarů. Intimní prostor s bezchybnou obsluhou a sezónním menu.",
+    lat:50.0745, lng:14.4434
+  },
+  {
+    id:2, name:"Pivovar Bez", district:"Praha 3", hood:"Žižkov",
+    type:"Hospoda", serve:"čepované", garden:"ne", pet:"ano", food:"ano",
+    beers:["Ležák","Tmavé pivo","Weizen"],
+    hours:"Po–So 15:00–23:00 · Ne zavřeno",
+    address:"Seifertova 22, Praha 3",
+    desc:"Sousedský oblíbenec s průběžně se měnícím výběrem malosériových nealko ležáků a ale vařených přímo na místě. Autentická žižkovská atmosféra.",
+    lat:50.0878, lng:14.4468
+  },
+  {
+    id:3, name:"The Clear Tap", district:"Praha 1", hood:"Malá Strana",
+    type:"Craft bar", serve:"čepované", garden:"ano", pet:"ne", food:"ne",
+    beers:["Craft IPA","Weizen","Radler"],
+    hours:"Út–Ne 13:00–22:00 · Po zavřeno",
+    address:"Tomášská 12, Praha 1",
+    desc:"Klidné útočiště pod Hradem servírující evropská nealko craft piva v krásně zrekonstruovaném gotickém sklípku s letní zahrádkou.",
+    lat:50.0876, lng:14.4030
+  },
+  {
+    id:4, name:"Alto Nealko", district:"Praha 1", hood:"Nové Město",
+    type:"Restaurace", serve:"lahvové", garden:"ne", pet:"ne", food:"ano",
+    beers:["Ležák","Radler","Craft IPA"],
+    hours:"Denně 11:00–23:00",
+    address:"Václavské náměstí 38, Praha 1",
+    desc:"Panoramatický výhled na město s propracovaným menu nealko piv a vynikající kuchyní. Ideální místo pro večerní posezení při západu slunce.",
+    lat:50.0813, lng:14.4279
+  },
+  {
+    id:5, name:"Hop Zero", district:"Praha 7", hood:"Holešovice",
+    type:"Craft bar", serve:"čepované", garden:"ano", pet:"ano", food:"ne",
+    beers:["Craft IPA","Ležák","Tmavé pivo","Weizen"],
+    hours:"St–Pá 16:00–23:00 · So–Ne 13:00–23:00",
+    address:"Dělnická 33, Praha 7",
+    desc:"Moderní taproom v přestavěném skladu zaměřený na IPA a stouty bez alkoholu. Industriální interiér a přátelská komunita pivních nadšenců.",
+    lat:50.1043, lng:14.4435
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let filtered = [...BARS];
+let openId = null;
+let miniMaps = {};
+let overviewMap = null;
+let oMarkers = [];
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render() {
+  const list = document.getElementById('bars-list');
+  const noRes = document.getElementById('no-results');
+  const cnt = document.getElementById('results-count');
+
+  // destroy old mini maps
+  Object.values(miniMaps).forEach(m => m.remove());
+  miniMaps = {};
+
+  list.innerHTML = '';
+
+  if (!filtered.length) {
+    noRes.style.display = 'block';
+    cnt.innerHTML = '';
+    updateOMap();
+    return;
+  }
+  noRes.style.display = 'none';
+  const n = filtered.length;
+  cnt.innerHTML = `Zobrazeno <strong>${n}</strong> ${n===1?'bar':n<5?'bary':'barů'}`;
+
+  filtered.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'bar-item' + (openId === b.id ? ' open' : '');
+    div.dataset.id = b.id;
+    div.innerHTML = `
+      <div class="bar-header" onclick="toggle(${b.id})">
+        <div class="bar-header-left">
+          <div class="bar-meta-row">
+            <span class="badge-type">${b.type}</span>
+            <span class="badge-district">${b.hood} · ${b.district}</span>
+          </div>
+          <div class="bar-name">${b.name}</div>
+        </div>
+        <div class="bar-header-right">
+          <div class="pills">
+            <span class="pill${b.garden==='ano'?' on':''}">🌿 Zahrada</span>
+            <span class="pill${b.pet==='ano'?' on':''}">🐾 Mazlíčci</span>
+            <span class="pill${b.food==='ano'?' on':''}">🍽 Jídlo</span>
+            <span class="pill on">${b.serve==='čepované'?'🍺 Čepované':'🍾 Lahvové'}</span>
+          </div>
+          <button class="toggle-btn" onclick="toggle(${b.id})">+</button>
+        </div>
+      </div>
+      <div class="bar-detail">
+        <div class="bar-detail-inner">
+          <div class="detail-grid">
+            <div class="dl"><div class="dl-label">Adresa</div><div class="dl-value">${b.address}</div></div>
+            <div class="dl"><div class="dl-label">Otevírací doba</div><div class="dl-value">${b.hours}</div></div>
+            <div class="dl"><div class="dl-label">Zahrada</div><div class="dl-value">${b.garden==='ano'?'✓ Ano':'✗ Ne'}</div></div>
+            <div class="dl"><div class="dl-label">Přátelský k mazlíčkům</div><div class="dl-value">${b.pet==='ano'?'✓ Ano':'✗ Ne'}</div></div>
+            <div class="dl"><div class="dl-label">Druhy piv</div><div class="dl-value">${b.beers.join(', ')}</div></div>
+            <div class="dl"><div class="dl-label">Podávání</div><div class="dl-value">${b.serve.charAt(0).toUpperCase()+b.serve.slice(1)}</div></div>
+            <div class="dl"><div class="dl-label">Jídlo</div><div class="dl-value">${b.food==='ano'?'✓ Ano':'✗ Ne'}</div></div>
+            <div class="detail-desc">"${b.desc}"</div>
+          </div>
+          <div class="mini-map-wrap">
+            <div class="mini-map-label">Poloha baru</div>
+            <div class="mini-map" id="mm-${b.id}"></div>
+          </div>
+        </div>
+      </div>`;
+    list.appendChild(div);
+  });
+
+  if (openId && filtered.find(b=>b.id===openId)) {
+    setTimeout(() => initMini(openId), 60);
+  }
+  updateOMap();
+}
+
+function toggle(id) {
+  openId = (openId === id) ? null : id;
+  document.querySelectorAll('.bar-item').forEach(el => {
+    el.classList.toggle('open', +el.dataset.id === openId);
+  });
+  if (openId) setTimeout(() => initMini(openId), 380);
+}
+
+function initMini(id) {
+  if (miniMaps[id]) return;
+  const bar = BARS.find(b=>b.id===id);
+  const el = document.getElementById('mm-'+id);
+  if (!bar || !el) return;
+  const m = L.map(el, {zoomControl:false, attributionControl:false}).setView([bar.lat,bar.lng],15);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
+  const icon = L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+  L.marker([bar.lat,bar.lng],{icon}).addTo(m).bindPopup(`<strong style="font-family:'Cormorant Garamond',serif">${bar.name}</strong>`).openPopup();
+  miniMaps[id] = m;
+}
+
+// ── OVERVIEW MAP ──────────────────────────────────────────────────────────────
+function initOMap() {
+  overviewMap = L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
+  L.control.attribution({prefix:'<a href="https://leafletjs.com">Leaflet</a> © <a href="https://carto.com">CARTO</a>'}).addTo(overviewMap);
+  updateOMap();
+}
+
+function updateOMap() {
+  if (!overviewMap) return;
+  oMarkers.forEach(m=>overviewMap.removeLayer(m));
+  oMarkers=[];
+  if (!filtered.length) return;
+  const icon = L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+  filtered.forEach(b=>{
+    const mk = L.marker([b.lat,b.lng],{icon})
+      .bindPopup(`<strong style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream)">${b.name}</strong><br/><span style="font-size:0.7rem;color:#aaa;letter-spacing:0.05em">${b.address}</span>`)
+      .addTo(overviewMap);
+    oMarkers.push(mk);
+  });
+  const grp = L.featureGroup(oMarkers);
+  overviewMap.fitBounds(grp.getBounds().pad(0.25));
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+function applyFilters() {
+  const s = document.getElementById('search-input').value.toLowerCase();
+  const d = document.getElementById('f-district').value;
+  const t = document.getElementById('f-type').value;
+  const sv = document.getElementById('f-serve').value;
+  const g = document.getElementById('f-garden').value;
+  filtered = BARS.filter(b =>
+    (!s || b.name.toLowerCase().includes(s) || b.hood.toLowerCase().includes(s) ||
+     b.district.toLowerCase().includes(s) || b.type.toLowerCase().includes(s) ||
+     b.beers.some(x=>x.toLowerCase().includes(s))) &&
+    (!d || b.district===d) && (!t || b.type===t) &&
+    (!sv || b.serve===sv) && (!g || b.garden===g)
+  );
+  openId = null;
+  render();
+}
+
+['search-input','f-district','f-type','f-serve','f-garden'].forEach(id=>{
+  document.getElementById(id).addEventListener(id==='search-input'?'input':'change', applyFilters);
+});
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────────────
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// nav shrink
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  navEl.style.padding = window.scrollY>80?'1rem 4rem':'1.5rem 4rem';
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+render();
+window.addEventListener('load', initOMap);
+</script>
+</body>
+</html>
