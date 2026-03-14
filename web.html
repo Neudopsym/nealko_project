@@ -180,7 +180,7 @@
 
     /* FILTERS */
     .filters {
-      display: grid; grid-template-columns: repeat(4,1fr);
+      display: grid; grid-template-columns: repeat(5,1fr);
       border-left: 1px solid var(--amber-dim);
       border-top: 1px solid var(--amber-dim);
       margin-bottom: 5rem;
@@ -434,6 +434,14 @@
       </select>
     </div>
     <div class="filter-group">
+      <span class="filter-label">Výběr piv</span>
+      <select id="f-craft">
+        <option value="">Vše</option>
+        <option value="tradicni">Tradiční</option>
+        <option value="craft">Craft &amp; speciální</option>
+      </select>
+    </div>
+    <div class="filter-group">
       <span class="filter-label">Zahrada</span>
       <select id="f-garden">
         <option value="">Nezáleží</option>
@@ -480,13 +488,13 @@
 
 <script>
 const BARS = [
-  { id:1, name:"Cafe v lese", district:"Vršovice", hood:"Praha 10", type:"Restaurace", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA","Weizen","Ležák"], hours:"", address:"Krymská 12, 101 00 Praha 10 – Vršovice", desc:"Příjemná kavárna na Krymské. Na čepu Chříč Balanc 0% IPA, lahvově Paulaner Weissbier 0% a Birrel.", lat:50.0631, lng:14.4483 },
-  { id:2, name:"Klub Petrohradská", district:"Vršovice", hood:"Praha 10", type:"Hospoda", serve:"lahvové", garden:"ne", pet:"ne", food:"ne", beers:["Ležák"], hours:"", address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice", desc:"Sousedský klub ve Vršovicích s Birrel 0% v lahvi.", lat:50.0605, lng:14.4512 },
-  { id:3, name:"Dejvická Sokolovna", district:"Dejvice", hood:"Praha 6", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Ležák","Radler"], hours:"", address:"Dejvická 181/2, 160 00 Praha 6 – Dejvice", desc:"Klasická sokolovna v Dejvicích. Na čepu Birrel 0% a Birrel pomelo-grep ve velikostech 0,5 a 0,3.", lat:50.1006, lng:14.3947 },
-  { id:4, name:"Automat Matuška Hradčanská", district:"Dejvice", hood:"Praha 6", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA","Ležák"], hours:"", address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice", desc:"Craft pivní bar od Pivovaru Matuška. Na čepu Bylinný Střízlivec (Alc. Free Gose) a Preisler Motuečka (NZ Pils) — oboje 0,4 l.", lat:50.1010, lng:14.3941 },
-  { id:5, name:"Automat Matuška JZP", district:"Vinohrady", hood:"Praha 3", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA"], hours:"", address:"nám. J. z Poděbrad 16, 130 00 Praha 3 – Vinohrady", desc:"Druhá pobočka Automatu Matuška na Jiřáku. Na čepu Bylinný Střízlivec — Alc. Free Gose od Pivovaru Matuška, 0,4 l.", lat:50.0753, lng:14.4581 },
-  { id:6, name:"Dva Kohouti", district:"Karlín", hood:"Praha 8", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA"], hours:"", address:"Sokolovská 81/55, 186 00 Praha 8 – Karlín", desc:"Oblíbený karlínský craft bar. Na čepu Proovan Hazy IPA 0,5% — 0,5 l za 84 Kč.", lat:50.0950, lng:14.4487 },
-  { id:7, name:"U sadu", district:"Žižkov", hood:"Praha 3", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Radler"], hours:"", address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov", desc:"Legendární žižkovská hospoda. Na čepu Birrel pomelo-grep 0,3% — 0,5 l za 65 Kč.", lat:50.0836, lng:14.4560 }
+  { id:1, name:"Cafe v lese", district:"Vršovice", hood:"Praha 10", type:"Restaurace", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"craft", beers:["Craft IPA","Weizen","Ležák"], hours:"", address:"Krymská 12, 101 00 Praha 10 – Vršovice", desc:"Příjemná kavárna na Krymské. Na čepu Chříč Balanc 0% IPA, lahvově Paulaner Weissbier 0% a Birrel.", lat:50.0631, lng:14.4483 },
+  { id:2, name:"Klub Petrohradská", district:"Vršovice", hood:"Praha 10", type:"Hospoda", serve:"lahvové", garden:"ne", pet:"ne", food:"ne", craft:"tradicni", beers:["Ležák"], hours:"", address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice", desc:"Sousedský klub ve Vršovicích s Birrel 0% v lahvi.", lat:50.0605, lng:14.4512 },
+  { id:3, name:"Dejvická Sokolovna", district:"Dejvice", hood:"Praha 6", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"tradicni", beers:["Ležák","Radler"], hours:"", address:"Dejvická 181/2, 160 00 Praha 6 – Dejvice", desc:"Klasická sokolovna v Dejvicích. Na čepu Birrel 0% a Birrel pomelo-grep ve velikostech 0,5 a 0,3.", lat:50.1006, lng:14.3947 },
+  { id:4, name:"Automat Matuška Hradčanská", district:"Dejvice", hood:"Praha 6", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"craft", beers:["Craft IPA","Ležák"], hours:"", address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice", desc:"Craft pivní bar od Pivovaru Matuška. Na čepu Bylinný Střízlivec (Alc. Free Gose) a Preisler Motuečka (NZ Pils) — oboje 0,4 l.", lat:50.1010, lng:14.3941 },
+  { id:5, name:"Automat Matuška JZP", district:"Vinohrady", hood:"Praha 3", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"craft", beers:["Craft IPA"], hours:"", address:"nám. J. z Poděbrad 16, 130 00 Praha 3 – Vinohrady", desc:"Druhá pobočka Automatu Matuška na Jiřáku. Na čepu Bylinný Střízlivec — Alc. Free Gose od Pivovaru Matuška, 0,4 l.", lat:50.0753, lng:14.4581 },
+  { id:6, name:"Dva Kohouti", district:"Karlín", hood:"Praha 8", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"craft", beers:["Craft IPA"], hours:"", address:"Sokolovská 81/55, 186 00 Praha 8 – Karlín", desc:"Oblíbený karlínský craft bar. Na čepu Proovan Hazy IPA 0,5% — 0,5 l za 84 Kč.", lat:50.0950, lng:14.4487 },
+  { id:7, name:"U sadu", district:"Žižkov", hood:"Praha 3", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", craft:"tradicni", beers:["Radler"], hours:"", address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov", desc:"Legendární žižkovská hospoda. Na čepu Birrel pomelo-grep 0,3% — 0,5 l za 65 Kč.", lat:50.0836, lng:14.4560 }
 ];
 
 let filtered=[...BARS], openId=null, miniMaps={}, overviewMap=null, oMarkers=[];
@@ -514,8 +522,8 @@ function render() {
         </div>
         <div class="bar-header-right">
           <div class="pills">
+            <span class="pill${b.craft==='craft'?' on':''}">Craft</span>
             <span class="pill${b.garden==='ano'?' on':''}">Zahrada</span>
-            <span class="pill${b.pet==='ano'?' on':''}">Mazlíčci</span>
             <span class="pill${b.food==='ano'?' on':''}">Jídlo</span>
             <span class="pill on">${b.serve==='čepované'?'Čepované':'Lahvové'}</span>
           </div>
@@ -527,7 +535,7 @@ function render() {
           <div><div class="dl-label">Adresa</div><div class="dl-value">${b.address}</div></div>
           <div><div class="dl-label">Otevírací doba</div><div class="dl-value">${b.hours}</div></div>
           <div><div class="dl-label">Zahrada</div><div class="dl-value">${b.garden==='ano'?'Ano':'Ne'}</div></div>
-          <div><div class="dl-label">Přátelský k mazlíčkům</div><div class="dl-value">${b.pet==='ano'?'Ano':'Ne'}</div></div>
+          <div><div class="dl-label">Výběr piv</div><div class="dl-value">${b.craft==='craft'?'Craft &amp; speciální':'Tradiční'}</div></div>
           <div><div class="dl-label">Druhy piv</div><div class="dl-value">${b.beers.join(', ')}</div></div>
           <div><div class="dl-label">Podávání</div><div class="dl-value">${b.serve.charAt(0).toUpperCase()+b.serve.slice(1)}</div></div>
           <div><div class="dl-label">Jídlo</div><div class="dl-value">${b.food==='ano'?'Ano':'Ne'}</div></div>
@@ -587,16 +595,17 @@ function applyFilters() {
   const t=document.getElementById('f-type').value;
   const sv=document.getElementById('f-serve').value;
   const g=document.getElementById('f-garden').value;
+  const cr=document.getElementById('f-craft').value;
   filtered=BARS.filter(b=>
     (!s||b.name.toLowerCase().includes(s)||b.hood.toLowerCase().includes(s)||
      b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||
      b.beers.some(x=>x.toLowerCase().includes(s)))&&
-    (!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!g||b.garden===g)
+    (!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!g||b.garden===g)&&(!cr||b.craft===cr)
   );
   openId=null; render();
 }
 
-['search-input','f-district','f-type','f-serve','f-garden'].forEach(id=>{
+['search-input','f-district','f-type','f-serve','f-garden','f-craft'].forEach(id=>{
   document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
 });
 
