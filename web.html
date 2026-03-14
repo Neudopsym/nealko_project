@@ -3,17 +3,388 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SOBEER — Nealkoholické pivo v Praze</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;300;400&display=swap" rel="stylesheet"/>
+  <title>SOBEER — Nealkoholické pivo v Praze | Průvodce nealko bary</title>
+  <meta name="description" content="SOBEER je kurátorský průvodce bary a restauracemi v Praze, které nabízejí nealkoholické pivo. Filtruj podle čtvrti, typu podniku, zahrady a dalších kritérií."/>
+  <meta name="keywords" content="nealkoholické pivo Praha, nealko bar Praha, bezalkoholické pivo, craft nealko, hospoda bez alkoholu, nealko průvodce Praha"/>
+  <meta name="author" content="SOBEER"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://www.sobeer.cz"/>
+
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.sobeer.cz"/>
+  <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
+  <meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva. Objev nejlepší nealko podniky ve svém okolí."/>
+  <meta property="og:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
+  <meta property="og:locale" content="cs_CZ"/>
+  <meta property="og:site_name" content="SOBEER"/>
+
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:url" content="https://www.sobeer.cz"/>
+  <meta name="twitter:title" content="SOBEER — Nealkoholické pivo v Praze"/>
+  <meta name="twitter:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva. Objev nejlepší nealko podniky ve svém okolí."/>
+  <meta name="twitter:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SOBEER",
+    "url": "https://www.sobeer.cz",
+    "description": "Kurátorský průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva.",
+    "inLanguage": "cs",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SOBEER",
+      "url": "https://www.sobeer.cz",
+      "logo": { "@type": "ImageObject", "url": "https://www.sobeer.cz/sobeer_logo.png" }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.sobeer.cz/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Bary s nealkoholickým pivem v Praze",
+    "description": "Seznam barů a restaurací v Praze nabízejících nealkoholické pivo",
+    "url": "https://www.sobeer.cz",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Cafe v lese", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 2, "name": "Klub Petrohradská", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 3, "name": "Dejvická Sokolovna", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 4, "name": "Automat Matuška Hradčanská", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 5, "name": "Automat Matuška JZP", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 6, "name": "Dva Kohouti", "url": "https://www.sobeer.cz/#bary" },
+      { "@type": "ListItem", "position": 7, "name": "U sadu", "url": "https://www.sobeer.cz/#bary" }
+    ]
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="sobeer.css"/>
+
+  <style>
+    :root {
+      --bg:          #1C3F44;
+      --cream:       #F3EFE8;
+      --amber:       #C48A2A;
+      --amber-dim:   rgba(196,138,42,0.3);
+      --cream-dim:   rgba(243,239,232,0.4);
+      --cream-muted: rgba(243,239,232,0.58);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 2rem 4rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--amber-dim);
+      transition: padding 0.4s;
+    }
+    .nav-logo img { height: 38px; display: block; }
+    .nav-logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; letter-spacing: 0.1em; color: var(--cream);
+    }
+    nav ul { list-style: none; display: flex; gap: 3rem; }
+    nav ul a {
+      text-decoration: none; font-size: 0.72rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream-dim); transition: color 0.3s;
+    }
+    nav ul a:hover { color: var(--amber); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 12rem 4rem 8rem;
+    }
+    .hero-logo {
+      display: block; width: min(340px, 70vw); margin: 0 auto;
+      opacity: 0; animation: appear 0.9s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .hero-logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      letter-spacing: 0.06em; color: var(--cream); line-height: 1;
+      opacity: 0; animation: appear 0.9s 0.2s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .hero-claim {
+      margin-top: 3rem;
+      font-family: 'DM Serif Display', serif; font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--cream-muted); letter-spacing: 0.02em; line-height: 1.4;
+      opacity: 0; animation: appear 0.9s 0.55s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    .hero-claim + .hero-claim {
+      margin-top: 0.6rem;
+      animation-delay: 0.7s;
+    }
+    .hero-line {
+      width: 36px; height: 1px; background: var(--amber);
+      margin: 4rem auto 0;
+      opacity: 0; animation: appear 0.9s 0.9s forwards;
+    }
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* BARS */
+    #bary { padding: 10rem 4rem 8rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+      font-weight: 400; letter-spacing: 0.02em; line-height: 1.25;
+      color: var(--cream); text-align: center;
+      max-width: 900px; margin: 0 auto 5rem;
+    }
+
+    /* SEARCH */
+    .search-wrap { margin-bottom: 0; position: relative; }
+    .search-wrap input {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 1px solid var(--amber-dim);
+      padding: 1rem 0; color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; letter-spacing: 0.02em;
+      outline: none; transition: border-color 0.3s;
+    }
+    .search-wrap input::placeholder { color: var(--cream-dim); }
+    .search-wrap input:focus { border-color: var(--amber); }
+
+    /* FILTERS */
+    .filters {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-left: 1px solid var(--amber-dim);
+      border-top: 1px solid var(--amber-dim);
+      margin-bottom: 5rem;
+    }
+    .filter-group {
+      border-right: 1px solid var(--amber-dim);
+      border-bottom: 1px solid var(--amber-dim);
+      padding: 1.2rem 1.4rem;
+    }
+    .filter-label {
+      display: block; font-size: 0.58rem;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.75; margin-bottom: 0.5rem;
+    }
+    .filter-group select {
+      width: 100%; background: transparent; border: none;
+      color: var(--cream); font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; outline: none; cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C48A2A' stroke-width='1.2' fill='none' stroke-opacity='0.55'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0 center;
+      padding-right: 1.2rem; transition: color 0.3s;
+    }
+    .filter-group select:hover,
+    .filter-group select:focus { color: var(--amber); }
+    .filter-group select option { background: #1C3F44; color: var(--cream); }
+
+    /* COUNT */
+    .results-count {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream-dim); margin-bottom: 2rem; min-height: 1em;
+    }
+    .results-count strong { color: var(--amber); }
+
+    /* BAR LIST */
+    .bars-list { display: flex; flex-direction: column; }
+    .bar-item {
+      border-bottom: 1px solid rgba(243,239,232,0.07);
+      transition: background 0.3s;
+    }
+    .bar-item:first-child { border-top: 1px solid rgba(243,239,232,0.07); }
+    .bar-item:hover { background: rgba(243,239,232,0.02); }
+
+    .bar-header {
+      padding: 2rem 0;
+      display: flex; align-items: center; gap: 2rem; cursor: pointer;
+    }
+    .bar-header-left { flex: 1; min-width: 0; }
+    .bar-meta-row {
+      display: flex; align-items: center; gap: 1.2rem; margin-bottom: 0.35rem;
+    }
+    .badge-type {
+      font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.8;
+    }
+    .badge-district {
+      font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+    .bar-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: var(--cream); line-height: 1.1;
+    }
+    .bar-header-right {
+      display: flex; align-items: center; gap: 2rem; flex-shrink: 0;
+    }
+    .pills { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: flex-end; }
+    .pill {
+      font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.28rem 0.7rem;
+      border: 1px solid rgba(243,239,232,0.1);
+      color: rgba(243,239,232,0.25); transition: all 0.25s;
+    }
+    .pill.on { border-color: rgba(196,138,42,0.38); color: rgba(196,138,42,0.75); }
+
+    .toggle-btn {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid var(--amber-dim); border-radius: 50%;
+      background: transparent; cursor: pointer;
+      color: var(--amber); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.35s;
+    }
+    .bar-item.open .toggle-btn {
+      background: var(--amber); color: var(--bg); transform: rotate(45deg);
+    }
+
+    /* DETAIL */
+    .bar-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.65s cubic-bezier(0.4,0,0.2,1);
+    }
+    .bar-item.open .bar-detail { max-height: 900px; }
+    .bar-detail-inner {
+      display: grid; grid-template-columns: 1fr 280px; gap: 4rem;
+      border-top: 1px solid var(--amber-dim);
+      padding: 2.5rem 0 3rem;
+    }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem 3rem; }
+    .dl-label {
+      font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.65; margin-bottom: 0.3rem;
+    }
+    .dl-value { font-size: 0.9rem; color: var(--cream-muted); line-height: 1.55; }
+    .detail-desc {
+      grid-column: 1 / -1; margin-top: 0.5rem;
+      font-family: 'DM Serif Display', serif; font-style: italic;
+      font-size: 1.05rem; color: rgba(243,239,232,0.48); line-height: 1.7;
+      padding-left: 1.2rem; border-left: 1px solid var(--amber-dim);
+    }
+    .mini-map-label {
+      font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--amber); opacity: 0.65; margin-bottom: 0.6rem;
+    }
+    .mini-map { height: 220px; border: 1px solid var(--amber-dim); }
+
+    .no-results {
+      display: none; text-align: center; padding: 6rem 0;
+      font-family: 'DM Serif Display', serif; font-style: italic;
+      font-size: 1.3rem; color: var(--cream-dim);
+    }
+
+    /* MAP */
+    #mapa { padding: 0; }
+    .map-header {
+      padding: 8rem 4rem 4rem; max-width: 1100px; margin: 0 auto; text-align: center;
+    }
+    .map-header .section-heading { margin-bottom: 0.8rem; }
+    .map-note { font-size: 0.78rem; color: var(--cream-dim); letter-spacing: 0.04em; }
+    #overview-map { height: 500px; width: 100%; border-top: 1px solid var(--amber-dim); }
+
+    /* ABOUT */
+    #o-nas { padding: 10rem 4rem; text-align: center; max-width: 700px; margin: 0 auto; }
+    #o-nas .section-heading { margin-bottom: 2.5rem; }
+    #o-nas p { font-size: 0.95rem; line-height: 1.9; color: var(--cream-muted); }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0,0,0,0.2);
+      border-top: 1px solid var(--amber-dim);
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo img { height: 34px; display: block; }
+    .footer-logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; letter-spacing: 0.1em; color: var(--cream);
+    }
+    .footer-links { list-style: none; display: flex; gap: 2.5rem; }
+    .footer-links a {
+      text-decoration: none; font-size: 0.68rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream-dim); transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--amber); }
+    .footer-copy { font-size: 0.66rem; color: rgba(243,239,232,0.22); letter-spacing: 0.06em; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* LEAFLET */
+    .leaflet-container { background: #132a2e !important; }
+    .leaflet-popup-content-wrapper {
+      background: var(--bg) !important; border: 1px solid var(--amber-dim) !important;
+      border-radius: 0 !important; box-shadow: 0 8px 28px rgba(0,0,0,0.5) !important;
+      color: var(--cream) !important;
+    }
+    .leaflet-popup-tip { background: var(--bg) !important; }
+    .leaflet-popup-content { margin: 0.9rem 1.1rem !important; }
+    .custom-marker {
+      width: 10px; height: 10px; background: var(--amber);
+      border-radius: 50%; border: 2px solid var(--cream);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      nav { padding: 1.4rem 1.5rem; }
+      nav ul { display: none; }
+      #bary, .map-header, #o-nas { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .filters { grid-template-columns: 1fr 1fr; }
+      .bar-detail-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .mini-map { height: 180px; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .bar-header { padding: 1.6rem 0; flex-wrap: wrap; }
+      .bar-header-right { width: 100%; justify-content: space-between; margin-top: 0.5rem; }
+    }
+    @media(max-width:560px) {
+      .filters { grid-template-columns: 1fr; }
+      .pills { display: none; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#"><img src="sobeer_logo.png" alt="SOBEER" style="height:44px;display:block;"/></a>
+  <a href="#" style="text-decoration:none">
+    <img class="nav-logo" src="sobeer_logo.png" alt="SOBEER"
+         onerror="this.style.display='none';document.getElementById('nav-logo-text').style.display='block'"/>
+    <span id="nav-logo-text" class="nav-logo-text" style="display:none">SOBEER</span>
+  </a>
   <ul>
     <li><a href="#bary">Bary</a></li>
     <li><a href="#mapa">Mapa</a></li>
@@ -23,42 +394,27 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="ring"></div><div class="ring"></div><div class="ring"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Průvodce nealkoholickým pivem v Praze</p>
-    <img src="sobeer_logo.png" alt="SOBEER" style="width:min(480px,80vw);display:block;margin:0 auto;opacity:0;animation:fadeUp 1s 0.5s forwards;"/>
-    <p class="hero-sub">Objevte nejlepší bary s nealkoholickým pivem ve městě</p>
-    <a href="#bary" class="hero-cta">Procházet bary</a>
-  </div>
+  <img class="hero-logo" src="sobeer_logo.png" alt="SOBEER"
+       onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
+  <div id="hero-logo-text" class="hero-logo-text" style="display:none">SOBEER</div>
+  <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
+  <p class="hero-claim">Když se 0 počítá.</p>
+  <div class="hero-line"></div>
 </section>
-
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="ticker-item">Veškerá chuť <span class="ticker-dot"></span> Žádný alkohol <span class="ticker-dot"></span> Nejlepší nealko bary Prahy <span class="ticker-dot"></span> Řemeslné. Uvědomělé. Lahodné. <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Veškerá chuť <span class="ticker-dot"></span> Žádný alkohol <span class="ticker-dot"></span> Nejlepší nealko bary Prahy <span class="ticker-dot"></span> Řemeslné. Uvědomělé. Lahodné. <span class="ticker-dot"></span></div>
-  </div>
-</div>
 
 <!-- BARS -->
 <section id="bary">
-  <div style="max-width:1200px;margin:0 auto;">
-    <p class="section-label reveal">Výběr SOBEER</p>
-    <h2 class="section-title reveal">Bary &amp; restaurace</h2>
-  </div>
-
-  <div class="search-bar reveal">
-    <span class="search-icon">🔍</span>
+  <h2 class="section-heading reveal">Objev podniky s nabídkou nealko piv.</h2>
+  <div class="search-wrap reveal">
     <input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/>
   </div>
-
   <div class="filters reveal">
     <div class="filter-group">
-      <span class="filter-label">Městská část</span>
+      <span class="filter-label">Lokalita</span>
       <select id="f-district">
-        <option value="">Všechny části</option>
-        <option>Praha 1</option><option>Praha 2</option>
-        <option>Praha 3</option><option>Praha 7</option><option>Praha 8</option>
+        <option value="">Všechny lokality</option>
+        <option>Vršovice</option><option>Vinohrady</option>
+        <option>Dejvice</option><option>Karlín</option><option>Žižkov</option>
       </select>
     </div>
     <div class="filter-group">
@@ -86,32 +442,33 @@
       </select>
     </div>
   </div>
-
-  <div class="results-count" id="results-count" style="max-width:1200px;margin:0 auto 1.5rem;"></div>
+  <div class="results-count" id="results-count"></div>
   <div class="bars-list" id="bars-list"></div>
-  <div class="no-results" id="no-results">Žádné bary neodpovídají vašemu hledání.</div>
+  <div class="no-results" id="no-results">Žádné podniky neodpovídají vašemu hledání.</div>
 </section>
 
 <!-- MAP -->
 <div id="mapa">
-  <div class="map-header reveal">
-    <p class="section-label">Přehled</p>
-    <h2 class="section-title">Bary na mapě</h2>
-    <p class="map-note">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
+  <div class="map-header">
+    <h2 class="section-heading reveal">Bary na mapě</h2>
+    <p class="map-note reveal">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
   </div>
   <div id="overview-map"></div>
 </div>
 
 <!-- ABOUT -->
 <section id="o-nas">
-  <p class="section-label reveal">O projektu</p>
-  <h2 class="section-title reveal">Dobré pivo<br/><em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);">nepotřebuje</em> alkohol</h2>
-  <p class="reveal" style="margin-top:1.5rem;">Praha má jednu z nejbohatších pivních kultur na světě. A teď se vyvíjí. Nová generace barů nabízí výjimečná nealkoholická piva — komplexní, nuancovaná a skutečně uspokojující. SOBEER je váš kurátorský průvodce tím nejlepším z nich.</p>
+  <h2 class="section-heading reveal">Dobré pivo nepotřebuje alkohol.</h2>
+  <p class="reveal">Praha má jednu z nejbohatších pivních kultur na světě. A teď se vyvíjí. Nová generace barů nabízí výjimečná nealkoholická piva — komplexní, nuancovaná a skutečně uspokojující. SOBEER je váš průvodce tím nejlepším z nich.</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <img src="sobeer_logo.png" alt="SOBEER" style="height:50px;display:block;border-radius:2px;"/>
+  <div>
+    <img class="footer-logo" src="sobeer_logo.png" alt="SOBEER"
+         onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
+    <span id="footer-logo-text" class="footer-logo-text" style="display:none">SOBEER</span>
+  </div>
   <ul class="footer-links">
     <li><a href="#bary">Bary</a></li>
     <li><a href="#mapa">Mapa</a></li>
@@ -122,89 +479,31 @@
 </footer>
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
 const BARS = [
-  {
-    id:1, name:"Nealko Lounge", district:"Praha 2", hood:"Vinohrady",
-    type:"Lounge", serve:"čepované", garden:"ano", pet:"ano", food:"ano",
-    beers:["Ležák","Craft IPA","Radler"],
-    hours:"Po–Pá 14:00–23:00 · So–Ne 12:00–24:00",
-    address:"Mánesova 48, Praha 2",
-    desc:"První čistě nealkoholický bar v Praze s více než 30 druhy nealko piv z českých i evropských pivovarů. Intimní prostor s bezchybnou obsluhou a sezónním menu.",
-    lat:50.0745, lng:14.4434
-  },
-  {
-    id:2, name:"Pivovar Bez", district:"Praha 3", hood:"Žižkov",
-    type:"Hospoda", serve:"čepované", garden:"ne", pet:"ano", food:"ano",
-    beers:["Ležák","Tmavé pivo","Weizen"],
-    hours:"Po–So 15:00–23:00 · Ne zavřeno",
-    address:"Seifertova 22, Praha 3",
-    desc:"Sousedský oblíbenec s průběžně se měnícím výběrem malosériových nealko ležáků a ale vařených přímo na místě. Autentická žižkovská atmosféra.",
-    lat:50.0878, lng:14.4468
-  },
-  {
-    id:3, name:"The Clear Tap", district:"Praha 1", hood:"Malá Strana",
-    type:"Craft bar", serve:"čepované", garden:"ano", pet:"ne", food:"ne",
-    beers:["Craft IPA","Weizen","Radler"],
-    hours:"Út–Ne 13:00–22:00 · Po zavřeno",
-    address:"Tomášská 12, Praha 1",
-    desc:"Klidné útočiště pod Hradem servírující evropská nealko craft piva v krásně zrekonstruovaném gotickém sklípku s letní zahrádkou.",
-    lat:50.0876, lng:14.4030
-  },
-  {
-    id:4, name:"Alto Nealko", district:"Praha 1", hood:"Nové Město",
-    type:"Restaurace", serve:"lahvové", garden:"ne", pet:"ne", food:"ano",
-    beers:["Ležák","Radler","Craft IPA"],
-    hours:"Denně 11:00–23:00",
-    address:"Václavské náměstí 38, Praha 1",
-    desc:"Panoramatický výhled na město s propracovaným menu nealko piv a vynikající kuchyní. Ideální místo pro večerní posezení při západu slunce.",
-    lat:50.0813, lng:14.4279
-  },
-  {
-    id:5, name:"Hop Zero", district:"Praha 7", hood:"Holešovice",
-    type:"Craft bar", serve:"čepované", garden:"ano", pet:"ano", food:"ne",
-    beers:["Craft IPA","Ležák","Tmavé pivo","Weizen"],
-    hours:"St–Pá 16:00–23:00 · So–Ne 13:00–23:00",
-    address:"Dělnická 33, Praha 7",
-    desc:"Moderní taproom v přestavěném skladu zaměřený na IPA a stouty bez alkoholu. Industriální interiér a přátelská komunita pivních nadšenců.",
-    lat:50.1043, lng:14.4435
-  }
+  { id:1, name:"Cafe v lese", district:"Vršovice", hood:"Praha 10", type:"Restaurace", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA","Weizen","Ležák"], hours:"", address:"Krymská 12, 101 00 Praha 10 – Vršovice", desc:"Příjemná kavárna na Krymské. Na čepu Chříč Balanc 0% IPA, lahvově Paulaner Weissbier 0% a Birrel.", lat:50.0631, lng:14.4483 },
+  { id:2, name:"Klub Petrohradská", district:"Vršovice", hood:"Praha 10", type:"Hospoda", serve:"lahvové", garden:"ne", pet:"ne", food:"ne", beers:["Ležák"], hours:"", address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice", desc:"Sousedský klub ve Vršovicích s Birrel 0% v lahvi.", lat:50.0605, lng:14.4512 },
+  { id:3, name:"Dejvická Sokolovna", district:"Dejvice", hood:"Praha 6", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Ležák","Radler"], hours:"", address:"Dejvická 181/2, 160 00 Praha 6 – Dejvice", desc:"Klasická sokolovna v Dejvicích. Na čepu Birrel 0% a Birrel pomelo-grep ve velikostech 0,5 a 0,3.", lat:50.1006, lng:14.3947 },
+  { id:4, name:"Automat Matuška Hradčanská", district:"Dejvice", hood:"Praha 6", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA","Ležák"], hours:"", address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice", desc:"Craft pivní bar od Pivovaru Matuška. Na čepu Bylinný Střízlivec (Alc. Free Gose) a Preisler Motuečka (NZ Pils) — oboje 0,4 l.", lat:50.1010, lng:14.3941 },
+  { id:5, name:"Automat Matuška JZP", district:"Vinohrady", hood:"Praha 3", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA"], hours:"", address:"nám. J. z Poděbrad 16, 130 00 Praha 3 – Vinohrady", desc:"Druhá pobočka Automatu Matuška na Jiřáku. Na čepu Bylinný Střízlivec — Alc. Free Gose od Pivovaru Matuška, 0,4 l.", lat:50.0753, lng:14.4581 },
+  { id:6, name:"Dva Kohouti", district:"Karlín", hood:"Praha 8", type:"Craft bar", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Craft IPA"], hours:"", address:"Sokolovská 81/55, 186 00 Praha 8 – Karlín", desc:"Oblíbený karlínský craft bar. Na čepu Proovan Hazy IPA 0,5% — 0,5 l za 84 Kč.", lat:50.0950, lng:14.4487 },
+  { id:7, name:"U sadu", district:"Žižkov", hood:"Praha 3", type:"Hospoda", serve:"čepované", garden:"ne", pet:"ne", food:"ano", beers:["Radler"], hours:"", address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov", desc:"Legendární žižkovská hospoda. Na čepu Birrel pomelo-grep 0,3% — 0,5 l za 65 Kč.", lat:50.0836, lng:14.4560 }
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let filtered = [...BARS];
-let openId = null;
-let miniMaps = {};
-let overviewMap = null;
-let oMarkers = [];
+let filtered=[...BARS], openId=null, miniMaps={}, overviewMap=null, oMarkers=[];
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
 function render() {
-  const list = document.getElementById('bars-list');
-  const noRes = document.getElementById('no-results');
-  const cnt = document.getElementById('results-count');
-
-  // destroy old mini maps
-  Object.values(miniMaps).forEach(m => m.remove());
-  miniMaps = {};
-
-  list.innerHTML = '';
-
-  if (!filtered.length) {
-    noRes.style.display = 'block';
-    cnt.innerHTML = '';
-    updateOMap();
-    return;
-  }
-  noRes.style.display = 'none';
-  const n = filtered.length;
-  cnt.innerHTML = `Zobrazeno <strong>${n}</strong> ${n===1?'bar':n<5?'bary':'barů'}`;
-
-  filtered.forEach(b => {
-    const div = document.createElement('div');
-    div.className = 'bar-item' + (openId === b.id ? ' open' : '');
-    div.dataset.id = b.id;
-    div.innerHTML = `
+  const list=document.getElementById('bars-list');
+  const noRes=document.getElementById('no-results');
+  const cnt=document.getElementById('results-count');
+  Object.values(miniMaps).forEach(m=>m.remove()); miniMaps={}; list.innerHTML='';
+  if (!filtered.length) { noRes.style.display='block'; cnt.innerHTML=''; updateOMap(); return; }
+  noRes.style.display='none';
+  const n=filtered.length;
+  cnt.innerHTML=`Zobrazeno <strong>${n}</strong> ${n===1?'podnik':n<5?'podniky':'podniků'}`;
+  filtered.forEach(b=>{
+    const div=document.createElement('div');
+    div.className='bar-item'+(openId===b.id?' open':''); div.dataset.id=b.id;
+    div.innerHTML=`
       <div class="bar-header" onclick="toggle(${b.id})">
         <div class="bar-header-left">
           <div class="bar-meta-row">
@@ -215,122 +514,103 @@ function render() {
         </div>
         <div class="bar-header-right">
           <div class="pills">
-            <span class="pill${b.garden==='ano'?' on':''}">🌿 Zahrada</span>
-            <span class="pill${b.pet==='ano'?' on':''}">🐾 Mazlíčci</span>
-            <span class="pill${b.food==='ano'?' on':''}">🍽 Jídlo</span>
-            <span class="pill on">${b.serve==='čepované'?'🍺 Čepované':'🍾 Lahvové'}</span>
+            <span class="pill${b.garden==='ano'?' on':''}">Zahrada</span>
+            <span class="pill${b.pet==='ano'?' on':''}">Mazlíčci</span>
+            <span class="pill${b.food==='ano'?' on':''}">Jídlo</span>
+            <span class="pill on">${b.serve==='čepované'?'Čepované':'Lahvové'}</span>
           </div>
-          <button class="toggle-btn" onclick="toggle(${b.id})">+</button>
+          <button class="toggle-btn" onclick="event.stopPropagation();toggle(${b.id})">+</button>
         </div>
       </div>
-      <div class="bar-detail">
-        <div class="bar-detail-inner">
-          <div class="detail-grid">
-            <div class="dl"><div class="dl-label">Adresa</div><div class="dl-value">${b.address}</div></div>
-            <div class="dl"><div class="dl-label">Otevírací doba</div><div class="dl-value">${b.hours}</div></div>
-            <div class="dl"><div class="dl-label">Zahrada</div><div class="dl-value">${b.garden==='ano'?'✓ Ano':'✗ Ne'}</div></div>
-            <div class="dl"><div class="dl-label">Přátelský k mazlíčkům</div><div class="dl-value">${b.pet==='ano'?'✓ Ano':'✗ Ne'}</div></div>
-            <div class="dl"><div class="dl-label">Druhy piv</div><div class="dl-value">${b.beers.join(', ')}</div></div>
-            <div class="dl"><div class="dl-label">Podávání</div><div class="dl-value">${b.serve.charAt(0).toUpperCase()+b.serve.slice(1)}</div></div>
-            <div class="dl"><div class="dl-label">Jídlo</div><div class="dl-value">${b.food==='ano'?'✓ Ano':'✗ Ne'}</div></div>
-            <div class="detail-desc">"${b.desc}"</div>
-          </div>
-          <div class="mini-map-wrap">
-            <div class="mini-map-label">Poloha baru</div>
-            <div class="mini-map" id="mm-${b.id}"></div>
-          </div>
+      <div class="bar-detail"><div class="bar-detail-inner">
+        <div class="detail-grid">
+          <div><div class="dl-label">Adresa</div><div class="dl-value">${b.address}</div></div>
+          <div><div class="dl-label">Otevírací doba</div><div class="dl-value">${b.hours}</div></div>
+          <div><div class="dl-label">Zahrada</div><div class="dl-value">${b.garden==='ano'?'Ano':'Ne'}</div></div>
+          <div><div class="dl-label">Přátelský k mazlíčkům</div><div class="dl-value">${b.pet==='ano'?'Ano':'Ne'}</div></div>
+          <div><div class="dl-label">Druhy piv</div><div class="dl-value">${b.beers.join(', ')}</div></div>
+          <div><div class="dl-label">Podávání</div><div class="dl-value">${b.serve.charAt(0).toUpperCase()+b.serve.slice(1)}</div></div>
+          <div><div class="dl-label">Jídlo</div><div class="dl-value">${b.food==='ano'?'Ano':'Ne'}</div></div>
+          <div class="detail-desc">${b.desc}</div>
         </div>
-      </div>`;
+        <div>
+          <div class="mini-map-label">Poloha</div>
+          <div class="mini-map" id="mm-${b.id}"></div>
+        </div>
+      </div></div>`;
     list.appendChild(div);
   });
-
-  if (openId && filtered.find(b=>b.id===openId)) {
-    setTimeout(() => initMini(openId), 60);
-  }
+  if (openId&&filtered.find(b=>b.id===openId)) setTimeout(()=>initMini(openId),60);
   updateOMap();
 }
 
 function toggle(id) {
-  openId = (openId === id) ? null : id;
-  document.querySelectorAll('.bar-item').forEach(el => {
-    el.classList.toggle('open', +el.dataset.id === openId);
-  });
-  if (openId) setTimeout(() => initMini(openId), 380);
+  openId=(openId===id)?null:id;
+  document.querySelectorAll('.bar-item').forEach(el=>el.classList.toggle('open',+el.dataset.id===openId));
+  if (openId) setTimeout(()=>initMini(openId),380);
 }
 
 function initMini(id) {
   if (miniMaps[id]) return;
-  const bar = BARS.find(b=>b.id===id);
-  const el = document.getElementById('mm-'+id);
-  if (!bar || !el) return;
-  const m = L.map(el, {zoomControl:false, attributionControl:false}).setView([bar.lat,bar.lng],15);
+  const bar=BARS.find(b=>b.id===id); const el=document.getElementById('mm-'+id);
+  if (!bar||!el) return;
+  const m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
-  const icon = L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
-  L.marker([bar.lat,bar.lng],{icon}).addTo(m).bindPopup(`<strong style="font-family:'Cormorant Garamond',serif">${bar.name}</strong>`).openPopup();
-  miniMaps[id] = m;
+  const icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
+  L.marker([bar.lat,bar.lng],{icon}).addTo(m);
+  miniMaps[id]=m;
 }
 
-// ── OVERVIEW MAP ──────────────────────────────────────────────────────────────
 function initOMap() {
-  overviewMap = L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
+  overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
-  L.control.attribution({prefix:'<a href="https://leafletjs.com">Leaflet</a> © <a href="https://carto.com">CARTO</a>'}).addTo(overviewMap);
   updateOMap();
 }
 
 function updateOMap() {
   if (!overviewMap) return;
-  oMarkers.forEach(m=>overviewMap.removeLayer(m));
-  oMarkers=[];
+  oMarkers.forEach(m=>overviewMap.removeLayer(m)); oMarkers=[];
   if (!filtered.length) return;
-  const icon = L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[14,14],iconAnchor:[7,7]});
+  const icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
   filtered.forEach(b=>{
-    const mk = L.marker([b.lat,b.lng],{icon})
-      .bindPopup(`<strong style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--cream)">${b.name}</strong><br/><span style="font-size:0.7rem;color:#aaa;letter-spacing:0.05em">${b.address}</span>`)
+    const mk=L.marker([b.lat,b.lng],{icon})
+      .bindPopup(`<strong style="font-family:'DM Serif Display',serif">${b.name}</strong><br/><span style="font-size:0.72rem;opacity:0.55">${b.address}</span>`)
       .addTo(overviewMap);
     oMarkers.push(mk);
   });
-  const grp = L.featureGroup(oMarkers);
-  overviewMap.fitBounds(grp.getBounds().pad(0.25));
+  overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));
 }
 
-// ── FILTERS ───────────────────────────────────────────────────────────────────
 function applyFilters() {
-  const s = document.getElementById('search-input').value.toLowerCase();
-  const d = document.getElementById('f-district').value;
-  const t = document.getElementById('f-type').value;
-  const sv = document.getElementById('f-serve').value;
-  const g = document.getElementById('f-garden').value;
-  filtered = BARS.filter(b =>
-    (!s || b.name.toLowerCase().includes(s) || b.hood.toLowerCase().includes(s) ||
-     b.district.toLowerCase().includes(s) || b.type.toLowerCase().includes(s) ||
-     b.beers.some(x=>x.toLowerCase().includes(s))) &&
-    (!d || b.district===d) && (!t || b.type===t) &&
-    (!sv || b.serve===sv) && (!g || b.garden===g)
+  const s=document.getElementById('search-input').value.toLowerCase();
+  const d=document.getElementById('f-district').value;
+  const t=document.getElementById('f-type').value;
+  const sv=document.getElementById('f-serve').value;
+  const g=document.getElementById('f-garden').value;
+  filtered=BARS.filter(b=>
+    (!s||b.name.toLowerCase().includes(s)||b.hood.toLowerCase().includes(s)||
+     b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||
+     b.beers.some(x=>x.toLowerCase().includes(s)))&&
+    (!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!g||b.garden===g)
   );
-  openId = null;
-  render();
+  openId=null; render();
 }
 
 ['search-input','f-district','f-type','f-serve','f-garden'].forEach(id=>{
-  document.getElementById(id).addEventListener(id==='search-input'?'input':'change', applyFilters);
+  document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
 });
 
-// ── SCROLL REVEAL ─────────────────────────────────────────────────────────────
-const ro = new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*80); });
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});
 },{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 
-// nav shrink
-const navEl = document.getElementById('nav');
 window.addEventListener('scroll',()=>{
-  navEl.style.padding = window.scrollY>80?'1rem 4rem':'1.5rem 4rem';
+  document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
 });
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
 render();
-window.addEventListener('load', initOMap);
+window.addEventListener('load',initOMap);
 </script>
 </body>
 </html>
