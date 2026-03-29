@@ -23,8 +23,8 @@ body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;font-size
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--amber-dim);transition:padding 0.4s}
 .nav-logo img{height:38px;display:block}
 .nav-logo-text{font-family:Georgia,serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);text-decoration:none}
-nav ul{list-style:none;display:flex;gap:3rem}
-nav ul a{text-decoration:none;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;font-family:sans-serif}
+nav ul{list-style:none;display:flex;gap:2rem}
+nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;font-family:sans-serif}
 nav ul a:hover{color:var(--amber)}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 8rem}
 .hero-logo{display:block;width:min(340px,70vw);margin:0 auto;opacity:0;animation:appear 0.9s 0.2s forwards}
@@ -88,18 +88,18 @@ nav ul a:hover{color:var(--amber)}
 #o-nas p+p{margin-top:1.5rem}
 #kontakt{padding:8rem 4rem;max-width:700px;margin:0 auto;text-align:center}
 #kontakt .section-heading{margin-bottom:1rem}
-#kontakt .kontakt-sub{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif;margin-bottom:3rem}
+.kontakt-sub{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif;margin-bottom:3rem}
 .cf-field{border:1px solid var(--amber-dim);border-bottom:none;padding:1.2rem 1.4rem;text-align:left}
-.cf-field:last-of-type{border-bottom:1px solid var(--amber-dim)}
-.cf-field label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:sans-serif}
-.cf-field input,.cf-field textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:sans-serif;font-size:1rem;outline:none}
-.cf-field textarea{resize:vertical}
-.cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--cream-dim)}
+.cf-field-last{border:1px solid var(--amber-dim);padding:1.2rem 1.4rem;text-align:left}
+.cf-field label,.cf-field-last label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:sans-serif}
+.cf-field input,.cf-field-last textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:sans-serif;font-size:1rem;outline:none}
+.cf-field-last textarea{resize:vertical}
+.cf-field input::placeholder,.cf-field-last textarea::placeholder{color:var(--cream-dim)}
 .cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
 .cf-btn:hover{background:var(--amber);color:var(--bg)}
 .cf-msg{display:none;margin-top:1.5rem;font-family:sans-serif;font-size:0.9rem;letter-spacing:0.05em}
-.cf-success{color:var(--amber)}
-.cf-error{color:#e07070}
+.cf-ok{color:var(--amber)}
+.cf-err{color:#e07070}
 .legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
 .legal-page h2{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
 .legal-page h3{font-family:Georgia,serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
@@ -107,10 +107,10 @@ nav ul a:hover{color:var(--amber)}
 .legal-page ul{margin-left:1.5rem;margin-bottom:1rem}
 .legal-page ul li{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif}
 .legal-back{display:inline-block;margin-top:3rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);cursor:pointer;font-family:sans-serif}
-footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between}
+footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
 .footer-logo-text{font-family:Georgia,serif;font-size:1.3rem;letter-spacing:0.1em;color:var(--cream)}
-.footer-links{list-style:none;display:flex;gap:2.5rem;flex-wrap:wrap}
-.footer-links a{text-decoration:none;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:sans-serif}
+.footer-links{list-style:none;display:flex;gap:2rem;flex-wrap:wrap}
+.footer-links a{text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:sans-serif}
 .footer-links a:hover{color:var(--amber)}
 .footer-copy{font-size:0.66rem;color:rgba(243,239,232,0.22);font-family:sans-serif}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s,transform 0.7s}
@@ -120,7 +120,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
 .leaflet-popup-tip{background:var(--bg)!important}
 .leaflet-popup-content{margin:0.9rem 1.1rem!important}
-@media(max-width:900px){nav{padding:1.4rem 1.5rem}nav ul{display:none}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}footer{flex-direction:column;gap:1.5rem;text-align:center}.footer-links{justify-content:center}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}}
+@media(max-width:900px){nav{padding:1.4rem 1.5rem}nav ul{display:none}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
 @media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
 </style>
 </head>
@@ -233,15 +233,15 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
       <label>E-mail</label>
       <input type="email" id="cf-email" required placeholder="vas@email.cz"/>
     </div>
-    <div class="cf-field" style="border-bottom:1px solid var(--amber-dim)">
+    <div class="cf-field-last">
       <label>Zpráva</label>
       <textarea id="cf-message" required placeholder="Vaše zpráva…" rows="5"></textarea>
     </div>
     <div style="text-align:center">
       <button type="submit" id="cf-btn" class="cf-btn">Odeslat zprávu</button>
     </div>
-    <div id="cf-success" class="cf-msg cf-success">Zpráva byla odeslána. Děkujeme!</div>
-    <div id="cf-error" class="cf-msg cf-error">Něco se nepovedlo. Zkuste to prosím znovu.</div>
+    <div id="cf-ok" class="cf-msg cf-ok">Zpráva byla odeslána. Děkujeme!</div>
+    <div id="cf-err" class="cf-msg cf-err">Něco se nepovedlo. Zkuste to prosím znovu.</div>
   </form>
 </section>
 
@@ -251,7 +251,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h2>Zásady ochrany osobních údajů</h2>
   <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s platnou legislativou.</p>
   <h3>1. Správce osobních údajů</h3>
-  <p>Správcem osobních údajů je:<br/><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="/cdn-cgi/l/email-protection#95f3bbfee0f7e0e6a2d5f2f8f4fcf9bbf6faf8" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="40266e2b352235337700272d21292c6e232f2d">[email&#160;protected]</span></a></p>
+  <p>Správcem osobních údajů je:<br/><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
   <h3>2. Jaké údaje zpracovávám a proč</h3>
   <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete: jméno, e-mail, obsah zprávy. Při použití formulářů může být automaticky zaznamenána vaše IP adresa poskytovatelem formulářové služby (Google LLC). Právním základem zpracování je oprávněný zájem.</p>
   <h3>3. Doba uchování údajů</h3>
@@ -259,7 +259,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h3>4. Předávání údajů třetím stranám</h3>
   <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> a <strong style="color:var(--cream)">Google Apps Script</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
   <h3>5. Vaše práva</h3>
-  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="/cdn-cgi/l/email-protection#8ee8a0e5fbecfbfdb9cee9e3efe7e2a0ede1e3" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="5a3c74312f382f296d1a3d373b333674393537">[email&#160;protected]</span></a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
+  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
@@ -294,7 +294,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <p class="footer-copy">© 2026 SOBEER. Praha, CZ.</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 var BARS=[
   {id:1,name:"Cafe v lese",district:"Vršovice",hood:"Praha 10",type:"Craft bar",serve:"Točené",garden:"Ne",food:"Ne",craft:"Craft",beers:["Chříč Balanc 0% IPA","Paulaner Weissbier 0%","Birrel"],hours:"Pondělí 16–2\nÚterý 16–2\nStředa 16–2\nČtvrtek 16–2\nPátek 16–2\nSobota 16–2\nNeděle 16–0",address:"Krymská 12, 101 00 Praha 10 – Vršovice",desc:"Moderní kulturní prostor a kavárna v srdci Vršovic. Retro interiér s živým hudebním programem a možností návštěvy koncertů v podzemním klubu.",lat:50.0713476,lng:14.448464},
   {id:4,name:"Automat Matuška Hradčanská",district:"Dejvice",hood:"Praha 6",type:"Craft bar",serve:"Točené",garden:"Ano",food:"Ano",craft:"Craft",beers:["Bylinný Střízlivec","Preisler-Motuečka"],hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice",desc:"Řemeslný výčep a bistro pivovaru Matuška. Minimalistický design, street food a důraz na čerstvost piva.",lat:50.0980426,lng:14.4042846},
@@ -312,7 +312,7 @@ var BARS=[
 ];
 
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
-var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
+var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
 function showPage(id){
   document.getElementById('main-content').style.display=id==='home'?'':'none';
@@ -324,20 +324,15 @@ function showPage(id){
 function submitForm(e){
   e.preventDefault();
   var btn=document.getElementById('cf-btn');
-  var ok=document.getElementById('cf-success');
-  var err=document.getElementById('cf-error');
+  var ok=document.getElementById('cf-ok');
+  var err=document.getElementById('cf-err');
   ok.style.display='none';err.style.display='none';
   btn.textContent='Odesílám…';btn.disabled=true;
   var params=new URLSearchParams();
   params.append('name',document.getElementById('cf-name').value);
   params.append('email',document.getElementById('cf-email').value);
   params.append('message',document.getElementById('cf-message').value);
-  fetch(APPS_SCRIPT_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:params.toString()
-  })
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params.toString()})
   .then(function(){
     ok.style.display='block';
     document.getElementById('contact-form').reset();
@@ -484,4 +479,17 @@ window.addEventListener('scroll',function(){
 });
 
 function loadLeaflet(){
-  var css=document.createElement('link'
+  var css=document.createElement('link');css.rel='stylesheet';
+  css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  document.head.appendChild(css);
+  var s=document.createElement('script');
+  s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onload=function(){initOMap();};
+  document.head.appendChild(s);
+}
+
+render();
+window.addEventListener('load',loadLeaflet);
+</script>
+</body>
+</html>
