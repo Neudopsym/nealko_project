@@ -218,12 +218,12 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h2 class="section-heading reveal">O projektu</h2>
   <p class="reveal">Pivo je rituál, chuť a zážitek. Každý poznáme ten moment, když první hlt pohladí naši duši. Je škoda se o tento zážitek ochuzovat jen proto, že zrovna nemůžete nebo nechcete pít alkohol. Navíc tady v Česku, v domově piva. Česká pivní scéna patří k absolutní světové špičce, ale dnes už to dávno není jen o alkoholu.</p>
   <p class="reveal">Projekt SOBEER vznikl jako nezávislá iniciativa s cílem podpořit rozvoj nealko pivní scény v Česku. Jako průvodce pro všechny, kteří hledají poctivé nealko pivo, mapuje podniky, kde nealkoholické alternativy neberou jako nutné zlo, ale jako kvalitní řemeslný produkt.</p>
-  <p class="reveal">Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé pražské i mimopražské podniky. Proto bychom rádi požádali vás – lidi, kteří máte rádi pivo ve všech jeho podobách – abyste nám ho pomohli dotvořit. Pokud víte o podniku, který má skvělou nabídku nealka a na tomto portálu zatím chybí, dejte nám vědět. Společně tak pomůžeme rozvoji nealko pivní kultury, která si zaslouží své místo na slunci.</p>
+  <p class="reveal">Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé pražské podniky. Prozatím se soustředíme pouze na Prahu, již brzy však určitě rozšíříme naše působení i o jiná města. Proto bychom rádi požádali vás – lidi, kteří máte rádi pivo ve všech jeho podobách – abyste nám ho pomohli dokončit. Pokud víte o podniku, o kterém si myslíte, že na tomto portálu chybí a má skvělou nealko nabídku, dejte nám vědět. Společně tak pomůžeme rozvoji nealko pivní kultury, která si zaslouží své místo na slunci.</p>
 </section>
 
 <section id="kontakt">
   <h2 class="section-heading reveal">Kontaktujte nás</h2>
-  <p class="kontakt-sub reveal">Máte dotaz, nápad nebo chcete spolupracovat? Napište nám.</p>
+  <p class="kontakt-sub reveal">Máte dotaz, zájem o spolupráci, nebo jste narazili na chybu u některého z podniků? Napište nám.</p>
   <form id="contact-form" onsubmit="submitForm(event)" style="text-align:left;">
     <div class="cf-field">
       <label>Jméno a příjmení</label>
@@ -465,20 +465,17 @@ function applyFilters(){
   openId=null;render();
 }
 
-['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
-  document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
-});
-
-var ro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});
-},{threshold:0.08});
-document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
-
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
-});
-
-function loadLeaflet(){
+function init(){
+  ['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
+    document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
+  });
+  var ro=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
+  window.addEventListener('scroll',function(){
+    document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
+  });
   var css=document.createElement('link');css.rel='stylesheet';
   css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
   document.head.appendChild(css);
@@ -486,10 +483,15 @@ function loadLeaflet(){
   s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
   s.onload=function(){initOMap();};
   document.head.appendChild(s);
+  render();
 }
 
-render();
-window.addEventListener('load',loadLeaflet);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
+}
+
 </script>
 </body>
 </html>
