@@ -86,6 +86,20 @@ nav ul a:hover{color:var(--amber)}
 #o-nas .section-heading{margin-bottom:2.5rem}
 #o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif}
 #o-nas p+p{margin-top:1.5rem}
+#kontakt{padding:8rem 4rem;max-width:700px;margin:0 auto;text-align:center}
+#kontakt .section-heading{margin-bottom:1rem}
+#kontakt .kontakt-sub{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif;margin-bottom:3rem}
+.cf-field{border:1px solid var(--amber-dim);border-bottom:none;padding:1.2rem 1.4rem;text-align:left}
+.cf-field:last-of-type{border-bottom:1px solid var(--amber-dim)}
+.cf-field label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:sans-serif}
+.cf-field input,.cf-field textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:sans-serif;font-size:1rem;outline:none}
+.cf-field textarea{resize:vertical}
+.cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--cream-dim)}
+.cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.cf-btn:hover{background:var(--amber);color:var(--bg)}
+.cf-msg{display:none;margin-top:1.5rem;font-family:sans-serif;font-size:0.9rem;letter-spacing:0.05em}
+.cf-success{color:var(--amber)}
+.cf-error{color:#e07070}
 .legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
 .legal-page h2{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
 .legal-page h3{font-family:Georgia,serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
@@ -106,7 +120,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
 .leaflet-popup-tip{background:var(--bg)!important}
 .leaflet-popup-content{margin:0.9rem 1.1rem!important}
-@media(max-width:900px){nav{padding:1.4rem 1.5rem}nav ul{display:none}#bary,.map-header,#o-nas,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}footer{flex-direction:column;gap:1.5rem;text-align:center}.footer-links{justify-content:center}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}}
+@media(max-width:900px){nav{padding:1.4rem 1.5rem}nav ul{display:none}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}footer{flex-direction:column;gap:1.5rem;text-align:center}.footer-links{justify-content:center}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}}
 @media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
 </style>
 </head>
@@ -206,6 +220,30 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <p class="reveal">Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé pražské i mimopražské podniky. Proto bychom rádi požádali vás – lidi, kteří máte rádi pivo ve všech jeho podobách – abyste nám ho pomohli dotvořit. Pokud víte o podniku, který má skvělou nabídku nealka a na tomto portálu zatím chybí, dejte nám vědět. Společně tak pomůžeme rozvoji nealko pivní kultury, která si zaslouží své místo na slunci.</p>
 </section>
 
+<section id="kontakt">
+  <h2 class="section-heading reveal">Kontaktujte nás</h2>
+  <p class="kontakt-sub reveal">Máte dotaz, nápad nebo chcete spolupracovat? Napište nám.</p>
+  <form id="contact-form" onsubmit="submitForm(event)" style="text-align:left;">
+    <div class="cf-field">
+      <label>Jméno a příjmení</label>
+      <input type="text" id="cf-name" required placeholder="Jan Novák"/>
+    </div>
+    <div class="cf-field">
+      <label>E-mail</label>
+      <input type="email" id="cf-email" required placeholder="vas@email.cz"/>
+    </div>
+    <div class="cf-field" style="border-bottom:1px solid var(--amber-dim)">
+      <label>Zpráva</label>
+      <textarea id="cf-message" required placeholder="Vaše zpráva…" rows="5"></textarea>
+    </div>
+    <div style="text-align:center">
+      <button type="submit" id="cf-btn" class="cf-btn">Odeslat zprávu</button>
+    </div>
+    <div id="cf-success" class="cf-msg cf-success">Zpráva byla odeslána. Děkujeme!</div>
+    <div id="cf-error" class="cf-msg cf-error">Něco se nepovedlo. Zkuste to prosím znovu.</div>
+  </form>
+</section>
+
 </div>
 
 <section id="gdpr" class="legal-page">
@@ -218,7 +256,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h3>3. Doba uchování údajů</h3>
   <p>Osobní údaje uchovávám maximálně 12 měsíců od poslední komunikace.</p>
   <h3>4. Předávání údajů třetím stranám</h3>
-  <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
+  <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> a <strong style="color:var(--cream)">Google Apps Script</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
   <h3>5. Vaše práva</h3>
   <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
@@ -272,12 +310,40 @@ var BARS=[
 ];
 
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
+var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
 function showPage(id){
   document.getElementById('main-content').style.display=id==='home'?'':'none';
   document.getElementById('gdpr').style.display=id==='gdpr'?'block':'none';
   document.getElementById('cookies').style.display=id==='cookies'?'block':'none';
   window.scrollTo(0,0);
+}
+
+function submitForm(e){
+  e.preventDefault();
+  var btn=document.getElementById('cf-btn');
+  var ok=document.getElementById('cf-success');
+  var err=document.getElementById('cf-error');
+  ok.style.display='none';err.style.display='none';
+  btn.textContent='Odesílám…';btn.disabled=true;
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    body:JSON.stringify({
+      name:document.getElementById('cf-name').value,
+      email:document.getElementById('cf-email').value,
+      message:document.getElementById('cf-message').value
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(r){
+    if(r.result==='success'){ok.style.display='block';document.getElementById('contact-form').reset();}
+    else{err.style.display='block';}
+    btn.textContent='Odeslat zprávu';btn.disabled=false;
+  })
+  .catch(function(){
+    err.style.display='block';
+    btn.textContent='Odeslat zprávu';btn.disabled=false;
+  });
 }
 
 function render(){
