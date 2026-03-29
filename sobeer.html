@@ -1,152 +1,114 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SOBEER — Nealkoholické pivo v Praze | Průvodce nealko bary</title>
-  <meta name="description" content="SOBEER je kurátorský průvodce bary a restauracemi v Praze, které nabízejí nealkoholické pivo."/>
-  <meta name="author" content="SOBEER"/>
-  <meta name="robots" content="index, follow"/>
-  <link rel="canonical" href="https://www.sobeer.cz"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://www.sobeer.cz"/>
-  <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
-  <meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
-  <meta property="og:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
-  <meta property="og:locale" content="cs_CZ"/>
-  <meta property="og:site_name" content="SOBEER"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="SOBEER — Nealkoholické pivo v Praze"/>
-  <meta name="twitter:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
-  <meta name="twitter:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <style>
-    :root {
-      --bg: #1C3F44; --cream: #F3EFE8; --amber: #C48A2A;
-      --amber-dim: rgba(196,138,42,0.3);
-      --cream-dim: rgba(243,239,232,0.4);
-      --cream-muted: rgba(243,239,232,0.58);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 400; font-size: 17px; line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 2rem 4rem; background: var(--bg); border-bottom: 1px solid var(--amber-dim); transition: padding 0.4s; }
-    .nav-logo img { height: 38px; display: block; }
-    .nav-logo-text { font-family: 'DM Serif Display', serif; font-size: 1.4rem; letter-spacing: 0.1em; color: var(--cream); text-decoration: none; }
-    nav ul { list-style: none; display: flex; gap: 3rem; }
-    nav ul a { text-decoration: none; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); transition: color 0.3s; cursor: pointer; }
-    nav ul a:hover { color: var(--amber); }
-
-    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12rem 4rem 8rem; }
-    .hero-logo { display: block; width: min(340px,70vw); margin: 0 auto; opacity: 0; animation: appear 0.9s 0.2s cubic-bezier(0.4,0,0.2,1) forwards; }
-    .hero-logo-text { font-family: 'DM Serif Display', serif; font-size: clamp(4rem,12vw,9rem); letter-spacing: 0.06em; color: var(--cream); line-height: 1; opacity: 0; animation: appear 0.9s 0.2s forwards; }
-    .hero-claim { margin-top: 3rem; font-family: 'DM Serif Display', serif; font-style: italic; font-size: clamp(1rem,2vw,1.3rem); color: var(--cream-muted); letter-spacing: 0.02em; line-height: 1.4; opacity: 0; animation: appear 0.9s 0.55s forwards; }
-    .hero-claim + .hero-claim { margin-top: 0.6rem; animation-delay: 0.7s; }
-    .hero-line { width: 36px; height: 1px; background: var(--amber); margin: 4rem auto 0; opacity: 0; animation: appear 0.9s 0.9s forwards; }
-    @keyframes appear { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-
-    #bary { padding: 6rem 4rem 8rem; max-width: 1100px; margin: 0 auto; }
-    .section-heading { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem,2.8vw,2.1rem); font-weight: 400; letter-spacing: 0.02em; line-height: 1.25; color: var(--cream); text-align: center; max-width: 900px; margin: 0 auto 5rem; }
-
-    .search-wrap { margin-bottom: 0; }
-    .search-wrap input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--amber-dim); padding: 1rem 0; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
-    .search-wrap input::placeholder { color: var(--cream-dim); }
-    .search-wrap input:focus { border-color: var(--amber); }
-
-    .filters { display: grid; grid-template-columns: repeat(5,1fr); border-left: 1px solid var(--amber-dim); border-top: 1px solid var(--amber-dim); margin-bottom: 5rem; }
-    .filter-group { border-right: 1px solid var(--amber-dim); border-bottom: 1px solid var(--amber-dim); padding: 1.2rem 1.4rem; }
-    .filter-label { display: block; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); opacity: 0.75; margin-bottom: 0.5rem; }
-    .filter-group select { width: 100%; background: transparent; border: none; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C48A2A' stroke-width='1.2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0 center; padding-right: 1.2rem; transition: color 0.3s; }
-    .filter-group select:hover, .filter-group select:focus { color: var(--amber); }
-    .filter-group select option { background: #1C3F44; color: var(--cream); }
-
-    .results-count { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 2rem; min-height: 1em; }
-    .results-count strong { color: var(--amber); }
-
-    .bars-list { display: flex; flex-direction: column; }
-    .bar-item { border-bottom: 1px solid rgba(243,239,232,0.07); transition: background 0.3s; }
-    .bar-item:first-child { border-top: 1px solid rgba(243,239,232,0.07); }
-    .bar-item:hover { background: rgba(243,239,232,0.02); }
-    .bar-header { padding: 2rem 0; display: flex; align-items: center; gap: 2rem; cursor: pointer; }
-    .bar-header-left { flex: 1; min-width: 0; }
-    .bar-meta-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 0.35rem; }
-    .badge-type { font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--amber); opacity: 0.8; }
-    .badge-district { font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); }
-    .bar-name { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem,2.5vw,1.9rem); color: var(--cream); line-height: 1.1; }
-    .bar-header-right { display: flex; align-items: center; gap: 2rem; flex-shrink: 0; }
-    .pills { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: flex-end; }
-    .pill { font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.28rem 0.7rem; border: 1px solid rgba(243,239,232,0.1); color: rgba(243,239,232,0.25); transition: all 0.25s; }
-    .pill.on { border-color: rgba(196,138,42,0.38); color: rgba(196,138,42,0.75); }
-    .toggle-btn { width: 32px; height: 32px; flex-shrink: 0; border: 1px solid var(--amber-dim); border-radius: 50%; background: transparent; cursor: pointer; color: var(--amber); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.35s; }
-    .bar-item.open .toggle-btn { background: var(--amber); color: var(--bg); transform: rotate(45deg); }
-
-    .bar-detail { max-height: 0; overflow: hidden; transition: max-height 0.65s cubic-bezier(0.4,0,0.2,1); }
-    .bar-item.open .bar-detail { max-height: 900px; }
-    .bar-detail-inner { display: grid; grid-template-columns: 1fr 280px; gap: 4rem; border-top: 1px solid var(--amber-dim); padding: 2.5rem 0 3rem; }
-    .detail-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-    .detail-col { display: flex; flex-direction: column; gap: 1.8rem; }
-    .detail-col:first-child { padding-right: 2rem; }
-    .dl-label { font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); opacity: 0.65; margin-bottom: 0.3rem; }
-    .dl-value { font-size: 0.9rem; color: var(--cream-muted); line-height: 1.55; white-space: pre-line; }
-    .detail-desc { margin-top: 1.5rem; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.05rem; color: rgba(243,239,232,0.48); line-height: 1.7; padding-left: 1.2rem; border-left: 1px solid var(--amber-dim); grid-column: 1/-1; }
-    .mini-map-label { font-size: 0.56rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); opacity: 0.65; margin-bottom: 0.6rem; }
-    .mini-map { height: 220px; border: 1px solid var(--amber-dim); }
-
-    .no-results { display: none; text-align: center; padding: 6rem 0; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.3rem; color: var(--cream-dim); }
-
-    #mapa { padding: 0; }
-    .map-header { padding: 8rem 4rem 4rem; max-width: 1100px; margin: 0 auto; text-align: center; }
-    .map-note { font-size: 0.78rem; color: var(--cream-dim); letter-spacing: 0.04em; margin-top: 0.5rem; }
-    #overview-map { height: 500px; width: 100%; border-top: 1px solid var(--amber-dim); }
-
-    #o-nas { padding: 10rem 4rem; text-align: center; max-width: 700px; margin: 0 auto; }
-    #o-nas .section-heading { margin-bottom: 2.5rem; }
-    #o-nas p { font-size: 0.95rem; line-height: 1.9; color: var(--cream-muted); }
-    #o-nas p + p { margin-top: 1.5rem; }
-
-    .legal-page { display: none; padding: 8rem 4rem; max-width: 800px; margin: 0 auto; }
-    .legal-page h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem,2.8vw,2.1rem); font-weight: 400; color: var(--cream); margin-bottom: 3rem; }
-    .legal-page h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--cream); margin-bottom: 0.8rem; margin-top: 2rem; }
-    .legal-page p { font-size: 0.9rem; line-height: 1.9; color: var(--cream-muted); margin-bottom: 1rem; }
-    .legal-page ul { margin-left: 1.5rem; margin-bottom: 1rem; }
-    .legal-page ul li { font-size: 0.9rem; line-height: 1.9; color: var(--cream-muted); }
-    .legal-back { display: inline-block; margin-top: 3rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); text-decoration: none; cursor: pointer; }
-    .legal-back:hover { opacity: 0.7; }
-
-    footer { background: rgba(0,0,0,0.2); border-top: 1px solid var(--amber-dim); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo img { height: 34px; display: block; }
-    .footer-logo-text { font-family: 'DM Serif Display', serif; font-size: 1.3rem; letter-spacing: 0.1em; color: var(--cream); }
-    .footer-links { list-style: none; display: flex; gap: 2.5rem; flex-wrap: wrap; }
-    .footer-links a { text-decoration: none; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream-dim); transition: color 0.3s; cursor: pointer; }
-    .footer-links a:hover { color: var(--amber); }
-    .footer-copy { font-size: 0.66rem; color: rgba(243,239,232,0.22); letter-spacing: 0.06em; }
-
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s, transform 0.7s; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    .leaflet-container { background: #132a2e !important; }
-    .leaflet-popup-content-wrapper { background: var(--bg) !important; border: 1px solid var(--amber-dim) !important; border-radius: 0 !important; box-shadow: 0 8px 28px rgba(0,0,0,0.5) !important; color: var(--cream) !important; }
-    .leaflet-popup-tip { background: var(--bg) !important; }
-    .leaflet-popup-content { margin: 0.9rem 1.1rem !important; }
-    .custom-marker { width: 10px; height: 10px; background: var(--amber); border-radius: 50%; border: 2px solid var(--cream); }
-
-    @media(max-width:900px) {
-      nav { padding: 1.4rem 1.5rem; } nav ul { display: none; }
-      #bary, .map-header, #o-nas, .legal-page { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .filters { grid-template-columns: 1fr 1fr; }
-      .bar-detail-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .detail-cols { grid-template-columns: 1fr; }
-      .detail-col:first-child { padding-right: 0; }
-      .mini-map { height: 180px; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .footer-links { justify-content: center; }
-      .bar-header { padding: 1.6rem 0; flex-wrap: wrap; }
-      .bar-header-right { width: 100%; justify-content: space-between; margin-top: 0.5rem; }
-    }
-    @media(max-width:560px) { .filters { grid-template-columns: 1fr; } .pills { display: none; } }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SOBEER — Nealkoholické pivo v Praze</title>
+<meta name="description" content="SOBEER je kurátorský průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
+<meta name="author" content="SOBEER"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.sobeer.cz"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.sobeer.cz"/>
+<meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
+<meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
+<meta property="og:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
+<meta property="og:locale" content="cs_CZ"/>
+<meta property="og:site_name" content="SOBEER"/>
+<style>
+:root{--bg:#1C3F44;--cream:#F3EFE8;--amber:#C48A2A;--amber-dim:rgba(196,138,42,0.3);--cream-dim:rgba(243,239,232,0.4);--cream-muted:rgba(243,239,232,0.58)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.7;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--amber-dim);transition:padding 0.4s}
+.nav-logo img{height:38px;display:block}
+.nav-logo-text{font-family:Georgia,serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);text-decoration:none}
+nav ul{list-style:none;display:flex;gap:3rem}
+nav ul a{text-decoration:none;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:-apple-system,sans-serif}
+nav ul a:hover{color:var(--amber)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 8rem}
+.hero-logo{display:block;width:min(340px,70vw);margin:0 auto;opacity:0;animation:appear 0.9s 0.2s cubic-bezier(0.4,0,0.2,1) forwards}
+.hero-logo-text{font-family:Georgia,serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards}
+.hero-claim{margin-top:3rem;font-family:Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--cream-muted);letter-spacing:0.02em;line-height:1.4;opacity:0;animation:appear 0.9s 0.55s forwards}
+.hero-claim+.hero-claim{margin-top:0.6rem;animation-delay:0.7s}
+.hero-line{width:36px;height:1px;background:var(--amber);margin:4rem auto 0;opacity:0;animation:appear 0.9s 0.9s forwards}
+@keyframes appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+#bary{padding:6rem 4rem 8rem;max-width:1100px;margin:0 auto}
+.section-heading{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;letter-spacing:0.02em;line-height:1.25;color:var(--cream);text-align:center;max-width:900px;margin:0 auto 5rem}
+.search-wrap input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--amber-dim);padding:1rem 0;color:var(--cream);font-family:-apple-system,sans-serif;font-size:1rem;outline:none;transition:border-color 0.3s}
+.search-wrap input::placeholder{color:var(--cream-dim)}
+.search-wrap input:focus{border-color:var(--amber)}
+.filters{display:grid;grid-template-columns:repeat(5,1fr);border-left:1px solid var(--amber-dim);border-top:1px solid var(--amber-dim);margin-bottom:5rem}
+.filter-group{border-right:1px solid var(--amber-dim);border-bottom:1px solid var(--amber-dim);padding:1.2rem 1.4rem}
+.filter-label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:-apple-system,sans-serif}
+.filter-group select{width:100%;background:transparent;border:none;color:var(--cream);font-family:-apple-system,sans-serif;font-size:0.88rem;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C48A2A' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0 center;padding-right:1.2rem;transition:color 0.3s}
+.filter-group select:hover,.filter-group select:focus{color:var(--amber)}
+.filter-group select option{background:#1C3F44;color:var(--cream)}
+.results-count{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:2rem;min-height:1em;font-family:-apple-system,sans-serif}
+.results-count strong{color:var(--amber)}
+.bars-list{display:flex;flex-direction:column}
+.bar-item{border-bottom:1px solid rgba(243,239,232,0.07);transition:background 0.3s}
+.bar-item:first-child{border-top:1px solid rgba(243,239,232,0.07)}
+.bar-item:hover{background:rgba(243,239,232,0.02)}
+.bar-header{padding:2rem 0;display:flex;align-items:center;gap:2rem;cursor:pointer}
+.bar-header-left{flex:1;min-width:0}
+.bar-meta-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.35rem}
+.badge-type{font-size:0.56rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber);opacity:0.8;font-family:-apple-system,sans-serif}
+.badge-district{font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);font-family:-apple-system,sans-serif}
+.bar-name{font-family:Georgia,serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);line-height:1.1}
+.bar-header-right{display:flex;align-items:center;gap:2rem;flex-shrink:0}
+.pills{display:flex;gap:0.45rem;flex-wrap:wrap;justify-content:flex-end}
+.pill{font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border:1px solid rgba(243,239,232,0.1);color:rgba(243,239,232,0.25);transition:all 0.25s;font-family:-apple-system,sans-serif}
+.pill.on{border-color:rgba(196,138,42,0.38);color:rgba(196,138,42,0.75)}
+.toggle-btn{width:32px;height:32px;flex-shrink:0;border:1px solid var(--amber-dim);border-radius:50%;background:transparent;cursor:pointer;color:var(--amber);font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.35s}
+.bar-item.open .toggle-btn{background:var(--amber);color:var(--bg);transform:rotate(45deg)}
+.bar-detail{max-height:0;overflow:hidden;transition:max-height 0.65s cubic-bezier(0.4,0,0.2,1)}
+.bar-item.open .bar-detail{max-height:900px}
+.bar-detail-inner{display:grid;grid-template-columns:1fr 280px;gap:4rem;border-top:1px solid var(--amber-dim);padding:2.5rem 0 3rem}
+.detail-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.detail-col{display:flex;flex-direction:column;gap:1.8rem}
+.detail-col:first-child{padding-right:2rem}
+.dl-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.3rem;font-family:-apple-system,sans-serif}
+.dl-value{font-size:0.9rem;color:var(--cream-muted);line-height:1.55;white-space:pre-line;font-family:-apple-system,sans-serif}
+.detail-desc{margin-top:1.5rem;font-family:Georgia,serif;font-style:italic;font-size:1.05rem;color:rgba(243,239,232,0.48);line-height:1.7;padding-left:1.2rem;border-left:1px solid var(--amber-dim)}
+.mini-map-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.6rem;font-family:-apple-system,sans-serif}
+.mini-map{height:220px;border:1px solid var(--amber-dim)}
+.no-results{display:none;text-align:center;padding:6rem 0;font-family:Georgia,serif;font-style:italic;font-size:1.3rem;color:var(--cream-dim)}
+.cta-add{max-width:1100px;margin:0 auto;padding:5rem 4rem;text-align:center;border-top:1px solid var(--amber-dim)}
+.cta-add p{font-family:Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--cream-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
+.cta-btn{display:inline-block;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);text-decoration:none;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:-apple-system,sans-serif;transition:all 0.3s}
+.cta-btn:hover{background:var(--amber);color:var(--bg)}
+#mapa{padding:0}
+.map-header{padding:8rem 4rem 4rem;max-width:1100px;margin:0 auto;text-align:center}
+.map-note{font-size:0.78rem;color:var(--cream-dim);letter-spacing:0.04em;margin-top:0.5rem;font-family:-apple-system,sans-serif}
+#overview-map{height:500px;width:100%;border-top:1px solid var(--amber-dim);background:rgba(0,0,0,0.2)}
+#o-nas{padding:10rem 4rem;text-align:center;max-width:700px;margin:0 auto}
+#o-nas .section-heading{margin-bottom:2.5rem}
+#o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:-apple-system,sans-serif}
+#o-nas p+p{margin-top:1.5rem}
+.legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
+.legal-page h2{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
+.legal-page h3{font-family:Georgia,serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
+.legal-page p{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);margin-bottom:1rem;font-family:-apple-system,sans-serif}
+.legal-page ul{margin-left:1.5rem;margin-bottom:1rem}
+.legal-page ul li{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);font-family:-apple-system,sans-serif}
+.legal-back{display:inline-block;margin-top:3rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);text-decoration:none;cursor:pointer;font-family:-apple-system,sans-serif}
+footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between}
+.footer-logo-text{font-family:Georgia,serif;font-size:1.3rem;letter-spacing:0.1em;color:var(--cream)}
+.footer-links{list-style:none;display:flex;gap:2.5rem;flex-wrap:wrap}
+.footer-links a{text-decoration:none;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:-apple-system,sans-serif}
+.footer-links a:hover{color:var(--amber)}
+.footer-copy{font-size:0.66rem;color:rgba(243,239,232,0.22);letter-spacing:0.06em;font-family:-apple-system,sans-serif}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s,transform 0.7s}
+.reveal.visible{opacity:1;transform:none}
+.custom-marker{width:10px;height:10px;background:var(--amber);border-radius:50%;border:2px solid var(--cream)}
+.leaflet-container{background:#132a2e!important}
+.leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
+.leaflet-popup-tip{background:var(--bg)!important}
+.leaflet-popup-content{margin:0.9rem 1.1rem!important}
+@media(max-width:900px){nav{padding:1.4rem 1.5rem}nav ul{display:none}#bary,.map-header,#o-nas,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}footer{flex-direction:column;gap:1.5rem;text-align:center}.footer-links{justify-content:center}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}}
+@media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
+</style>
 </head>
 <body>
 
@@ -156,340 +118,315 @@
     <span id="nav-logo-text" class="nav-logo-text" style="display:none">SOBEER</span>
   </a>
   <ul>
-    <li><a href="#bary" onclick="showPage('home');return false;">Bary</a></li>
-    <li><a href="#mapa" onclick="showPage('home');return false;">Mapa</a></li>
-    <li><a href="#o-nas" onclick="showPage('home');return false;">O projektu</a></li>
+    <li><a onclick="showPage('home');return false;">Bary</a></li>
+    <li><a onclick="showPage('home');return false;">Mapa</a></li>
+    <li><a onclick="showPage('home');return false;">O projektu</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a></li>
   </ul>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div id="main-content">
 
-  <section class="hero">
-    <img class="hero-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
-    <div id="hero-logo-text" class="hero-logo-text" style="display:none">SOBEER</div>
-    <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
-    <p class="hero-claim">Když se 0 počítá.</p>
-    <div class="hero-line"></div>
-  </section>
+<section class="hero">
+  <img class="hero-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
+  <div id="hero-logo-text" class="hero-logo-text" style="display:none">SOBEER</div>
+  <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
+  <p class="hero-claim">Když se 0 počítá.</p>
+  <div class="hero-line"></div>
+</section>
 
-  <section id="bary">
-    <h2 class="section-heading reveal">Objev podniky s nabídkou nealko piv.</h2>
-    <div class="search-wrap reveal">
-      <input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/>
-    </div>
-    <div class="filters reveal">
-      <div class="filter-group">
-        <span class="filter-label">Lokalita</span>
-        <select id="f-district">
-          <option value="">Všechny lokality</option>
-          <option>Vršovice</option><option>Vinohrady</option><option>Dejvice</option>
-          <option>Karlín</option><option>Žižkov</option><option>Uhříněves</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Typ podniku</span>
-        <select id="f-type">
-          <option value="">Vše</option>
-          <option>Hospoda</option><option>Restaurace</option><option>Lounge</option><option>Craft bar</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Podávání piva</span>
-        <select id="f-serve">
-          <option value="">Oboje</option>
-          <option value="Točené">Točené</option>
-          <option value="Lahvové">Lahvové</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Výběr piv</span>
-        <select id="f-craft">
-          <option value="">Vše</option>
-          <option value="Craft">Craft &amp; speciální</option>
-          <option value="Tradiční">Tradiční</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">Zahrádka</span>
-        <select id="f-garden">
-          <option value="">Nezáleží</option>
-          <option value="Ano">Ano</option>
-          <option value="Ne">Ne</option>
-        </select>
-      </div>
-    </div>
-    <div class="results-count" id="results-count"></div>
-    <div class="bars-list" id="bars-list"></div>
-    <div class="no-results" id="no-results">Žádné podniky neodpovídají vašemu hledání.</div>
-  </section>
-
-  <div id="mapa">
-    <div class="map-header">
-      <h2 class="section-heading reveal">Bary na mapě</h2>
-      <p class="map-note reveal">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
-    </div>
-    <div id="overview-map"></div>
+<section id="bary">
+  <h2 class="section-heading reveal">Objev podniky s nabídkou nealko piv.</h2>
+  <div class="search-wrap reveal">
+    <input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/>
   </div>
+  <div class="filters reveal">
+    <div class="filter-group">
+      <span class="filter-label">Lokalita</span>
+      <select id="f-district">
+        <option value="">Všechny lokality</option>
+        <option>Vršovice</option><option>Vinohrady</option><option>Dejvice</option>
+        <option>Karlín</option><option>Žižkov</option><option>Uhříněves</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Typ podniku</span>
+      <select id="f-type">
+        <option value="">Vše</option>
+        <option>Hospoda</option><option>Restaurace</option><option>Craft bar</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Podávání piva</span>
+      <select id="f-serve">
+        <option value="">Oboje</option>
+        <option value="Točené">Točené</option>
+        <option value="Lahvové">Lahvové</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Výběr piv</span>
+      <select id="f-craft">
+        <option value="">Vše</option>
+        <option value="Craft">Craft &amp; speciální</option>
+        <option value="Tradiční">Tradiční</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Zahrádka</span>
+      <select id="f-garden">
+        <option value="">Nezáleží</option>
+        <option value="Ano">Ano</option>
+        <option value="Ne">Ne</option>
+      </select>
+    </div>
+  </div>
+  <div class="results-count" id="results-count"></div>
+  <div class="bars-list" id="bars-list"></div>
+  <div class="no-results" id="no-results">Žádné podniky neodpovídají vašemu hledání.</div>
+</section>
 
-  <section id="o-nas">
-    <h2 class="section-heading reveal">O projektu</h2>
-    <p class="reveal">Pivo je rituál, chuť a zážitek. Každý poznáme ten moment, když první hlt pohladí naši duši. Je škoda se o tento zážitek ochuzovat jen proto, že zrovna nemůžete nebo nechcete pít alkohol. Navíc tady v Česku, v domově piva. Česká pivní scéna patří k absolutní světové špičce, ale dnes už to dávno není jen o alkoholu.</p>
-    <p class="reveal">Projekt SOBEER vznikl jako nezávislá iniciativa s cílem podpořit rozvoj nealko pivní scény v Česku. Jako průvodce pro všechny, kteří hledají poctivé nealko pivo, mapuje podniky, kde nealkoholické alternativy neberou jako nutné zlo, ale jako kvalitní řemeslný produkt.</p>
-    <p class="reveal">Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé pražské i mimopražské podniky. Proto bychom rádi požádali vás – lidi, kteří máte rádi pivo ve všech jeho podobách – abyste nám ho pomohli dotvořit. Pokud víte o podniku, který má skvělou nabídku nealka a na tomto portálu zatím chybí, dejte nám vědět. Společně tak pomůžeme rozvoji nealko pivní kultury, která si zaslouží své místo na slunci.</p>
-  </section>
+<div class="cta-add">
+  <p>Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé podniky. Znáš podnik, který bychom měli přidat? Pošli nám ho a pomoz nám vybudovat databázi SOBEER.</p>
+  <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a>
+</div>
 
-</div><!-- end main-content -->
+<div id="mapa">
+  <div class="map-header">
+    <h2 class="section-heading reveal">Bary na mapě</h2>
+    <p class="map-note reveal">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
+  </div>
+  <div id="overview-map"></div>
+</div>
 
-<!-- GDPR PAGE -->
+<section id="o-nas">
+  <h2 class="section-heading reveal">O projektu</h2>
+  <p class="reveal">Pivo je rituál, chuť a zážitek. Každý poznáme ten moment, když první hlt pohladí naši duši. Je škoda se o tento zážitek ochuzovat jen proto, že zrovna nemůžete nebo nechcete pít alkohol. Navíc tady v Česku, v domově piva. Česká pivní scéna patří k absolutní světové špičce, ale dnes už to dávno není jen o alkoholu.</p>
+  <p class="reveal">Projekt SOBEER vznikl jako nezávislá iniciativa s cílem podpořit rozvoj nealko pivní scény v Česku. Jako průvodce pro všechny, kteří hledají poctivé nealko pivo, mapuje podniky, kde nealkoholické alternativy neberou jako nutné zlo, ale jako kvalitní řemeslný produkt.</p>
+  <p class="reveal">Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé pražské i mimopražské podniky. Proto bychom rádi požádali vás – lidi, kteří máte rádi pivo ve všech jeho podobách – abyste nám ho pomohli dotvořit. Pokud víte o podniku, který má skvělou nabídku nealka a na tomto portálu zatím chybí, dejte nám vědět. Společně tak pomůžeme rozvoji nealko pivní kultury, která si zaslouží své místo na slunci.</p>
+</section>
+
+</div>
+
 <section id="gdpr" class="legal-page">
   <h2>Zásady ochrany osobních údajů</h2>
   <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s platnou legislativou.</p>
   <h3>1. Správce osobních údajů</h3>
-  <p>Správcem osobních údajů je:<br/>
-  <strong style="color:var(--cream)">Filip Kubus</strong><br/>
-  IČO: 19553528<br/>
-  Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>
-  E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
+  <p>Správcem osobních údajů je:<br/><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
   <h3>2. Jaké údaje zpracovávám a proč</h3>
-  <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete, zejména:</p>
-  <ul><li>jméno</li><li>e-mail</li><li>obsah zprávy</li></ul>
-  <p>Tyto údaje jsou využívány výhradně za účelem odpovědi na váš dotaz a komunikace s vámi. Právním základem zpracování je oprávněný zájem, konkrétně komunikace s návštěvníky webu.</p>
+  <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete: jméno, e-mail, obsah zprávy. Při použití formulářů může být automaticky zaznamenána vaše IP adresa poskytovatelem formulářové služby (Google LLC). Právním základem zpracování je oprávněný zájem.</p>
   <h3>3. Doba uchování údajů</h3>
-  <p>Osobní údaje uchovávám pouze po dobu nezbytně nutnou, maximálně však 12 měsíců od poslední komunikace.</p>
+  <p>Osobní údaje uchovávám maximálně 12 měsíců od poslední komunikace.</p>
   <h3>4. Předávání údajů třetím stranám</h3>
-  <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Mohou být zpracovávány technickými poskytovateli zajišťujícími provoz webu, a to výhradně za účelem zajištění funkčnosti webu.</p>
-  <h3>5. Odkazy na externí služby</h3>
-  <p>Web může obsahovat odkazy na externí služby. Po jejich otevření se řídíte podmínkami daného poskytovatele.</p>
-  <h3>6. Vaše práva</h3>
-  <p>V souladu s právními předpisy máte právo:</p>
-  <ul><li>požadovat přístup ke svým osobním údajům</li><li>požadovat jejich opravu nebo výmaz</li><li>vznést námitku proti zpracování</li><li>požadovat omezení zpracování</li><li>na přenositelnost údajů</li></ul>
-  <p>V případě dotazů mě kontaktujte na uvedeném e-mailu.</p>
-  <h3>7. Dozorový úřad</h3>
-  <p>Máte právo podat stížnost u dozorového úřadu — <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřad pro ochranu osobních údajů</a>.</p>
+  <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
+  <h3>5. Vaše práva</h3>
+  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na uvedeném e-mailu. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
-<!-- COOKIES PAGE -->
 <section id="cookies" class="legal-page">
   <h2>Zásady používání cookies</h2>
-  <p>Tento web používá pouze technické (nezbytné) cookies, které jsou nutné pro jeho správné fungování.</p>
+  <p>Tento web používá pouze technické (nezbytné) cookies nutné pro jeho správné fungování.</p>
   <h3>1. Co jsou cookies</h3>
-  <p>Cookies jsou malé textové soubory, které se ukládají do vašeho zařízení při návštěvě webových stránek.</p>
+  <p>Cookies jsou malé textové soubory ukládané do vašeho zařízení při návštěvě webových stránek.</p>
   <h3>2. Jaké cookies používám</h3>
-  <p>Používám pouze cookies, které:</p>
-  <ul><li>zajišťují základní funkčnost webu</li><li>umožňují správné zobrazení stránek</li></ul>
-  <p>Tyto cookies neumožňují vaši identifikaci a nejsou využívány pro marketing ani analytiku.</p>
+  <p>Pouze cookies zajišťující základní funkčnost webu. Neumožňují vaši identifikaci a nejsou využívány pro marketing ani analytiku.</p>
   <h3>3. Cookies třetích stran</h3>
-  <p>Tento web nepoužívá marketingové ani analytické cookies třetích stran. V případě přechodu na externí služby se mohou uplatnit cookies daného poskytovatele.</p>
+  <p>Web nepoužívá marketingové ani analytické cookies třetích stran. V případě přechodu na externí služby se mohou uplatnit cookies daného poskytovatele.</p>
   <h3>4. Správa cookies</h3>
-  <p>Používání cookies můžete ovlivnit prostřednictvím nastavení vašeho prohlížeče.</p>
+  <p>Cookies můžete ovlivnit v nastavení vašeho prohlížeče.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
 <footer>
   <div>
-    <img class="footer-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
+    <img src="sobeer_logo.png" alt="SOBEER" style="height:34px;display:block" onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
     <span id="footer-logo-text" class="footer-logo-text" style="display:none">SOBEER</span>
   </div>
   <ul class="footer-links">
     <li><a onclick="showPage('home')">Bary</a></li>
-    <li><a onclick="showPage('home')">Mapa</a></li>
     <li><a onclick="showPage('home')">O projektu</a></li>
-    <li><a onclick="showPage('home')">Přidat bar</a></li>
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
     <li><a onclick="showPage('cookies')">Cookies</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a></li>
   </ul>
   <p class="footer-copy">© 2026 SOBEER. Praha, CZ.</p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-var BARS = [
-  { id:1,  name:"Cafe v lese",                district:"Vršovice",  hood:"Praha 10", type:"Craft bar",  serve:"Točené",  garden:"Ne",  food:"Ne",                 craft:"Craft",    beers:["Chříč Balanc 0% IPA","Paulaner Weissbier 0%","Birrel"],  hours:"Pondělí 16–2\nÚterý 16–2\nStředa 16–2\nČtvrtek 16–2\nPátek 16–2\nSobota 16–2\nNeděle 16–0",                                      address:"Krymská 12, 101 00 Praha 10 – Vršovice",              desc:"Moderní kulturní prostor a kavárna v srdci Vršovic, která kombinuje retro interiér s živým hudebním a společenským programem. Nabízí neformální atmosféru pro setkávání u kávy nebo drinku s možností návštěvy koncertů a performancí v podzemním klubu.",   lat:50.0713476, lng:14.448464   },
-  { id:4,  name:"Automat Matuška Hradčanská", district:"Dejvice",   hood:"Praha 6",  type:"Craft bar",  serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Craft",    beers:["Bylinný Střízlivec","Preisler-Motuečka"],                 hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",                        address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice",            desc:"Moderní řemeslný výčep a bistro zaměřené na prezentaci piva z rodinného pivovaru Matuška a kvalitní street food. Nabízí minimalistický design s vysokým standardem servisu, kde se klade důraz na čerstvost piva a párování s moderní gastronomií.",          lat:50.0980426, lng:14.4042846  },
-  { id:5,  name:"Automat Matuška JZP",        district:"Vinohrady", hood:"Praha 3",  type:"Craft bar",  serve:"Točené",  garden:"Ne",  food:"Ano",                craft:"Craft",    beers:["Bylinný Střízlivec"],                                     hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",                        address:"nám. J. z Poděbrad 16, 130 00 Praha 3 – Vinohrady",   desc:"Moderní řemeslný výčep a bistro zaměřené na prezentaci piva z rodinného pivovaru Matuška a kvalitní street food. Nabízí minimalistický design s vysokým standardem servisu, kde se klade důraz na čerstvost piva a párování s moderní gastronomií.",          lat:50.0785018, lng:14.4504055  },
-  { id:6,  name:"Dva Kohouti",                district:"Karlín",    hood:"Praha 8",  type:"Craft bar",  serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Craft",    beers:["Proovan Hazy IPA"],                                       hours:"Pondělí 15–1\nÚterý 15–1\nStředa 15–1\nČtvrtek 15–1\nPátek 15–1\nSobota 12–1\nNeděle 12–22",                                       address:"Sokolovská 81/55, 186 00 Praha 8 – Karlín",           desc:"Inovativní koncept spojující řemeslný pivovar s výčepem přímo v srdci Karlína. Nabízí živou, neformální atmosféru s důrazem na čerstvě uvařené pivo a sdílený prostor, který se během dne mění z klidného dvora na rušné společenské centrum.",               lat:50.09349,   lng:14.4468455  },
-  { id:11, name:"Dno Pytle",                  district:"Vinohrady", hood:"Praha 2",  type:"Craft bar",  serve:"Točené",  garden:"Ne",  food:"Drobné občerstvení", craft:"Craft",    beers:["Podle aktuální nabídky"],                                 hours:"Pondělí 16–23\nÚterý 16–1\nStředa 16–1\nČtvrtek 16–1\nPátek 16–1\nSobota 18–1\nNeděle 18–23",                                     address:"Vinohradská 63, 120 00 Praha 2 – Vinohrady",          desc:"Moderní nekuřácká pivnice v centru Prahy zaměřená na prezentaci produktů z českých i zahraničních minipivovarů. Na osmi pípách nabízí pravidelně obměňovanou nabídku pivních speciálů, doplněnou širokým výběrem lahvových piv a plechovek od různých craftových pivovarů a několik druhů kvalitních klobás na grilu.", lat:50.0771063, lng:14.4428117  },
-  { id:12, name:"Pivovar Uhříněves",          district:"Uhříněves", hood:"Praha 22", type:"Restaurace", serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Craft",    beers:["Alois Šofér"],                                            hours:"Pondělí 11–23\nÚterý 11–23\nStředa 11–23\nČtvrtek 11–23\nPátek 11–23\nSobota 11–23\nNeděle 11–22",                                  address:"K Sokolovně 38, 104 00 Praha 22 – Uhříněves",         desc:"Tradiční restaurace Pivovaru Uhříněves, která se zaměřuje na poctivou českou kuchyni a vlastní nepasterizovaná piva včetně nealko varianty. Nabízí prostorný rustikální interiér a klidnou venkovní zahrádku.",                                               lat:50.0296992, lng:14.6049522  },
-  { id:13, name:"Fatfuck Vinohradská",        district:"Vinohrady", hood:"Praha 2",  type:"Restaurace", serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Craft",    beers:["Alois Šofér"],                                            hours:"Pondělí Zavřeno\nÚterý 12–22\nStředa 12–22\nČtvrtek 12–22\nPátek 12–22\nSobota 12–22\nNeděle 10–21",                               address:"Vinohradská 1241/67, 120 00 Praha 2 – Vinohrady",     desc:"Moderní bistro na Vinohradech specializované na autentické smashed burgery připravované z prémiových surovin. Doplněný o čepované nealko pivo Alois Šofér z Pivovaru Uhříněves.",                                                                           lat:50.0771324, lng:14.4435489  },
-  { id:2,  name:"Klub Petrohradská",          district:"Vršovice",  hood:"Praha 10", type:"Craft bar",  serve:"Lahvové", garden:"Ano", food:"Ne",                 craft:"Tradiční", beers:["Birrel"],                                                 hours:"Pondělí 8:30–23:30\nÚterý 8:30–23:30\nStředa 8:30–23:30\nČtvrtek 8:30–23:30\nPátek 8:30–23:30\nSobota 16–23:30\nNeděle 16–22:30", address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice",     desc:"Alternativní kulturní centrum a bar situovaný v areálu bývalé továrny, zaměřený na současné umění a komunitní akce. Nabízí syrový industriální interiér a rozlehlý dvůr, ideální pro neformální večerní setkávání a kulturní zážitky.",                    lat:50.0649507, lng:14.4523275  },
-  { id:3,  name:"Dejvická Sokolovna",         district:"Dejvice",   hood:"Praha 6",  type:"Restaurace", serve:"Točené",  garden:"Ne",  food:"Ano",                craft:"Tradiční", beers:["Birrel","Birrel pomelo-grep"],                            hours:"Pondělí 10:30–23\nÚterý 10:30–23\nStředa 10:30–0\nČtvrtek 10:30–15\nPátek 10:30–0\nSobota 11–23\nNeděle 11–22",                    address:"Dejvická 181/2, 160 00 Praha 6 – Dejvice",            desc:"Moderní česká restaurace s více než stoletou tradicí, která se zaměřuje na poctivou domácí kuchyni a čepované tankové pivo. Nabízí neformální atmosféru klasické pivnice v příjemném moderním interiéru.",                                                   lat:50.0980662, lng:14.4047094  },
-  { id:7,  name:"U Sadu",                     district:"Žižkov",    hood:"Praha 3",  type:"Hospoda",    serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Tradiční", beers:["Birrel pomelo-grep"],                                     hours:"Pondělí 8–2\nÚterý 8–4\nStředa 8–4\nČtvrtek 8–4\nPátek 8–4\nSobota 8–4\nNeděle 8–2",                                             address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov",      desc:"Tradiční žižkovská restaurace a bar s téměř nepřetržitým provozem, který je kultovním místem pražské undergroundové scény. Nabízí unikátní interiér plný historických artefaktů, širokou nabídku české i mezinárodní kuchyně včetně snídaní.",                 lat:50.0805308, lng:14.4492094  },
-  { id:9,  name:"U Houdků",                   district:"Žižkov",    hood:"Praha 3",  type:"Restaurace", serve:"Točené",  garden:"Ano", food:"Ano",                craft:"Tradiční", beers:["Birell"],                                                 hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 11–0\nNeděle 11–23",                                      address:"Bořivojova 693/110, 130 00 Praha 3 – Žižkov",         desc:"Tradiční pražská restaurace na Žižkově s historií sahající do roku 1923, která je vyhlášená nadstandardními porcemi klasické české kuchyně. Nabízí autentické prostředí staré Prahy a vyhledávanou letní zahrádku v klidném vnitrobloku.",                     lat:50.0824601, lng:14.445716   },
-  { id:8,  name:"Kino Aero",                  district:"Žižkov",    hood:"Praha 3",  type:"Craft bar",  serve:"Lahvové", garden:"Ano", food:"Drobné občerstvení", craft:"Tradiční", beers:["Birell"],                                                 hours:"Pondělí 14–0\nÚterý 14–0\nStředa 14–0\nČtvrtek 13–0\nPátek 14–0\nSobota 14–0\nNeděle 14–0",                                      address:"Biskupcova 1733/31, 130 00 Praha 3 – Žižkov",         desc:"Legendární artové kino s vlastním barem a prostorným dvorem, které slouží jako kulturní a společenský uzel na Žižkově. Nabízí uvolněnou atmosféru pro diváky i návštěvníky, kteří hledají nekonvenční prostor pro drink nebo diskusi po filmu.",              lat:50.090083,  lng:14.4718108  },
-  { id:10, name:"U Habásků",                  district:"Žižkov",    hood:"Praha 3",  type:"Craft bar",  serve:"Lahvové", garden:"Ne",  food:"Drobné občerstvení", craft:"Tradiční", beers:["Birell"],                                                 hours:"Pondělí 16–0\nÚterý 16–0\nStředa 16–0\nČtvrtek 16–0\nPátek 16–2\nSobota 16–2\nNeděle 16–23",                                      address:"Husinecká 29, 130 00 Praha 3 – Žižkov",               desc:"Klasická žižkovská sousedská hospoda s domáckou atmosférou, která si zachovává ráz poctivého lokálního podniku. Nabízí tradiční výčep a klidné zázemí pro stálé hosty i návštěvníky hledající klid mimo hlavní turistické trasy.",                            lat:50.0858298, lng:14.4464288  }
+<script type="text/javascript">
+//<![CDATA[
+var BARS=[
+  {id:1,  name:"Cafe v lese",                district:"Vršovice",  hood:"Praha 10",type:"Craft bar", serve:"Točené", garden:"Ne", food:"Ne",                 craft:"Craft",    beers:["Chříč Balanc 0% IPA","Paulaner Weissbier 0%","Birrel"],hours:"Pondělí 16–2\nÚterý 16–2\nStředa 16–2\nČtvrtek 16–2\nPátek 16–2\nSobota 16–2\nNeděle 16–0",address:"Krymská 12, 101 00 Praha 10 – Vršovice",desc:"Moderní kulturní prostor a kavárna v srdci Vršovic, která kombinuje retro interiér s živým hudebním a společenským programem. Nabízí neformální atmosféru pro setkávání u kávy nebo drinku.",lat:50.0713476,lng:14.448464},
+  {id:4,  name:"Automat Matuška Hradčanská",district:"Dejvice",   hood:"Praha 6", type:"Craft bar", serve:"Točené", garden:"Ano",food:"Ano",                craft:"Craft",    beers:["Bylinný Střízlivec","Preisler-Motuečka"],              hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice",desc:"Moderní řemeslný výčep a bistro zaměřené na prezentaci piva z pivovaru Matuška a kvalitní street food.",lat:50.0980426,lng:14.4042846},
+  {id:5,  name:"Automat Matuška JZP",        district:"Vinohrady",hood:"Praha 3", type:"Craft bar", serve:"Točené", garden:"Ne", food:"Ano",                craft:"Craft",    beers:["Bylinný Střízlivec"],                                  hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",address:"nám. J. z Poděbrad 16, 130 00 Praha 3 – Vinohrady",desc:"Druhá pobočka Automatu Matuška na Jiřáku. Craft nealko na čepu v minimalistickém prostředí.",lat:50.0785018,lng:14.4504055},
+  {id:6,  name:"Dva Kohouti",                district:"Karlín",   hood:"Praha 8", type:"Craft bar", serve:"Točené", garden:"Ano",food:"Ano",                craft:"Craft",    beers:["Proovan Hazy IPA"],                                    hours:"Pondělí 15–1\nÚterý 15–1\nStředa 15–1\nČtvrtek 15–1\nPátek 15–1\nSobota 12–1\nNeděle 12–22",address:"Sokolovská 81/55, 186 00 Praha 8 – Karlín",desc:"Inovativní koncept spojující řemeslný pivovar s výčepem v srdci Karlína. Živá atmosféra a důraz na čerstvé pivo.",lat:50.09349,lng:14.4468455},
+  {id:11, name:"Dno Pytle",                  district:"Vinohrady",hood:"Praha 2", type:"Craft bar", serve:"Točené", garden:"Ne", food:"Drobné občerstvení",craft:"Craft",    beers:["Podle aktuální nabídky"],                              hours:"Pondělí 16–23\nÚterý 16–1\nStředa 16–1\nČtvrtek 16–1\nPátek 16–1\nSobota 18–1\nNeděle 18–23",address:"Vinohradská 63, 120 00 Praha 2 – Vinohrady",desc:"Nekuřácká pivnice zaměřená na česká i zahraniční craft piva. Na osmi pípách nabízí pravidelně obměňovanou nabídku speciálů.",lat:50.0771063,lng:14.4428117},
+  {id:12, name:"Pivovar Uhříněves",          district:"Uhříněves",hood:"Praha 22",type:"Restaurace",serve:"Točené", garden:"Ano",food:"Ano",                craft:"Craft",    beers:["Alois Šofér"],                                        hours:"Pondělí 11–23\nÚterý 11–23\nStředa 11–23\nČtvrtek 11–23\nPátek 11–23\nSobota 11–23\nNeděle 11–22",address:"K Sokolovně 38, 104 00 Praha 22 – Uhříněves",desc:"Restaurace pivovaru Uhříněves. Poctivá česká kuchyně a vlastní nepasterizovaná piva včetně nealko varianty Alois Šofér.",lat:50.0296992,lng:14.6049522},
+  {id:13, name:"Fatfuck Vinohradská",        district:"Vinohrady",hood:"Praha 2", type:"Restaurace",serve:"Točené", garden:"Ano",food:"Ano",                craft:"Craft",    beers:["Alois Šofér"],                                        hours:"Pondělí Zavřeno\nÚterý 12–22\nStředa 12–22\nČtvrtek 12–22\nPátek 12–22\nSobota 12–22\nNeděle 10–21",address:"Vinohradská 1241/67, 120 00 Praha 2 – Vinohrady",desc:"Bistro specializované na smashed burgery z prémiových surovin. Čepované nealko pivo Alois Šofér z Pivovaru Uhříněves.",lat:50.0771324,lng:14.4435489},
+  {id:2,  name:"Klub Petrohradská",          district:"Vršovice",  hood:"Praha 10",type:"Craft bar", serve:"Lahvové",garden:"Ano",food:"Ne",                 craft:"Tradiční", beers:["Birrel"],                                             hours:"Pondělí 8:30–23:30\nÚterý 8:30–23:30\nStředa 8:30–23:30\nČtvrtek 8:30–23:30\nPátek 8:30–23:30\nSobota 16–23:30\nNeděle 16–22:30",address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice",desc:"Alternativní kulturní centrum v areálu bývalé továrny. Industriální interiér a rozlehlý dvůr ideální pro neformální setkávání.",lat:50.0649507,lng:14.4523275},
+  {id:3,  name:"Dejvická Sokolovna",         district:"Dejvice",   hood:"Praha 6", type:"Restaurace",serve:"Točené", garden:"Ne", food:"Ano",                craft:"Tradiční", beers:["Birrel","Birrel pomelo-grep"],                         hours:"Pondělí 10:30–23\nÚterý 10:30–23\nStředa 10:30–0\nČtvrtek 10:30–15\nPátek 10:30–0\nSobota 11–23\nNeděle 11–22",address:"Dejvická 181/2, 160 00 Praha 6 – Dejvice",desc:"Moderní česká restaurace s více než stoletou tradicí. Poctivá domácí kuchyně a čepované tankové pivo.",lat:50.0980662,lng:14.4047094},
+  {id:7,  name:"U Sadu",                     district:"Žižkov",    hood:"Praha 3", type:"Hospoda",   serve:"Točené", garden:"Ano",food:"Ano",                craft:"Tradiční", beers:["Birrel pomelo-grep"],                                  hours:"Pondělí 8–2\nÚterý 8–4\nStředa 8–4\nČtvrtek 8–4\nPátek 8–4\nSobota 8–4\nNeděle 8–2",address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov",desc:"Kultovní žižkovská hospoda s téměř nepřetržitým provozem. Unikátní interiér a široká nabídka kuchyně včetně snídaní.",lat:50.0805308,lng:14.4492094},
+  {id:9,  name:"U Houdků",                   district:"Žižkov",    hood:"Praha 3", type:"Restaurace",serve:"Točené", garden:"Ano",food:"Ano",                craft:"Tradiční", beers:["Birell"],                                             hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 11–0\nNeděle 11–23",address:"Bořivojova 693/110, 130 00 Praha 3 – Žižkov",desc:"Tradiční pražská restaurace s historií od roku 1923. Nadstandardní porce klasické kuchyně a letní zahrádka v klidném vnitrobloku.",lat:50.0824601,lng:14.445716},
+  {id:8,  name:"Kino Aero",                  district:"Žižkov",    hood:"Praha 3", type:"Craft bar", serve:"Lahvové",garden:"Ano",food:"Drobné občerstvení",craft:"Tradiční", beers:["Birell"],                                             hours:"Pondělí 14–0\nÚterý 14–0\nStředa 14–0\nČtvrtek 13–0\nPátek 14–0\nSobota 14–0\nNeděle 14–0",address:"Biskupcova 1733/31, 130 00 Praha 3 – Žižkov",desc:"Legendární artové kino s vlastním barem a prostorným dvorem. Kulturní uzel Žižkova pro filmaře i příchozí hosty.",lat:50.090083,lng:14.4718108},
+  {id:10, name:"U Habásků",                  district:"Žižkov",    hood:"Praha 3", type:"Craft bar", serve:"Lahvové",garden:"Ne", food:"Drobné občerstvení",craft:"Tradiční", beers:["Birell"],                                             hours:"Pondělí 16–0\nÚterý 16–0\nStředa 16–0\nČtvrtek 16–0\nPátek 16–2\nSobota 16–2\nNeděle 16–23",address:"Husinecká 29, 130 00 Praha 3 – Žižkov",desc:"Klasická žižkovská sousedská hospoda. Klidné zázemí pro stálé hosty i návštěvníky mimo hlavní turistické trasy.",lat:50.0858298,lng:14.4464288}
 ];
 
-var filtered = BARS.slice();
-var openId = null;
-var miniMaps = {};
-var overviewMap = null;
-var oMarkers = [];
+var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
 
-function showPage(pageId) {
-  document.getElementById('main-content').style.display = pageId === 'home' ? '' : 'none';
-  document.getElementById('gdpr').style.display    = pageId === 'gdpr'    ? 'block' : 'none';
-  document.getElementById('cookies').style.display = pageId === 'cookies' ? 'block' : 'none';
-  window.scrollTo(0, 0);
+function showPage(id){
+  document.getElementById('main-content').style.display=id==='home'?'':'none';
+  document.getElementById('gdpr').style.display=id==='gdpr'?'block':'none';
+  document.getElementById('cookies').style.display=id==='cookies'?'block':'none';
+  window.scrollTo(0,0);
 }
 
-function render() {
-  filtered = filtered.slice().sort(function(a, b) {
-    function p(x) {
-      if (x.craft === 'Craft'    && x.serve === 'Točené') return 0;
-      if (x.craft === 'Craft'    && x.serve === 'Lahvové') return 1;
-      if (x.craft === 'Tradiční' && x.serve === 'Točené') return 2;
+function render(){
+  filtered=filtered.slice().sort(function(a,b){
+    function p(x){
+      if(x.craft==='Craft'&&x.serve==='Točené')return 0;
+      if(x.craft==='Craft'&&x.serve==='Lahvové')return 1;
+      if(x.craft==='Tradiční'&&x.serve==='Točené')return 2;
       return 3;
     }
-    return p(a) - p(b);
+    return p(a)-p(b);
   });
-
-  var list = document.getElementById('bars-list');
-  var noRes = document.getElementById('no-results');
-  var cnt = document.getElementById('results-count');
-  Object.values(miniMaps).forEach(function(m) { m.remove(); });
-  miniMaps = {};
-  list.innerHTML = '';
-
-  if (!filtered.length) {
-    noRes.style.display = 'block'; cnt.innerHTML = ''; updateOMap(); return;
-  }
-  noRes.style.display = 'none';
-  var n = filtered.length;
-  cnt.innerHTML = 'Zobrazeno <strong>' + n + '</strong> ' + (n===1?'podnik':n<5?'podniky':'podniků');
-
-  filtered.forEach(function(b) {
-    var div = document.createElement('div');
-    div.className = 'bar-item' + (openId === b.id ? ' open' : '');
-    div.dataset.id = b.id;
-    div.innerHTML =
-      '<div class="bar-header" onclick="toggle(' + b.id + ')">'
-        + '<div class="bar-header-left">'
-          + '<div class="bar-meta-row">'
-            + '<span class="badge-type">' + b.type + '</span>'
-            + '<span class="badge-district">' + b.district + ' · ' + b.hood + '</span>'
-          + '</div>'
-          + '<div class="bar-name">' + b.name + '</div>'
-        + '</div>'
-        + '<div class="bar-header-right">'
-          + '<div class="pills">'
-            + '<span class="pill' + (b.craft==='Craft'?' on':'') + '">Craft</span>'
-            + '<span class="pill' + (b.garden==='Ano'?' on':'') + '">Zahrádka</span>'
-            + '<span class="pill' + (b.food!=='Ne'?' on':'') + '">Jídlo</span>'
-            + '<span class="pill on">' + b.serve + '</span>'
-          + '</div>'
-          + '<button class="toggle-btn" onclick="event.stopPropagation();toggle(' + b.id + ')">+</button>'
-        + '</div>'
-      + '</div>'
-      + '<div class="bar-detail"><div class="bar-detail-inner">'
-        + '<div>'
-          + '<div class="detail-cols">'
-            + '<div class="detail-col">'
-              + '<div><div class="dl-label">Adresa</div><div class="dl-value">' + b.address + '</div></div>'
-              + '<div><div class="dl-label">Otevírací doba</div><div class="dl-value">' + b.hours + '</div></div>'
-            + '</div>'
-            + '<div class="detail-col">'
-              + '<div><div class="dl-label">Výběr piv</div><div class="dl-value">' + b.craft + '</div></div>'
-              + '<div><div class="dl-label">Podávání</div><div class="dl-value">' + b.serve + '</div></div>'
-              + '<div><div class="dl-label">Druhy piv</div><div class="dl-value">' + b.beers.join('\n') + '</div></div>'
-              + '<div><div class="dl-label">Zahrádka</div><div class="dl-value">' + b.garden + '</div></div>'
-              + '<div><div class="dl-label">Jídlo</div><div class="dl-value">' + b.food + '</div></div>'
-            + '</div>'
-          + '</div>'
-          + '<div class="detail-desc">' + b.desc + '</div>'
-        + '</div>'
-        + '<div>'
-          + '<div class="mini-map-label">Poloha</div>'
-          + '<div class="mini-map" id="mm-' + b.id + '"></div>'
-        + '</div>'
-      + '</div></div>';
+  var list=document.getElementById('bars-list');
+  var noRes=document.getElementById('no-results');
+  var cnt=document.getElementById('results-count');
+  Object.values(miniMaps).forEach(function(m){m.remove();});
+  miniMaps={};list.innerHTML='';
+  if(!filtered.length){noRes.style.display='block';cnt.innerHTML='';updateOMap();return;}
+  noRes.style.display='none';
+  var n=filtered.length;
+  cnt.innerHTML='Zobrazeno <strong>'+n+'</strong> '+(n===1?'podnik':n<5?'podniky':'podniků');
+  filtered.forEach(function(b){
+    var div=document.createElement('div');
+    div.className='bar-item'+(openId===b.id?' open':'');
+    div.dataset.id=b.id;
+    div.innerHTML=
+      '<div class="bar-header" onclick="toggle('+b.id+')">'
+        +'<div class="bar-header-left">'
+          +'<div class="bar-meta-row">'
+            +'<span class="badge-type">'+b.type+'</span>'
+            +'<span class="badge-district">'+b.district+' · '+b.hood+'</span>'
+          +'</div>'
+          +'<div class="bar-name">'+b.name+'</div>'
+        +'</div>'
+        +'<div class="bar-header-right">'
+          +'<div class="pills">'
+            +'<span class="pill'+(b.craft==='Craft'?' on':'')+'">Craft</span>'
+            +'<span class="pill'+(b.garden==='Ano'?' on':'')+'">Zahrádka</span>'
+            +'<span class="pill'+(b.food!=='Ne'?' on':'')+'">Jídlo</span>'
+            +'<span class="pill on">'+b.serve+'</span>'
+          +'</div>'
+          +'<button class="toggle-btn" onclick="event.stopPropagation();toggle('+b.id+')">+</button>'
+        +'</div>'
+      +'</div>'
+      +'<div class="bar-detail"><div class="bar-detail-inner">'
+        +'<div>'
+          +'<div class="detail-cols">'
+            +'<div class="detail-col">'
+              +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div></div>'
+              +'<div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
+            +'</div>'
+            +'<div class="detail-col">'
+              +'<div><div class="dl-label">Výběr piv</div><div class="dl-value">'+b.craft+'</div></div>'
+              +'<div><div class="dl-label">Podávání</div><div class="dl-value">'+b.serve+'</div></div>'
+              +'<div><div class="dl-label">Druhy piv</div><div class="dl-value">'+b.beers.join('\n')+'</div></div>'
+              +'<div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div>'
+              +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
+            +'</div>'
+          +'</div>'
+          +'<div class="detail-desc">'+b.desc+'</div>'
+        +'</div>'
+        +'<div>'
+          +'<div class="mini-map-label">Poloha</div>'
+          +'<div class="mini-map" id="mm-'+b.id+'"></div>'
+        +'</div>'
+      +'</div></div>';
     list.appendChild(div);
   });
-
-  if (openId && filtered.find(function(b){return b.id===openId;})) {
-    setTimeout(function(){initMini(openId);}, 60);
-  }
+  if(openId&&filtered.find(function(b){return b.id===openId;})){setTimeout(function(){initMini(openId);},60);}
   updateOMap();
 }
 
-function toggle(id) {
-  openId = (openId === id) ? null : id;
-  document.querySelectorAll('.bar-item').forEach(function(el) {
-    el.classList.toggle('open', +el.dataset.id === openId);
-  });
-  if (openId) setTimeout(function(){initMini(openId);}, 380);
+function toggle(id){
+  openId=(openId===id)?null:id;
+  document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});
+  if(openId)setTimeout(function(){initMini(openId);},380);
 }
 
-function initMini(id) {
-  if (miniMaps[id] || typeof L === 'undefined') return;
-  var bar = BARS.find(function(b){return b.id===id;});
-  var el = document.getElementById('mm-' + id);
-  if (!bar || !el) return;
-  var m = L.map(el, {zoomControl:false, attributionControl:false}).setView([bar.lat, bar.lng], 15);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {maxZoom:19}).addTo(m);
-  var icon = L.divIcon({className:'', html:'<div class="custom-marker"></div>', iconSize:[10,10], iconAnchor:[5,5]});
-  L.marker([bar.lat, bar.lng], {icon:icon}).addTo(m);
-  miniMaps[id] = m;
+function initMini(id){
+  if(miniMaps[id]||typeof L==='undefined')return;
+  var bar=BARS.find(function(b){return b.id===id;});
+  var el=document.getElementById('mm-'+id);
+  if(!bar||!el)return;
+  var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
+  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
+  L.marker([bar.lat,bar.lng],{icon:icon}).addTo(m);
+  miniMaps[id]=m;
 }
 
-function initOMap() {
-  if (typeof L === 'undefined') return;
-  overviewMap = L.map('overview-map', {zoomControl:true, attributionControl:false}).setView([50.086, 14.42], 13);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {maxZoom:19}).addTo(overviewMap);
+function initOMap(){
+  if(typeof L==='undefined')return;
+  overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
   updateOMap();
 }
 
-function updateOMap() {
-  if (!overviewMap) return;
-  oMarkers.forEach(function(m){overviewMap.removeLayer(m);}); oMarkers = [];
-  if (!filtered.length) return;
-  var icon = L.divIcon({className:'', html:'<div class="custom-marker"></div>', iconSize:[10,10], iconAnchor:[5,5]});
-  filtered.forEach(function(b) {
-    var mk = L.marker([b.lat, b.lng], {icon:icon})
-      .bindPopup('<strong style="font-family:\'DM Serif Display\',serif">' + b.name + '</strong><br/><span style="font-size:0.72rem;opacity:0.55">' + b.address + '</span>')
-      .addTo(overviewMap);
+function updateOMap(){
+  if(!overviewMap)return;
+  oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];
+  if(!filtered.length)return;
+  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
+  filtered.forEach(function(b){
+    var mk=L.marker([b.lat,b.lng],{icon:icon}).bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>').addTo(overviewMap);
     oMarkers.push(mk);
   });
   overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));
 }
 
-function applyFilters() {
-  var s  = document.getElementById('search-input').value.toLowerCase();
-  var d  = document.getElementById('f-district').value;
-  var t  = document.getElementById('f-type').value;
-  var sv = document.getElementById('f-serve').value;
-  var cr = document.getElementById('f-craft').value;
-  var g  = document.getElementById('f-garden').value;
-  filtered = BARS.filter(function(b) {
-    return (!s  || b.name.toLowerCase().includes(s) || b.district.toLowerCase().includes(s) || b.type.toLowerCase().includes(s) || b.beers.some(function(x){return x.toLowerCase().includes(s);}))
-      && (!d  || b.district === d)
-      && (!t  || b.type === t)
-      && (!sv || b.serve === sv)
-      && (!cr || b.craft === cr)
-      && (!g  || b.garden === g);
+function applyFilters(){
+  var s=document.getElementById('search-input').value.toLowerCase();
+  var d=document.getElementById('f-district').value;
+  var t=document.getElementById('f-type').value;
+  var sv=document.getElementById('f-serve').value;
+  var cr=document.getElementById('f-craft').value;
+  var g=document.getElementById('f-garden').value;
+  filtered=BARS.filter(function(b){
+    return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))
+      &&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);
   });
-  openId = null;
-  render();
+  openId=null;render();
 }
 
-['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id) {
-  document.getElementById(id).addEventListener(id==='search-input'?'input':'change', applyFilters);
+['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
+  document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
 });
 
-var ro = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e, i) {
-    if (e.isIntersecting) setTimeout(function(){e.target.classList.add('visible');}, i*60);
-  });
-}, {threshold:0.08});
+var ro=new IntersectionObserver(function(entries){
+  entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});
+},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 
-window.addEventListener('scroll', function() {
-  document.getElementById('nav').style.padding = window.scrollY > 60 ? '1.2rem 4rem' : '2rem 4rem';
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
 });
 
+function loadLeaflet(){
+  var css=document.createElement('link');css.rel='stylesheet';
+  css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  document.head.appendChild(css);
+  var s=document.createElement('script');
+  s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onload=function(){initOMap();};
+  document.head.appendChild(s);
+}
+
 render();
-window.addEventListener('load', initOMap);
+window.addEventListener('load',loadLeaflet);
+//]]>
 </script>
 </body>
 </html>
