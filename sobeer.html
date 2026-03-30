@@ -13,44 +13,45 @@
 <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
 <meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
 <meta property="og:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
-<meta property="og:locale" content="cs_CZ"/>
-<meta property="og:site_name" content="SOBEER"/>
 <style>
 :root{--bg:#1C3F44;--cream:#F3EFE8;--amber:#C48A2A;--amber-dim:rgba(196,138,42,0.3);--cream-dim:rgba(243,239,232,0.4);--cream-muted:rgba(243,239,232,0.58)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;font-size:17px;line-height:1.7;overflow-x:hidden}
-
-/* COOKIE BANNER */
-#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(16,36,40,0.97);border-top:1px solid var(--amber-dim);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;backdrop-filter:blur(8px)}
+#age-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:2rem}
+#age-gate.hidden{display:none}
+.age-gate-box{text-align:center;max-width:440px}
+.age-gate-logo img{height:60px;display:block;margin:0 auto 2.5rem}
+.age-gate-logo-text{font-family:Georgia,serif;font-size:3rem;letter-spacing:0.1em;color:var(--cream);margin-bottom:2.5rem}
+.age-gate-box h2{font-family:Georgia,serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--cream);margin-bottom:2.5rem;line-height:1.3}
+.age-gate-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.age-btn-yes{padding:0.9rem 2.5rem;border:1px solid var(--amber);background:var(--amber);color:var(--bg);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.age-btn-yes:hover{background:transparent;color:var(--amber)}
+.age-btn-no{padding:0.9rem 2.5rem;border:1px solid rgba(243,239,232,0.2);background:transparent;color:var(--cream-dim);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.age-btn-no:hover{border-color:var(--cream-dim);color:var(--cream)}
+.age-gate-denied{display:none;margin-top:2rem;font-size:0.82rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.6}
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(16,36,40,0.97);border-top:1px solid var(--amber-dim);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
 #cookie-banner p{font-size:0.8rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.5}
 #cookie-banner a{color:var(--amber);text-decoration:none}
 .cookie-btn{flex-shrink:0;padding:0.6rem 2rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
 .cookie-btn:hover{background:var(--amber);color:var(--bg)}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--amber-dim);transition:padding 0.4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--amber-dim);transition:padding 0.4s}
 .nav-logo img{height:38px;display:block}
 .nav-logo-text{font-family:Georgia,serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);text-decoration:none}
 nav ul{list-style:none;display:flex;gap:2rem}
 nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;font-family:sans-serif}
 nav ul a:hover{color:var(--amber)}
-
-/* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:transparent;border:none;z-index:200}
-.hamburger span{display:block;width:22px;height:2px;background:var(--cream);transition:all 0.3s}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;background:transparent;border:none;z-index:300;position:relative}
+.hamburger span{display:block;width:22px;height:2px;background:var(--cream);transition:all 0.3s;transform-origin:center}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* MOBILE DROPDOWN */
-#mobile-menu{display:none;position:fixed;top:0;right:0;z-index:150;background:rgba(16,36,40,0.98);border-left:1px solid var(--amber-dim);border-bottom:1px solid var(--amber-dim);padding:5rem 2rem 2rem;min-width:200px;backdrop-filter:blur(12px)}
+#mobile-menu{display:none;position:fixed;top:60px;right:1.5rem;z-index:250;background:rgba(14,32,36,0.98);border:1px solid var(--amber-dim);min-width:180px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
 #mobile-menu.open{display:block}
-#mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:0}
-#mobile-menu ul li a{display:block;padding:0.85rem 0;text-decoration:none;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);font-family:sans-serif;border-bottom:1px solid rgba(196,138,42,0.1);transition:color 0.2s}
+#mobile-menu ul{list-style:none}
+#mobile-menu ul li a{display:block;padding:0.9rem 1.4rem;text-decoration:none;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);font-family:sans-serif;border-bottom:1px solid rgba(196,138,42,0.08);transition:color 0.2s,background 0.2s}
 #mobile-menu ul li:last-child a{border-bottom:none}
-#mobile-menu ul li a:hover{color:var(--amber)}
-
+#mobile-menu ul li a:hover{color:var(--amber);background:rgba(196,138,42,0.05)}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 8rem}
 .hero-logo{display:block;width:min(340px,70vw);margin:0 auto;opacity:0;animation:appear 0.9s 0.2s forwards}
 .hero-logo-text{font-family:Georgia,serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards}
@@ -124,10 +125,9 @@ nav ul a:hover{color:var(--amber)}
 .cf-consent input[type=checkbox]{flex-shrink:0;margin-top:3px;accent-color:var(--amber);width:15px;height:15px;cursor:pointer}
 .cf-consent label{font-size:0.82rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.5;cursor:pointer}
 .cf-consent a{color:var(--amber);text-decoration:none}
-.cf-consent a:hover{text-decoration:underline}
 .cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
 .cf-btn:hover{background:var(--amber);color:var(--bg)}
-.cf-msg{display:none;margin-top:1.5rem;font-family:sans-serif;font-size:0.9rem;letter-spacing:0.05em}
+.cf-msg{display:none;margin-top:1.5rem;font-family:sans-serif;font-size:0.9rem}
 .cf-ok{color:var(--amber)}
 .cf-err{color:#e07070}
 .legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
@@ -150,29 +150,28 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
 .leaflet-popup-tip{background:var(--bg)!important}
 .leaflet-popup-content{margin:0.9rem 1.1rem!important}
-
-@media(max-width:900px){
-  nav{padding:1.2rem 1.5rem}
-  nav ul{display:none}
-  .hamburger{display:flex}
-  #bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}
-  .filters{grid-template-columns:1fr 1fr}
-  .bar-detail-inner{grid-template-columns:1fr;gap:2rem}
-  .detail-cols{grid-template-columns:1fr}
-  .detail-col:first-child{padding-right:0}
-  .bar-header{padding:1.6rem 0;flex-wrap:wrap}
-  .bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}
-  footer{flex-direction:column;text-align:center}
-  .footer-links{justify-content:center}
-  #cookie-banner{padding:1.2rem 1.5rem;flex-direction:column;text-align:center}
-}
+@media(max-width:900px){nav{padding:1.2rem 1.5rem}nav ul{display:none}.hamburger{display:flex}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}#cookie-banner{padding:1.2rem 1.5rem;flex-direction:column;text-align:center}}
 @media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
 </style>
 </head>
 <body>
 
-<!-- COOKIE BANNER -->
-<div id="cookie-banner">
+<div id="age-gate">
+  <div class="age-gate-box">
+    <div class="age-gate-logo">
+      <img src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('age-logo-text').style.display='block'"/>
+      <div id="age-logo-text" class="age-gate-logo-text" style="display:none">SOBEER</div>
+    </div>
+    <h2>Je vám 18 nebo více let?</h2>
+    <div class="age-gate-btns">
+      <button class="age-btn-yes" onclick="ageYes()">Ano, je mi 18+</button>
+      <button class="age-btn-no" onclick="ageNo()">Ne, ještě ne</button>
+    </div>
+    <div id="age-denied" class="age-gate-denied">Přístup na tento web je určen pouze osobám starším 18 let.</div>
+  </div>
+</div>
+
+<div id="cookie-banner" style="display:none">
   <p>Tento web používá pouze technické cookies nezbytné pro jeho fungování. Více v <a href="#" onclick="acceptCookies();showPage('cookies');return false;">Zásadách cookies</a>.</p>
   <button class="cookie-btn" onclick="acceptCookies()">Rozumím</button>
 </div>
@@ -194,7 +193,6 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   </button>
 </nav>
 
-<!-- MOBILE MENU -->
 <div id="mobile-menu">
   <ul>
     <li><a href="#bary" onclick="closeMenu()">Bary</a></li>
@@ -202,16 +200,13 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
     <li><a href="#o-nas" onclick="closeMenu()">O projektu</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" onclick="closeMenu()">Přidat podnik</a></li>
     <li><a href="#kontakt" onclick="closeMenu()">Kontakt</a></li>
-    <li><a href="#" onclick="closeMenu();showPage('gdpr');return false;">GDPR</a></li>
-    <li><a href="#" onclick="closeMenu();showPage('cookies');return false;">Cookies</a></li>
   </ul>
 </div>
 
 <div id="main-content">
-
 <section class="hero">
   <img class="hero-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
-  <div id="hero-logo-text" class="hero-logo-text" style="display:none">SOBEER</div>
+  <div id="hero-logo-text" style="display:none;font-family:Georgia,serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards">SOBEER</div>
   <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
   <p class="hero-claim">Když se 0 počítá.</p>
   <div class="hero-line"></div>
@@ -219,49 +214,13 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <section id="bary">
   <h2 class="section-heading reveal">Objev podniky s nabídkou nealko piv.</h2>
-  <div class="search-wrap reveal">
-    <input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/>
-  </div>
+  <div class="search-wrap reveal"><input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/></div>
   <div class="filters reveal">
-    <div class="filter-group">
-      <span class="filter-label">Lokalita</span>
-      <select id="f-district">
-        <option value="">Všechny lokality</option>
-        <option>Vršovice</option><option>Vinohrady</option><option>Dejvice</option>
-        <option>Karlín</option><option>Žižkov</option><option>Uhříněves</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Typ podniku</span>
-      <select id="f-type">
-        <option value="">Vše</option>
-        <option>Hospoda</option><option>Restaurace</option><option>Craft bar</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Podávání piva</span>
-      <select id="f-serve">
-        <option value="">Oboje</option>
-        <option value="Točené">Točené</option>
-        <option value="Lahvové">Lahvové</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Výběr piv</span>
-      <select id="f-craft">
-        <option value="">Vše</option>
-        <option value="Craft">Craft &amp; speciální</option>
-        <option value="Tradiční">Tradiční</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Zahrádka</span>
-      <select id="f-garden">
-        <option value="">Nezáleží</option>
-        <option value="Ano">Ano</option>
-        <option value="Ne">Ne</option>
-      </select>
-    </div>
+    <div class="filter-group"><span class="filter-label">Lokalita</span><select id="f-district"><option value="">Všechny lokality</option><option>Vršovice</option><option>Vinohrady</option><option>Dejvice</option><option>Karlín</option><option>Žižkov</option><option>Uhříněves</option></select></div>
+    <div class="filter-group"><span class="filter-label">Typ podniku</span><select id="f-type"><option value="">Vše</option><option>Hospoda</option><option>Restaurace</option><option>Craft bar</option></select></div>
+    <div class="filter-group"><span class="filter-label">Podávání piva</span><select id="f-serve"><option value="">Oboje</option><option value="Točené">Točené</option><option value="Lahvové">Lahvové</option></select></div>
+    <div class="filter-group"><span class="filter-label">Výběr piv</span><select id="f-craft"><option value="">Vše</option><option value="Craft">Craft &amp; speciální</option><option value="Tradiční">Tradiční</option></select></div>
+    <div class="filter-group"><span class="filter-label">Zahrádka</span><select id="f-garden"><option value="">Nezáleží</option><option value="Ano">Ano</option><option value="Ne">Ne</option></select></div>
   </div>
   <div class="results-count" id="results-count"></div>
   <div class="bars-list" id="bars-list"></div>
@@ -292,37 +251,25 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h2 class="section-heading reveal">Kontaktujte nás</h2>
   <p class="kontakt-sub reveal">Máte dotaz, zájem o spolupráci, nebo jste narazili na chybu u některého z podniků? Napište nám.</p>
   <form id="contact-form" onsubmit="submitForm(event)" style="text-align:left;">
-    <div class="cf-field">
-      <label>Jméno a příjmení</label>
-      <input type="text" id="cf-name" required placeholder="Jan Novák"/>
-    </div>
-    <div class="cf-field">
-      <label>E-mail</label>
-      <input type="email" id="cf-email" required placeholder="vas@email.cz"/>
-    </div>
-    <div class="cf-field-last">
-      <label>Zpráva</label>
-      <textarea id="cf-message" required placeholder="Vaše zpráva…" rows="5"></textarea>
-    </div>
+    <div class="cf-field"><label>Jméno a příjmení</label><input type="text" id="cf-name" required placeholder="Jan Novák"/></div>
+    <div class="cf-field"><label>E-mail</label><input type="email" id="cf-email" required placeholder="vas@email.cz"/></div>
+    <div class="cf-field-last"><label>Zpráva</label><textarea id="cf-message" required placeholder="Vaše zpráva…" rows="5"></textarea></div>
     <div class="cf-consent">
       <input type="checkbox" id="cf-consent" required/>
       <label for="cf-consent">Souhlasím se zpracováním osobních údajů dle <a href="#" onclick="showPage('gdpr');return false;">Zásad ochrany osobních údajů</a>.</label>
     </div>
-    <div style="text-align:center">
-      <button type="submit" id="cf-btn" class="cf-btn">Odeslat zprávu</button>
-    </div>
+    <div style="text-align:center"><button type="submit" id="cf-btn" class="cf-btn">Odeslat zprávu</button></div>
     <div id="cf-ok" class="cf-msg cf-ok">Zpráva byla odeslána. Děkujeme!</div>
     <div id="cf-err" class="cf-msg cf-err">Něco se nepovedlo. Zkuste to prosím znovu.</div>
   </form>
 </section>
-
 </div>
 
 <section id="gdpr" class="legal-page">
   <h2>Zásady ochrany osobních údajů</h2>
   <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s platnou legislativou.</p>
   <h3>1. Správce osobních údajů</h3>
-  <p>Správcem osobních údajů je:<br/><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
+  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
   <h3>2. Jaké údaje zpracovávám a proč</h3>
   <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete: jméno, e-mail, obsah zprávy. Při použití formulářů může být automaticky zaznamenána vaše IP adresa poskytovatelem formulářové služby (Google LLC). Právním základem zpracování je souhlas subjektu údajů.</p>
   <h3>3. Doba uchování údajů</h3>
@@ -385,179 +332,64 @@ var BARS=[
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
-function acceptCookies(){
-  document.getElementById('cookie-banner').style.display='none';
-  try{localStorage.setItem('sobeer_cookies','1');}catch(e){}
-}
-(function(){try{if(localStorage.getItem('sobeer_cookies')==='1')document.getElementById('cookie-banner').style.display='none';}catch(e){}})();
+function ageYes(){document.getElementById('age-gate').classList.add('hidden');try{sessionStorage.setItem('sobeer_age','1');}catch(e){}showCookieBanner();}
+function ageNo(){document.querySelector('.age-gate-btns').style.display='none';document.getElementById('age-denied').style.display='block';}
+(function(){try{if(sessionStorage.getItem('sobeer_age')==='1'){document.getElementById('age-gate').classList.add('hidden');showCookieBanner();}}catch(e){}})();
+function showCookieBanner(){try{if(localStorage.getItem('sobeer_cookies')!=='1')document.getElementById('cookie-banner').style.display='flex';}catch(e){document.getElementById('cookie-banner').style.display='flex';}}
+function acceptCookies(){document.getElementById('cookie-banner').style.display='none';try{localStorage.setItem('sobeer_cookies','1');}catch(e){}}
 
-function toggleMenu(){
-  var m=document.getElementById('mobile-menu');
-  var h=document.getElementById('hamburger');
-  var open=m.classList.toggle('open');
-  h.classList.toggle('open',open);
-}
-function closeMenu(){
-  document.getElementById('mobile-menu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-}
-document.addEventListener('click',function(e){
-  var m=document.getElementById('mobile-menu');
-  var h=document.getElementById('hamburger');
-  if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target))closeMenu();
-});
+function toggleMenu(){var m=document.getElementById('mobile-menu'),h=document.getElementById('hamburger'),o=m.classList.contains('open');m.classList.toggle('open',!o);h.classList.toggle('open',!o);}
+function closeMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
+document.addEventListener('click',function(e){var m=document.getElementById('mobile-menu'),h=document.getElementById('hamburger');if(m.classList.contains('open')&&!m.contains(e.target)&&!h.contains(e.target))closeMenu();});
 
-function showPage(id){
-  document.getElementById('main-content').style.display=id==='home'?'':'none';
-  document.getElementById('gdpr').style.display=id==='gdpr'?'block':'none';
-  document.getElementById('cookies').style.display=id==='cookies'?'block':'none';
-  window.scrollTo(0,0);
-}
+function showPage(id){document.getElementById('main-content').style.display=id==='home'?'':'none';document.getElementById('gdpr').style.display=id==='gdpr'?'block':'none';document.getElementById('cookies').style.display=id==='cookies'?'block':'none';window.scrollTo(0,0);}
 
 function submitForm(e){
   e.preventDefault();
-  var btn=document.getElementById('cf-btn');
-  var ok=document.getElementById('cf-ok');
-  var err=document.getElementById('cf-err');
-  ok.style.display='none';err.style.display='none';
-  btn.textContent='Odesílám…';btn.disabled=true;
-  var params=new URLSearchParams();
-  params.append('name',document.getElementById('cf-name').value);
-  params.append('email',document.getElementById('cf-email').value);
-  params.append('message',document.getElementById('cf-message').value);
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:params.toString()})
+  var btn=document.getElementById('cf-btn'),ok=document.getElementById('cf-ok'),err=document.getElementById('cf-err');
+  ok.style.display='none';err.style.display='none';btn.textContent='Odesílám…';btn.disabled=true;
+  var p=new URLSearchParams();
+  p.append('name',document.getElementById('cf-name').value);
+  p.append('email',document.getElementById('cf-email').value);
+  p.append('message',document.getElementById('cf-message').value);
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()})
   .then(function(){ok.style.display='block';document.getElementById('contact-form').reset();btn.textContent='Odeslat zprávu';btn.disabled=false;})
   .catch(function(){err.style.display='block';btn.textContent='Odeslat zprávu';btn.disabled=false;});
 }
 
 function render(){
-  filtered=filtered.slice().sort(function(a,b){
-    function p(x){if(x.craft==='Craft'&&x.serve==='Točené')return 0;if(x.craft==='Craft'&&x.serve==='Lahvové')return 1;if(x.craft==='Tradiční'&&x.serve==='Točené')return 2;return 3;}
-    return p(a)-p(b);
-  });
-  var list=document.getElementById('bars-list');
-  var noRes=document.getElementById('no-results');
-  var cnt=document.getElementById('results-count');
-  Object.values(miniMaps).forEach(function(m){m.remove();});
-  miniMaps={};list.innerHTML='';
+  filtered=filtered.slice().sort(function(a,b){function p(x){if(x.craft==='Craft'&&x.serve==='Točené')return 0;if(x.craft==='Craft'&&x.serve==='Lahvové')return 1;if(x.craft==='Tradiční'&&x.serve==='Točené')return 2;return 3;}return p(a)-p(b);});
+  var list=document.getElementById('bars-list'),noRes=document.getElementById('no-results'),cnt=document.getElementById('results-count');
+  Object.values(miniMaps).forEach(function(m){m.remove();});miniMaps={};list.innerHTML='';
   if(!filtered.length){noRes.style.display='block';cnt.innerHTML='';updateOMap();return;}
-  noRes.style.display='none';
-  var n=filtered.length;
+  noRes.style.display='none';var n=filtered.length;
   cnt.innerHTML='Zobrazeno <strong>'+n+'</strong> '+(n===1?'podnik':n<5?'podniky':'podniků');
   filtered.forEach(function(b){
-    var div=document.createElement('div');
-    div.className='bar-item'+(openId===b.id?' open':'');
-    div.dataset.id=b.id;
-    div.innerHTML=
-      '<div class="bar-header" onclick="toggle('+b.id+')">'
-        +'<div class="bar-header-left">'
-          +'<div class="bar-meta-row"><span class="badge-type">'+b.type+'</span><span class="badge-district">'+b.district+' · '+b.hood+'</span></div>'
-          +'<div class="bar-name">'+b.name+'</div>'
-        +'</div>'
-        +'<div class="bar-header-right">'
-          +'<div class="pills">'
-            +'<span class="pill'+(b.craft==='Craft'?' on':'')+'">Craft</span>'
-            +'<span class="pill'+(b.garden==='Ano'?' on':'')+'">Zahrádka</span>'
-            +'<span class="pill'+(b.food!=='Ne'?' on':'')+'">Jídlo</span>'
-            +'<span class="pill on">'+b.serve+'</span>'
-          +'</div>'
-          +'<button class="toggle-btn" onclick="event.stopPropagation();toggle('+b.id+')">+</button>'
-        +'</div>'
-      +'</div>'
-      +'<div class="bar-detail"><div class="bar-detail-inner">'
-        +'<div>'
-          +'<div class="detail-cols">'
-            +'<div class="detail-col">'
-              +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div></div>'
-              +'<div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
-            +'</div>'
-            +'<div class="detail-col">'
-              +'<div><div class="dl-label">Výběr piv</div><div class="dl-value">'+b.craft+'</div></div>'
-              +'<div><div class="dl-label">Podávání</div><div class="dl-value">'+b.serve+'</div></div>'
-              +'<div><div class="dl-label">Druhy piv</div><div class="dl-value">'+b.beers.join('\n')+'</div></div>'
-              +'<div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div>'
-              +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
-            +'</div>'
-          +'</div>'
-          +'<div class="detail-desc">'+b.desc+'</div>'
-        +'</div>'
-        +'<div><div class="mini-map-label">Poloha</div><div class="mini-map" id="mm-'+b.id+'"></div></div>'
-      +'</div></div>';
+    var div=document.createElement('div');div.className='bar-item'+(openId===b.id?' open':'');div.dataset.id=b.id;
+    div.innerHTML='<div class="bar-header" onclick="toggle('+b.id+')">'
+      +'<div class="bar-header-left"><div class="bar-meta-row"><span class="badge-type">'+b.type+'</span><span class="badge-district">'+b.district+' · '+b.hood+'</span></div><div class="bar-name">'+b.name+'</div></div>'
+      +'<div class="bar-header-right"><div class="pills"><span class="pill'+(b.craft==='Craft'?' on':'')+'">Craft</span><span class="pill'+(b.garden==='Ano'?' on':'')+'">Zahrádka</span><span class="pill'+(b.food!=='Ne'?' on':'')+'">Jídlo</span><span class="pill on">'+b.serve+'</span></div>'
+      +'<button class="toggle-btn" onclick="event.stopPropagation();toggle('+b.id+')">+</button></div></div>'
+      +'<div class="bar-detail"><div class="bar-detail-inner"><div><div class="detail-cols">'
+      +'<div class="detail-col"><div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div></div><div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div></div>'
+      +'<div class="detail-col"><div><div class="dl-label">Výběr piv</div><div class="dl-value">'+b.craft+'</div></div><div><div class="dl-label">Podávání</div><div class="dl-value">'+b.serve+'</div></div><div><div class="dl-label">Druhy piv</div><div class="dl-value">'+b.beers.join('\n')+'</div></div><div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div><div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div></div>'
+      +'</div><div class="detail-desc">'+b.desc+'</div></div>'
+      +'<div><div class="mini-map-label">Poloha</div><div class="mini-map" id="mm-'+b.id+'"></div></div></div></div>';
     list.appendChild(div);
   });
-  if(openId&&filtered.find(function(b){return b.id===openId;})){setTimeout(function(){initMini(openId);},60);}
+  if(openId&&filtered.find(function(b){return b.id===openId;}))setTimeout(function(){initMini(openId);},60);
   updateOMap();
 }
-
-function toggle(id){
-  openId=(openId===id)?null:id;
-  document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});
-  if(openId)setTimeout(function(){initMini(openId);},380);
-}
-
-function initMini(id){
-  if(miniMaps[id]||typeof L==='undefined')return;
-  var bar=BARS.find(function(b){return b.id===id;});
-  var el=document.getElementById('mm-'+id);
-  if(!bar||!el)return;
-  var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
-  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
-  L.marker([bar.lat,bar.lng],{icon:icon}).addTo(m);
-  miniMaps[id]=m;
-}
-
-function initOMap(){
-  if(typeof L==='undefined')return;
-  overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
-  updateOMap();
-}
-
-function updateOMap(){
-  if(!overviewMap)return;
-  oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];
-  if(!filtered.length)return;
-  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
-  filtered.forEach(function(b){
-    var mk=L.marker([b.lat,b.lng],{icon:icon}).bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>').addTo(overviewMap);
-    oMarkers.push(mk);
-  });
-  overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));
-}
-
-function applyFilters(){
-  var s=document.getElementById('search-input').value.toLowerCase();
-  var d=document.getElementById('f-district').value;
-  var t=document.getElementById('f-type').value;
-  var sv=document.getElementById('f-serve').value;
-  var cr=document.getElementById('f-craft').value;
-  var g=document.getElementById('f-garden').value;
-  filtered=BARS.filter(function(b){
-    return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))
-      &&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);
-  });
-  openId=null;render();
-}
-
-['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
-  document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);
-});
-
-var ro=new IntersectionObserver(function(entries){
-  entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});
-},{threshold:0.08});
+function toggle(id){openId=(openId===id)?null:id;document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});if(openId)setTimeout(function(){initMini(openId);},380);}
+function initMini(id){if(miniMaps[id]||typeof L==='undefined')return;var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);if(!bar||!el)return;var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);L.marker([bar.lat,bar.lng],{icon:L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(m);miniMaps[id]=m;}
+function initOMap(){if(typeof L==='undefined')return;overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);updateOMap();}
+function updateOMap(){if(!overviewMap)return;oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];if(!filtered.length)return;var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});filtered.forEach(function(b){oMarkers.push(L.marker([b.lat,b.lng],{icon:icon}).bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>').addTo(overviewMap));});overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));}
+function applyFilters(){var s=document.getElementById('search-input').value.toLowerCase(),d=document.getElementById('f-district').value,t=document.getElementById('f-type').value,sv=document.getElementById('f-serve').value,cr=document.getElementById('f-craft').value,g=document.getElementById('f-garden').value;filtered=BARS.filter(function(b){return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))&&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);});openId=null;render();}
+['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);});
+var ro=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
-
-window.addEventListener('scroll',function(){
-  document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
-});
-
-function loadLeaflet(){
-  var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);
-  var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.onload=function(){initOMap();};document.head.appendChild(s);
-}
-
+window.addEventListener('scroll',function(){document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';});
+function loadLeaflet(){var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.onload=function(){initOMap();};document.head.appendChild(s);}
 render();
 window.addEventListener('load',loadLeaflet);
 </script>
