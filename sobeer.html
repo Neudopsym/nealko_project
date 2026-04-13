@@ -13,33 +13,55 @@
 <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
 <meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
 <meta property="og:image" content="https://www.sobeer.cz/sobeer_logo.png"/>
+<meta property="og:locale" content="cs_CZ"/>
+<meta property="og:site_name" content="SOBEER"/>
 <style>
+@font-face{font-family:'DM Serif Display';src:url('fonts/DMSerifDisplay-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'DM Serif Display';src:url('fonts/DMSerifDisplay-Italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('fonts/DMSans-Light.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('fonts/DMSans-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'DM Sans';src:url('fonts/DMSans-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+
 :root{--bg:#1C3F44;--cream:#F3EFE8;--amber:#C48A2A;--amber-dim:rgba(196,138,42,0.3);--cream-dim:rgba(243,239,232,0.4);--cream-muted:rgba(243,239,232,0.58)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;font-size:17px;line-height:1.7;overflow-x:hidden}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:400;font-size:17px;line-height:1.7;overflow-x:hidden}
+
+/* AGE GATE */
 #age-gate{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:2rem}
 #age-gate.hidden{display:none}
 .age-gate-box{text-align:center;max-width:440px}
 .age-gate-logo img{height:60px;display:block;margin:0 auto 2.5rem}
-.age-gate-logo-text{font-family:Georgia,serif;font-size:3rem;letter-spacing:0.1em;color:var(--cream);margin-bottom:2.5rem}
-.age-gate-box h2{font-family:Georgia,serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--cream);margin-bottom:2.5rem;line-height:1.3}
+.age-gate-logo-text{font-family:'DM Serif Display',serif;font-size:3rem;letter-spacing:0.1em;color:var(--cream);margin-bottom:2.5rem}
+.age-gate-box h2{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:400;color:var(--cream);margin-bottom:2.5rem;line-height:1.3}
 .age-gate-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.age-btn-yes{padding:0.9rem 2.5rem;border:1px solid var(--amber);background:var(--amber);color:var(--bg);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.age-btn-yes{padding:0.9rem 2.5rem;border:1px solid var(--amber);background:var(--amber);color:var(--bg);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .age-btn-yes:hover{background:transparent;color:var(--amber)}
-.age-btn-no{padding:0.9rem 2.5rem;border:1px solid rgba(243,239,232,0.2);background:transparent;color:var(--cream-dim);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.age-btn-no{padding:0.9rem 2.5rem;border:1px solid rgba(243,239,232,0.2);background:transparent;color:var(--cream-dim);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .age-btn-no:hover{border-color:var(--cream-dim);color:var(--cream)}
-.age-gate-denied{display:none;margin-top:2rem;font-size:0.82rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.6}
-#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(16,36,40,0.97);border-top:1px solid var(--amber-dim);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
-#cookie-banner p{font-size:0.8rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.5}
+.age-gate-denied{display:none;margin-top:2rem;font-size:0.82rem;color:var(--cream-muted);font-family:'DM Sans',sans-serif;line-height:1.6}
+
+/* COOKIE BANNER */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:998;background:rgba(14,32,36,0.97);border-top:1px solid var(--amber-dim);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;backdrop-filter:blur(8px)}
+#cookie-banner p{font-size:0.8rem;color:var(--cream-muted);font-family:'DM Sans',sans-serif;line-height:1.5}
 #cookie-banner a{color:var(--amber);text-decoration:none}
-.cookie-btn{flex-shrink:0;padding:0.6rem 2rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
-.cookie-btn:hover{background:var(--amber);color:var(--bg)}
+.cookie-btns{display:flex;gap:0.8rem;flex-shrink:0}
+.cookie-btn-accept{padding:0.6rem 1.8rem;border:1px solid var(--amber);background:var(--amber);color:var(--bg);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
+.cookie-btn-accept:hover{background:transparent;color:var(--amber)}
+.cookie-btn-reject{padding:0.6rem 1.8rem;border:1px solid rgba(243,239,232,0.2);background:transparent;color:var(--cream-dim);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
+.cookie-btn-reject:hover{border-color:var(--cream-dim);color:var(--cream)}
+
+/* MAP PLACEHOLDER */
+.map-placeholder{display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);border:1px solid var(--amber-dim);flex-direction:column;gap:1rem}
+.map-placeholder p{font-size:0.78rem;color:var(--cream-dim);font-family:'DM Sans',sans-serif;letter-spacing:0.05em;text-align:center;padding:0 1rem}
+.map-placeholder button{padding:0.5rem 1.4rem;border:1px solid var(--amber-dim);background:transparent;color:var(--amber);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
+.map-placeholder button:hover{background:var(--amber);color:var(--bg)}
+
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:var(--bg);border-bottom:1px solid var(--amber-dim);transition:padding 0.4s}
 .nav-logo img{height:38px;display:block}
-.nav-logo-text{font-family:Georgia,serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);text-decoration:none}
+.nav-logo-text{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--cream);text-decoration:none}
 nav ul{list-style:none;display:flex;gap:2rem}
-nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;font-family:sans-serif}
+nav ul a{text-decoration:none;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;font-family:'DM Sans',sans-serif}
 nav ul a:hover{color:var(--amber)}
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;background:transparent;border:none;z-index:300;position:relative}
 .hamburger span{display:block;width:22px;height:2px;background:var(--cream);transition:all 0.3s;transform-origin:center}
@@ -49,28 +71,28 @@ nav ul a:hover{color:var(--amber)}
 #mobile-menu{display:none;position:fixed;top:60px;right:1.5rem;z-index:250;background:rgba(14,32,36,0.98);border:1px solid var(--amber-dim);min-width:180px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
 #mobile-menu.open{display:block}
 #mobile-menu ul{list-style:none}
-#mobile-menu ul li a{display:block;padding:0.9rem 1.4rem;text-decoration:none;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);font-family:sans-serif;border-bottom:1px solid rgba(196,138,42,0.08);transition:color 0.2s,background 0.2s}
+#mobile-menu ul li a{display:block;padding:0.9rem 1.4rem;text-decoration:none;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);font-family:'DM Sans',sans-serif;border-bottom:1px solid rgba(196,138,42,0.08);transition:color 0.2s,background 0.2s}
 #mobile-menu ul li:last-child a{border-bottom:none}
 #mobile-menu ul li a:hover{color:var(--amber);background:rgba(196,138,42,0.05)}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 8rem}
 .hero-logo{display:block;width:min(340px,70vw);margin:0 auto;opacity:0;animation:appear 0.9s 0.2s forwards}
-.hero-logo-text{font-family:Georgia,serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards}
-.hero-claim{margin-top:3rem;font-family:Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--cream-muted);line-height:1.4;opacity:0;animation:appear 0.9s 0.55s forwards}
+.hero-logo-text{font-family:'DM Serif Display',serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards}
+.hero-claim{margin-top:3rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--cream-muted);line-height:1.4;opacity:0;animation:appear 0.9s 0.55s forwards}
 .hero-claim+.hero-claim{margin-top:0.6rem;animation-delay:0.7s}
 .hero-line{width:36px;height:1px;background:var(--amber);margin:4rem auto 0;opacity:0;animation:appear 0.9s 0.9s forwards}
 @keyframes appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 #bary{padding:6rem 4rem 8rem;max-width:1100px;margin:0 auto}
-.section-heading{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;line-height:1.25;color:var(--cream);text-align:center;max-width:900px;margin:0 auto 5rem}
-.search-wrap input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--amber-dim);padding:1rem 0;color:var(--cream);font-family:sans-serif;font-size:1rem;outline:none;transition:border-color 0.3s}
+.section-heading{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;line-height:1.25;color:var(--cream);text-align:center;max-width:900px;margin:0 auto 5rem}
+.search-wrap input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--amber-dim);padding:1rem 0;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:1rem;outline:none;transition:border-color 0.3s}
 .search-wrap input::placeholder{color:var(--cream-dim)}
 .search-wrap input:focus{border-color:var(--amber)}
 .filters{display:grid;grid-template-columns:repeat(5,1fr);border-left:1px solid var(--amber-dim);border-top:1px solid var(--amber-dim);margin-bottom:5rem}
 .filter-group{border-right:1px solid var(--amber-dim);border-bottom:1px solid var(--amber-dim);padding:1.2rem 1.4rem}
-.filter-label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:sans-serif}
-.filter-group select{width:100%;background:transparent;border:none;color:var(--cream);font-family:sans-serif;font-size:0.88rem;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C48A2A' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0 center;padding-right:1.2rem;transition:color 0.3s}
+.filter-label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:'DM Sans',sans-serif}
+.filter-group select{width:100%;background:transparent;border:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 5 5-5' stroke='%23C48A2A' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0 center;padding-right:1.2rem;transition:color 0.3s}
 .filter-group select:hover,.filter-group select:focus{color:var(--amber)}
 .filter-group select option{background:#1C3F44;color:var(--cream)}
-.results-count{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:2rem;min-height:1em;font-family:sans-serif}
+.results-count{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:2rem;min-height:1em;font-family:'DM Sans',sans-serif}
 .results-count strong{color:var(--amber)}
 .bars-list{display:flex;flex-direction:column}
 .bar-item{border-bottom:1px solid rgba(243,239,232,0.07);transition:background 0.3s}
@@ -79,12 +101,12 @@ nav ul a:hover{color:var(--amber)}
 .bar-header{padding:2rem 0;display:flex;align-items:center;gap:2rem;cursor:pointer}
 .bar-header-left{flex:1;min-width:0}
 .bar-meta-row{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.35rem}
-.badge-type{font-size:0.56rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber);opacity:0.8;font-family:sans-serif}
-.badge-district{font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);font-family:sans-serif}
-.bar-name{font-family:Georgia,serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);line-height:1.1}
+.badge-type{font-size:0.56rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber);opacity:0.8;font-family:'DM Sans',sans-serif}
+.badge-district{font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream-dim);font-family:'DM Sans',sans-serif}
+.bar-name{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--cream);line-height:1.1}
 .bar-header-right{display:flex;align-items:center;gap:2rem;flex-shrink:0}
 .pills{display:flex;gap:0.45rem;flex-wrap:wrap;justify-content:flex-end}
-.pill{font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border:1px solid rgba(243,239,232,0.1);color:rgba(243,239,232,0.25);font-family:sans-serif}
+.pill{font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border:1px solid rgba(243,239,232,0.1);color:rgba(243,239,232,0.25);font-family:'DM Sans',sans-serif}
 .pill.on{border-color:rgba(196,138,42,0.38);color:rgba(196,138,42,0.75)}
 .toggle-btn{width:32px;height:32px;flex-shrink:0;border:1px solid var(--amber-dim);border-radius:50%;background:transparent;cursor:pointer;color:var(--amber);font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.35s}
 .bar-item.open .toggle-btn{background:var(--amber);color:var(--bg);transform:rotate(45deg)}
@@ -94,55 +116,55 @@ nav ul a:hover{color:var(--amber)}
 .detail-cols{display:grid;grid-template-columns:1fr 1fr}
 .detail-col{display:flex;flex-direction:column;gap:1.8rem}
 .detail-col:first-child{padding-right:2rem}
-.dl-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.3rem;font-family:sans-serif}
-.dl-value{font-size:0.9rem;color:var(--cream-muted);line-height:1.55;white-space:pre-line;font-family:sans-serif}
-.detail-desc{margin-top:1.5rem;font-family:Georgia,serif;font-style:italic;font-size:1.05rem;color:rgba(243,239,232,0.48);line-height:1.7;padding-left:1.2rem;border-left:1px solid var(--amber-dim)}
-.mini-map-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.6rem;font-family:sans-serif}
+.dl-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.3rem;font-family:'DM Sans',sans-serif}
+.dl-value{font-size:0.9rem;color:var(--cream-muted);line-height:1.55;white-space:pre-line;font-family:'DM Sans',sans-serif}
+.detail-desc{margin-top:1.5rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;color:rgba(243,239,232,0.48);line-height:1.7;padding-left:1.2rem;border-left:1px solid var(--amber-dim)}
+.mini-map-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.6rem;font-family:'DM Sans',sans-serif}
 .mini-map{height:220px;border:1px solid var(--amber-dim)}
-.no-results{display:none;text-align:center;padding:6rem 0;font-family:Georgia,serif;font-style:italic;font-size:1.3rem;color:var(--cream-dim)}
+.no-results{display:none;text-align:center;padding:6rem 0;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.3rem;color:var(--cream-dim)}
 .cta-add{max-width:1100px;margin:0 auto;padding:5rem 4rem;text-align:center;border-top:1px solid var(--amber-dim)}
-.cta-add p{font-family:Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--cream-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
-.cta-btn{display:inline-block;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);text-decoration:none;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:sans-serif;transition:all 0.3s}
+.cta-add p{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--cream-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
+.cta-btn{display:inline-block;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);text-decoration:none;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;transition:all 0.3s}
 .cta-btn:hover{background:var(--amber);color:var(--bg)}
 #mapa{padding:0}
 .map-header{padding:8rem 4rem 4rem;max-width:1100px;margin:0 auto;text-align:center}
-.map-note{font-size:0.78rem;color:var(--cream-dim);margin-top:0.5rem;font-family:sans-serif}
-#overview-map{height:500px;width:100%;border-top:1px solid var(--amber-dim);background:rgba(0,0,0,0.2)}
+.map-note{font-size:0.78rem;color:var(--cream-dim);margin-top:0.5rem;font-family:'DM Sans',sans-serif}
+#overview-map{height:500px;width:100%;border-top:1px solid var(--amber-dim)}
 #o-nas{padding:10rem 4rem;text-align:center;max-width:700px;margin:0 auto}
 #o-nas .section-heading{margin-bottom:2.5rem}
-#o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif}
+#o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:'DM Sans',sans-serif}
 #o-nas p+p{margin-top:1.5rem}
 #kontakt{padding:8rem 4rem;max-width:700px;margin:0 auto;text-align:center}
 #kontakt .section-heading{margin-bottom:1rem}
-.kontakt-sub{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif;margin-bottom:3rem}
+.kontakt-sub{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:'DM Sans',sans-serif;margin-bottom:3rem}
 .cf-field{border:1px solid var(--amber-dim);border-bottom:none;padding:1.2rem 1.4rem;text-align:left}
 .cf-field-last{border:1px solid var(--amber-dim);padding:1.2rem 1.4rem;text-align:left}
-.cf-field label,.cf-field-last label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:sans-serif}
-.cf-field input,.cf-field-last textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:sans-serif;font-size:1rem;outline:none}
+.cf-field label,.cf-field-last label{display:block;font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.75;margin-bottom:0.5rem;font-family:'DM Sans',sans-serif}
+.cf-field input,.cf-field-last textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:1rem;outline:none}
 .cf-field-last textarea{resize:vertical}
 .cf-field input::placeholder,.cf-field-last textarea::placeholder{color:var(--cream-dim)}
 .cf-consent{border:1px solid var(--amber-dim);border-top:none;padding:1rem 1.4rem;display:flex;align-items:flex-start;gap:0.8rem;text-align:left}
 .cf-consent input[type=checkbox]{flex-shrink:0;margin-top:3px;accent-color:var(--amber);width:15px;height:15px;cursor:pointer}
-.cf-consent label{font-size:0.82rem;color:var(--cream-muted);font-family:sans-serif;line-height:1.5;cursor:pointer}
+.cf-consent label{font-size:0.82rem;color:var(--cream-muted);font-family:'DM Sans',sans-serif;line-height:1.5;cursor:pointer}
 .cf-consent a{color:var(--amber);text-decoration:none}
-.cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:sans-serif;cursor:pointer;transition:all 0.3s}
+.cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .cf-btn:hover{background:var(--amber);color:var(--bg)}
-.cf-msg{display:none;margin-top:1.5rem;font-family:sans-serif;font-size:0.9rem}
+.cf-msg{display:none;margin-top:1.5rem;font-family:'DM Sans',sans-serif;font-size:0.9rem}
 .cf-ok{color:var(--amber)}
 .cf-err{color:#e07070}
 .legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
-.legal-page h2{font-family:Georgia,serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
-.legal-page h3{font-family:Georgia,serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
-.legal-page p{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);margin-bottom:1rem;font-family:sans-serif}
+.legal-page h2{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
+.legal-page h3{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
+.legal-page p{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);margin-bottom:1rem;font-family:'DM Sans',sans-serif}
 .legal-page ul{margin-left:1.5rem;margin-bottom:1rem}
-.legal-page ul li{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);font-family:sans-serif}
-.legal-back{display:inline-block;margin-top:3rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);cursor:pointer;font-family:sans-serif}
+.legal-page ul li{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);font-family:'DM Sans',sans-serif}
+.legal-back{display:inline-block;margin-top:3rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);cursor:pointer;font-family:'DM Sans',sans-serif}
 footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
-.footer-logo-text{font-family:Georgia,serif;font-size:1.3rem;letter-spacing:0.1em;color:var(--cream)}
+.footer-logo-text{font-family:'DM Serif Display',serif;font-size:1.3rem;letter-spacing:0.1em;color:var(--cream)}
 .footer-links{list-style:none;display:flex;gap:2rem;flex-wrap:wrap}
-.footer-links a{text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:sans-serif}
+.footer-links a{text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:'DM Sans',sans-serif}
 .footer-links a:hover{color:var(--amber)}
-.footer-copy{font-size:0.66rem;color:rgba(243,239,232,0.22);font-family:sans-serif}
+.footer-copy{font-size:0.66rem;color:rgba(243,239,232,0.22);font-family:'DM Sans',sans-serif}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s,transform 0.7s}
 .reveal.visible{opacity:1;transform:none}
 .custom-marker{width:10px;height:10px;background:var(--amber);border-radius:50%;border:2px solid var(--cream)}
@@ -150,7 +172,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
 .leaflet-popup-tip{background:var(--bg)!important}
 .leaflet-popup-content{margin:0.9rem 1.1rem!important}
-@media(max-width:900px){nav{padding:1.2rem 1.5rem}nav ul{display:none}.hamburger{display:flex}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}#cookie-banner{padding:1.2rem 1.5rem;flex-direction:column;text-align:center}}
+@media(max-width:900px){nav{padding:1.2rem 1.5rem}nav ul{display:none}.hamburger{display:flex}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}#cookie-banner{padding:1.2rem 1.5rem;flex-direction:column;text-align:center}.cookie-btns{justify-content:center}}
 @media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
 </style>
 </head>
@@ -159,7 +181,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 <div id="age-gate">
   <div class="age-gate-box">
     <div class="age-gate-logo">
-      <img src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('age-logo-text').style.display='block'"/>
+      <img src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('age-logo-text').style.display='block'"/>
       <div id="age-logo-text" class="age-gate-logo-text" style="display:none">SOBEER</div>
     </div>
     <h2>Je vám 18 nebo více let?</h2>
@@ -172,13 +194,16 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 </div>
 
 <div id="cookie-banner" style="display:none">
-  <p>Tento web používá pouze technické cookies nezbytné pro jeho fungování. Více v <a href="#" onclick="acceptCookies();showPage('cookies');return false;">Zásadách cookies</a>.</p>
-  <button class="cookie-btn" onclick="acceptCookies()">Rozumím</button>
+  <p>Tento web používá cookies pro zobrazení interaktivních map. Více informací v <a href="#" onclick="acceptCookies();showPage('cookies');return false;">Zásadách cookies</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-reject" onclick="rejectCookies()">Odmítnout</button>
+    <button class="cookie-btn-accept" onclick="acceptCookies()">Přijmout</button>
+  </div>
 </div>
 
 <nav id="nav">
   <a href="#" style="text-decoration:none" onclick="showPage('home');return false;">
-    <img class="nav-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('nav-logo-text').style.display='block'"/>
+    <img class="nav-logo" src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('nav-logo-text').style.display='block'"/>
     <span id="nav-logo-text" class="nav-logo-text" style="display:none">SOBEER</span>
   </a>
   <ul>
@@ -205,8 +230,8 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <div id="main-content">
 <section class="hero">
-  <img class="hero-logo" src="sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
-  <div id="hero-logo-text" style="display:none;font-family:Georgia,serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards">SOBEER</div>
+  <img class="hero-logo" src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
+  <div id="hero-logo-text" class="hero-logo-text" style="display:none;font-family:'DM Serif Display',serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards">SOBEER</div>
   <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
   <p class="hero-claim">Když se 0 počítá.</p>
   <div class="hero-line"></div>
@@ -269,7 +294,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h2>Zásady ochrany osobních údajů</h2>
   <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s platnou legislativou.</p>
   <h3>1. Správce osobních údajů</h3>
-  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
+  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="/cdn-cgi/l/email-protection#791f57120c1b0c0a4e391e14181015571a1614" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="7a1c54110f180f094d3a1d171b131654191517">[email&#160;protected]</span></a></p>
   <h3>2. Jaké údaje zpracovávám a proč</h3>
   <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete: jméno, e-mail, obsah zprávy. Při použití formulářů může být automaticky zaznamenána vaše IP adresa poskytovatelem formulářové služby (Google LLC). Právním základem zpracování je souhlas subjektu údajů.</p>
   <h3>3. Doba uchování údajů</h3>
@@ -277,27 +302,27 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h3>4. Předávání údajů třetím stranám</h3>
   <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> a <strong style="color:var(--cream)">Google Apps Script</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
   <h3>5. Vaše práva</h3>
-  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
+  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="/cdn-cgi/l/email-protection#1771397c627562642057707a767e7b3974787a" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="aec880c5dbccdbdd99eec9c3cfc7c280cdc1c3">[email&#160;protected]</span></a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
 <section id="cookies" class="legal-page">
   <h2>Zásady používání cookies</h2>
-  <p>Tento web používá pouze technické (nezbytné) cookies nutné pro jeho správné fungování.</p>
+  <p>Tento web používá cookies výhradně pro zobrazení interaktivních map (služba Leaflet + CartoDB). Bez těchto cookies jsou mapy nahrazeny textovým oznámením.</p>
   <h3>1. Co jsou cookies</h3>
   <p>Cookies jsou malé textové soubory ukládané do vašeho zařízení při návštěvě webových stránek.</p>
   <h3>2. Jaké cookies používám</h3>
-  <p>Pouze cookies zajišťující základní funkčnost webu. Neumožňují vaši identifikaci a nejsou využívány pro marketing ani analytiku.</p>
-  <h3>3. Cookies třetích stran</h3>
-  <p>Web nepoužívá marketingové ani analytické cookies třetích stran. V případě přechodu na externí služby se mohou uplatnit cookies daného poskytovatele.</p>
-  <h3>4. Správa cookies</h3>
-  <p>Cookies můžete ovlivnit v nastavení vašeho prohlížeče.</p>
+  <p>Používám pouze cookies nezbytné pro zobrazení interaktivních map prostřednictvím služby CartoDB/Leaflet. Tyto cookies neumožňují vaši osobní identifikaci a nejsou využívány pro marketing ani analytiku.</p>
+  <h3>3. Správa souhlasu</h3>
+  <p>Svůj souhlas s cookies můžete kdykoli změnit — stačí vymazat cookies v nastavení vašeho prohlížeče a při příštím načtení stránky se lišta zobrazí znovu.</p>
+  <h3>4. Správa cookies v prohlížeči</h3>
+  <p>Cookies můžete také přímo ovlivnit v nastavení vašeho prohlížeče.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
 <footer>
   <div>
-    <img src="sobeer_logo.png" alt="SOBEER" style="height:34px;display:block" onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
+    <img src="img/sobeer_logo.png" alt="SOBEER" style="height:34px;display:block" onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
     <span id="footer-logo-text" class="footer-logo-text" style="display:none">SOBEER</span>
   </div>
   <ul class="footer-links">
@@ -312,7 +337,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <p class="footer-copy">© 2026 SOBEER. Praha, CZ.</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var BARS=[
   {id:1,name:"Cafe v lese",district:"Vršovice",hood:"Praha 10",type:"Craft bar",serve:"Točené",garden:"Ne",food:"Ne",craft:"Craft",beers:["Chříč Balanc 0% IPA","Paulaner Weissbier 0%","Birrel"],hours:"Pondělí 16–2\nÚterý 16–2\nStředa 16–2\nČtvrtek 16–2\nPátek 16–2\nSobota 16–2\nNeděle 16–0",address:"Krymská 12, 101 00 Praha 10 – Vršovice",desc:"Moderní kulturní prostor a kavárna v srdci Vršovic. Retro interiér s živým hudebním programem a možností návštěvy koncertů v podzemním klubu.",lat:50.0713476,lng:14.448464},
   {id:4,name:"Automat Matuška Hradčanská",district:"Dejvice",hood:"Praha 6",type:"Craft bar",serve:"Točené",garden:"Ano",food:"Ano",craft:"Craft",beers:["Bylinný Střízlivec","Preisler-Motuečka"],hours:"Pondělí 11:30–0\nÚterý 11:30–0\nStředa 11:30–0\nČtvrtek 11:30–0\nPátek 11:30–0\nSobota 12–0\nNeděle 12–22",address:"Dejvická 184/4, 160 00 Praha 6 – Dejvice",desc:"Řemeslný výčep a bistro pivovaru Matuška. Minimalistický design, street food a důraz na čerstvost piva.",lat:50.0980426,lng:14.4042846},
@@ -330,13 +355,55 @@ var BARS=[
 ];
 
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
+var cookiesAccepted=false;
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
 function ageYes(){document.getElementById('age-gate').classList.add('hidden');try{sessionStorage.setItem('sobeer_age','1');}catch(e){}showCookieBanner();}
 function ageNo(){document.querySelector('.age-gate-btns').style.display='none';document.getElementById('age-denied').style.display='block';}
 (function(){try{if(sessionStorage.getItem('sobeer_age')==='1'){document.getElementById('age-gate').classList.add('hidden');showCookieBanner();}}catch(e){}})();
-function showCookieBanner(){try{if(localStorage.getItem('sobeer_cookies')!=='1')document.getElementById('cookie-banner').style.display='flex';}catch(e){document.getElementById('cookie-banner').style.display='flex';}}
-function acceptCookies(){document.getElementById('cookie-banner').style.display='none';try{localStorage.setItem('sobeer_cookies','1');}catch(e){}}
+
+function showCookieBanner(){
+  try{
+    var pref=localStorage.getItem('sobeer_cookies');
+    if(pref==='accepted'){cookiesAccepted=true;loadLeaflet();}
+    else if(pref==='rejected'){cookiesAccepted=false;renderMapPlaceholders();}
+    else{document.getElementById('cookie-banner').style.display='flex';}
+  }catch(e){document.getElementById('cookie-banner').style.display='flex';}
+}
+
+function acceptCookies(){
+  document.getElementById('cookie-banner').style.display='none';
+  cookiesAccepted=true;
+  try{localStorage.setItem('sobeer_cookies','accepted');}catch(e){}
+  loadLeaflet();
+}
+
+function rejectCookies(){
+  document.getElementById('cookie-banner').style.display='none';
+  cookiesAccepted=false;
+  try{localStorage.setItem('sobeer_cookies','rejected');}catch(e){}
+  renderMapPlaceholders();
+}
+
+function renderMapPlaceholders(){
+  var oMap=document.getElementById('overview-map');
+  if(oMap){
+    oMap.style.height='200px';
+    oMap.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()">Nastavení cookies</button></div>';
+  }
+}
+
+function resetCookies(){
+  try{localStorage.removeItem('sobeer_cookies');}catch(e){}
+  document.getElementById('cookie-banner').style.display='flex';
+  var oMap=document.getElementById('overview-map');
+  if(oMap){oMap.innerHTML='';oMap.style.height='500px';}
+}
+
+function miniMapPlaceholder(id){
+  var el=document.getElementById('mm-'+id);
+  if(el){el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p></div>';}
+}
 
 function toggleMenu(){var m=document.getElementById('mobile-menu'),h=document.getElementById('hamburger'),o=m.classList.contains('open');m.classList.toggle('open',!o);h.classList.toggle('open',!o);}
 function closeMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
@@ -362,7 +429,8 @@ function render(){
   var list=document.getElementById('bars-list'),noRes=document.getElementById('no-results'),cnt=document.getElementById('results-count');
   Object.values(miniMaps).forEach(function(m){m.remove();});miniMaps={};list.innerHTML='';
   if(!filtered.length){noRes.style.display='block';cnt.innerHTML='';updateOMap();return;}
-  noRes.style.display='none';var n=filtered.length;
+  noRes.style.display='none';
+  var n=filtered.length;
   cnt.innerHTML='Zobrazeno <strong>'+n+'</strong> '+(n===1?'podnik':n<5?'podniky':'podniků');
   filtered.forEach(function(b){
     var div=document.createElement('div');div.className='bar-item'+(openId===b.id?' open':'');div.dataset.id=b.id;
@@ -379,19 +447,58 @@ function render(){
   });
   if(openId&&filtered.find(function(b){return b.id===openId;}))setTimeout(function(){initMini(openId);},60);
   updateOMap();
+  if(!cookiesAccepted){
+    filtered.forEach(function(b){miniMapPlaceholder(b.id);});
+    renderMapPlaceholders();
+  }
 }
-function toggle(id){openId=(openId===id)?null:id;document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});if(openId)setTimeout(function(){initMini(openId);},380);}
-function initMini(id){if(miniMaps[id]||typeof L==='undefined')return;var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);if(!bar||!el)return;var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);L.marker([bar.lat,bar.lng],{icon:L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(m);miniMaps[id]=m;}
-function initOMap(){if(typeof L==='undefined')return;overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);updateOMap();}
-function updateOMap(){if(!overviewMap)return;oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];if(!filtered.length)return;var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});filtered.forEach(function(b){oMarkers.push(L.marker([b.lat,b.lng],{icon:icon}).bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>').addTo(overviewMap));});overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));}
-function applyFilters(){var s=document.getElementById('search-input').value.toLowerCase(),d=document.getElementById('f-district').value,t=document.getElementById('f-type').value,sv=document.getElementById('f-serve').value,cr=document.getElementById('f-craft').value,g=document.getElementById('f-garden').value;filtered=BARS.filter(function(b){return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))&&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);});openId=null;render();}
+
+function toggle(id){
+  openId=(openId===id)?null:id;
+  document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});
+  if(openId)setTimeout(function(){
+    if(cookiesAccepted)initMini(openId);
+    else miniMapPlaceholder(openId);
+  },380);
+}
+
+function initMini(id){
+  if(miniMaps[id]||typeof L==='undefined')return;
+  var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);
+  if(!bar||!el)return;
+  el.innerHTML='';
+  var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
+  L.marker([bar.lat,bar.lng],{icon:L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(m);
+  miniMaps[id]=m;
+}
+
+function initOMap(){
+  if(typeof L==='undefined')return;
+  overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
+  updateOMap();
+}
+
+function updateOMap(){
+  if(!overviewMap)return;
+  oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];
+  if(!filtered.length)return;
+  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
+  filtered.forEach(function(b){oMarkers.push(L.marker([b.lat,b.lng],{icon:icon}).bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>').addTo(overviewMap));});
+  overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));
+}
+
+function applyFilters(){
+  var s=document.getElementById('search-input').value.toLowerCase(),d=document.getElementById('f-district').value,t=document.getElementById('f-type').value,sv=document.getElementById('f-serve').value,cr=document.getElementById('f-craft').value,g=document.getElementById('f-garden').value;
+  filtered=BARS.filter(function(b){return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))&&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);});
+  openId=null;render();
+}
+
 ['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){document.getElementById(id).addEventListener(id==='search-input'?'input':'change',applyFilters);});
 var ro=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting)setTimeout(function(){e.target.classList.add('visible');},i*60);});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 window.addEventListener('scroll',function(){document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';});
-function loadLeaflet(){var css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.onload=function(){initOMap();};document.head.appendChild(s);}
-render();
-window.addEventListener('load',loadLeaflet);
-</script>
-</body>
-</html>
+
+function loadLeaflet(){
+  var css=do
