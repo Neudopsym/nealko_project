@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://www.sobeer.cz"/>
 <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze"/>
 <meta property="og:description" content="Průvodce bary a restauracemi v Praze s nabídkou nealkoholického piva."/>
-<meta property="og:image" content="https://www.sobeer.cz/img/sobeer_logo.png"/>
+
 <meta property="og:locale" content="cs_CZ"/>
 <meta property="og:site_name" content="SOBEER"/>
 <style>
@@ -67,7 +67,6 @@ nav ul a:hover{color:var(--amber)}
 #mobile-menu ul li:last-child a{border-bottom:none}
 #mobile-menu ul li a:hover{color:var(--amber);background:rgba(196,138,42,0.05)}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12rem 4rem 8rem}
-.hero-logo{display:block;width:min(340px,70vw);margin:0 auto;opacity:0;animation:appear 0.9s 0.2s forwards}
 .hero-logo-text{font-family:'DM Serif Display',serif;font-size:clamp(4rem,12vw,9rem);letter-spacing:0.06em;color:var(--cream);line-height:1;opacity:0;animation:appear 0.9s 0.2s forwards}
 .hero-claim{margin-top:3rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1rem,2vw,1.3rem);color:var(--cream-muted);line-height:1.4;opacity:0;animation:appear 0.9s 0.55s forwards}
 .hero-claim+.hero-claim{margin-top:0.6rem;animation-delay:0.7s}
@@ -172,10 +171,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <div id="age-gate">
   <div class="age-gate-box">
-    <div class="age-gate-logo">
-      <img src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('age-logo-text').style.display='block'"/>
-      <div id="age-logo-text" class="age-gate-logo-text" style="display:none">SOBEER</div>
-    </div>
+    <div class="age-gate-logo-text">SOBEER</div>
     <h2>Je vám 18 nebo více let?</h2>
     <div class="age-gate-btns">
       <button class="age-btn-yes" onclick="ageYes()">Ano, je mi 18+</button>
@@ -195,8 +191,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <nav id="nav">
   <a href="#" style="text-decoration:none" onclick="showPage('home');return false;">
-    <img class="nav-logo" src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('nav-logo-text').style.display='block'"/>
-    <span id="nav-logo-text" class="nav-logo-text" style="display:none">SOBEER</span>
+    <span class="nav-logo-text">SOBEER</span>
   </a>
   <ul>
     <li><a href="#bary">Bary</a></li>
@@ -222,8 +217,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <div id="main-content">
 <section class="hero">
-  <img class="hero-logo" src="img/sobeer_logo.png" alt="SOBEER" onerror="this.style.display='none';document.getElementById('hero-logo-text').style.display='block'"/>
-  <div id="hero-logo-text" class="hero-logo-text" style="display:none">SOBEER</div>
+  <div class="hero-logo-text">SOBEER</div>
   <p class="hero-claim">Pivo bez alkoholu. Chuť bez kompromisu.</p>
   <p class="hero-claim">Když se 0 počítá.</p>
   <div class="hero-line"></div>
@@ -286,7 +280,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h2>Zásady ochrany osobních údajů</h2>
   <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s platnou legislativou.</p>
   <h3>1. Správce osobních údajů</h3>
-  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a></p>
+  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: <a href="/cdn-cgi/l/email-protection#6a0c44011f081f195d2a0d070b030644090507" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="14723a7f6176616723547379757d783a777b79">[email&#160;protected]</span></a></p>
   <h3>2. Jaké údaje zpracovávám a proč</h3>
   <p>Zpracovávám pouze údaje, které mi sami dobrovolně poskytnete: jméno, e-mail, obsah zprávy. Při použití formulářů může být automaticky zaznamenána vaše IP adresa poskytovatelem formulářové služby (Google LLC). Právním základem zpracování je souhlas subjektu údajů.</p>
   <h3>3. Doba uchování údajů</h3>
@@ -294,7 +288,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <h3>4. Předávání údajů třetím stranám</h3>
   <p>Vaše osobní údaje nejsou předávány třetím stranám pro marketingové účely. Pro sběr dat z formulářů využívám <strong style="color:var(--cream)">Google Forms</strong> a <strong style="color:var(--cream)">Google Apps Script</strong> (Google LLC, USA). Odesláním formuláře souhlasíte s <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a>.</p>
   <h3>5. Vaše práva</h3>
-  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="mailto:f.kubus7@gmail.com" style="color:var(--amber);text-decoration:none">f.kubus7@gmail.com</a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
+  <p>Máte právo požadovat přístup, opravu nebo výmaz svých údajů. Kontaktujte mě na <a href="/cdn-cgi/l/email-protection#3d5b1356485f484e0a7d5a505c5451135e5250" style="color:var(--amber);text-decoration:none"><span class="__cf_email__" data-cfemail="5c3a7237293e292f6b1c3b313d3530723f3331">[email&#160;protected]</span></a>. Máte také právo podat stížnost u <a href="https://www.uoou.cz" target="_blank" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a>.</p>
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
@@ -312,8 +306,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <footer>
   <div>
-    <img src="img/sobeer_logo.png" alt="SOBEER" style="height:34px;display:block" onerror="this.style.display='none';document.getElementById('footer-logo-text').style.display='block'"/>
-    <span id="footer-logo-text" class="footer-logo-text" style="display:none">SOBEER</span>
+    <span class="footer-logo-text">SOBEER</span>
   </div>
   <ul class="footer-links">
     <li><a href="#bary">Bary</a></li>
@@ -321,12 +314,4 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
     <li><a href="#o-nas">O projektu</a></li>
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
     <li><a onclick="showPage('cookies')">Cookies</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
-  <p class="footer-copy">© 2026 SOBEER. Praha, CZ.</p>
-</footer>
-
-<script src="sobeer.js"></script>
-</body>
-</html>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRb
