@@ -73,7 +73,7 @@ function resetCookies(){
 }
 function miniMapPlaceholder(id){
   var el=document.getElementById('mm-'+id);
-  if(el){el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p></div>';}
+  if(el){el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()">Nastavení cookies</button></div>';}
 }
 
 // HAMBURGER
