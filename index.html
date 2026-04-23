@@ -45,7 +45,7 @@ body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;fo
 .cookie-btn-accept:hover{background:transparent;color:var(--amber)}
 .cookie-btn-reject{padding:0.6rem 1.8rem;border:1px solid rgba(243,239,232,0.2);background:transparent;color:var(--cream-dim);font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .cookie-btn-reject:hover{border-color:var(--cream-dim);color:var(--cream)}
-.map-placeholder{display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);border:1px solid var(--amber-dim);flex-direction:column;gap:1rem;min-height:220px;height:100%}
+.map-placeholder{display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.2);border:1px solid var(--amber-dim);flex-direction:column;gap:1rem;min-height:220px;height:100%;position:relative;z-index:2}
 .map-placeholder p{font-size:1.1rem;color:var(--cream-dim);font-family:'DM Sans',sans-serif;text-align:center;padding:0 1rem}
 .map-placeholder button{padding:0.5rem 1.4rem;border:1px solid var(--amber-dim);background:transparent;color:var(--amber);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .map-placeholder button:hover{background:var(--amber);color:var(--bg)}
@@ -101,7 +101,7 @@ nav ul a:hover{color:var(--amber)}
 .pill.on{border-color:rgba(196,138,42,0.38);color:rgba(196,138,42,0.75)}
 .toggle-btn{width:32px;height:32px;flex-shrink:0;border:1px solid var(--amber-dim);border-radius:50%;background:transparent;cursor:pointer;color:var(--amber);font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.35s}
 .bar-item.open .toggle-btn{background:var(--amber);color:var(--bg);transform:rotate(45deg)}
-.bar-detail{max-height:0;overflow:hidden;transition:max-height 0.65s cubic-bezier(0.4,0,0.2,1)}
+.bar-detail{max-height:0;overflow:hidden;transition:max-height 0.65s cubic-bezier(0.4,0,0.2,1);position:relative;z-index:1}
 .bar-item.open .bar-detail{max-height:900px;overflow:visible}
 .bar-detail-inner{display:grid;grid-template-columns:1fr 280px;gap:4rem;border-top:1px solid var(--amber-dim);padding:2.5rem 0 3rem;overflow:visible}
 .detail-cols{display:grid;grid-template-columns:1fr 1fr}
