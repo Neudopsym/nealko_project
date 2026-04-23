@@ -102,8 +102,8 @@ nav ul a:hover{color:var(--amber)}
 .toggle-btn{width:32px;height:32px;flex-shrink:0;border:1px solid var(--amber-dim);border-radius:50%;background:transparent;cursor:pointer;color:var(--amber);font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.35s}
 .bar-item.open .toggle-btn{background:var(--amber);color:var(--bg);transform:rotate(45deg)}
 .bar-detail{max-height:0;overflow:hidden;transition:max-height 0.65s cubic-bezier(0.4,0,0.2,1)}
-.bar-item.open .bar-detail{max-height:900px}
-.bar-detail-inner{display:grid;grid-template-columns:1fr 280px;gap:4rem;border-top:1px solid var(--amber-dim);padding:2.5rem 0 3rem}
+.bar-item.open .bar-detail{max-height:900px;overflow:visible}
+.bar-detail-inner{display:grid;grid-template-columns:1fr 280px;gap:4rem;border-top:1px solid var(--amber-dim);padding:2.5rem 0 3rem;overflow:visible}
 .detail-cols{display:grid;grid-template-columns:1fr 1fr}
 .detail-col{display:flex;flex-direction:column;gap:1.8rem}
 .detail-col:first-child{padding-right:2rem}
