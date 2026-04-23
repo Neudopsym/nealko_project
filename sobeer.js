@@ -73,7 +73,7 @@ function resetCookies(){
 }
 function miniMapPlaceholder(id){
   var el=document.getElementById('mm-'+id);
-  if(el){el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()">Nastavení cookies</button></div>';}
+  if(el){el.innerHTML='<div style="height:220px;background:rgba(0,0,0,0.2);border:1px solid rgba(196,138,42,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;position:relative"><p style="font-size:0.78rem;color:rgba(243,239,232,0.4);font-family:DM Sans,sans-serif;text-align:center;padding:0 1rem">Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()" style="padding:0.5rem 1.4rem;border:1px solid rgba(196,138,42,0.3);background:transparent;color:#C48A2A;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-family:DM Sans,sans-serif;cursor:pointer">Nastavení cookies</button></div>';}
 }
 
 // HAMBURGER
