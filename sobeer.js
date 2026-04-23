@@ -196,6 +196,7 @@ function initMini(id){
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
   L.marker([bar.lat,bar.lng],{icon:L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(m);
   miniMaps[id]=m;
+  setTimeout(function(){m.invalidateSize();},50);
 }
 
 function initOMap(){
