@@ -181,7 +181,12 @@ function render(){
 
 function toggle(id){
   openId=(openId===id)?null:id;
-  document.querySelectorAll('.bar-item').forEach(function(el){el.classList.toggle('open',+el.dataset.id===openId);});
+  document.querySelectorAll('.bar-item').forEach(function(el){
+    var isOpen=+el.dataset.id===openId;
+    el.classList.toggle('open',isOpen);
+    var detail=el.querySelector('.bar-detail');
+    if(detail)detail.style.maxHeight=isOpen?detail.scrollHeight+'px':'0px';
+  });
   if(openId)setTimeout(function(){
     if(cookiesAccepted)initMini(openId);else miniMapPlaceholder(openId);
   },380);
