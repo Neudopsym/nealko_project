@@ -69,7 +69,7 @@ function resetCookies(){
   try{localStorage.removeItem('sobeer_cookies');}catch(e){}
   document.getElementById('cookie-banner').style.display='flex';
   var oMap=document.getElementById('overview-map');
-  if(oMap){oMap.innerHTML='';oMap.style.height='500px';}
+  if(oMap){oMap.innerHTML='';oMap.style.height='700px';}
 }
 function miniMapPlaceholder(id){
   var el=document.getElementById('mm-'+id);
@@ -96,6 +96,13 @@ function showPage(id){
   document.getElementById('gdpr').style.display=id==='gdpr'?'block':'none';
   document.getElementById('cookies').style.display=id==='cookies'?'block':'none';
   window.scrollTo(0,0);
+}
+function navGoTo(anchor){
+  document.getElementById('main-content').style.display='';
+  document.getElementById('gdpr').style.display='none';
+  document.getElementById('cookies').style.display='none';
+  var el=document.querySelector(anchor);
+  if(el)el.scrollIntoView({behavior:'smooth'});
 }
 
 // CONTACT FORM
@@ -165,7 +172,7 @@ function render(){
               +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
             +'</div>'
           +'</div>'
-          +'<div class="detail-desc">'+b.desc+'</div>'
+          +'<div class="detail-desc">'+b.desc+'<span style="font-size:0.72rem;font-style:italic;color:rgba(243,239,232,0.25);margin-top:1.2rem;display:block;">* Informace o nabídce nealkoholických piv mají informativní charakter a mohou se měnit. Doporučujeme si dostupnost ověřit přímo v podniku.</span></div>'
         +'</div>'
         +'<div><div class="mini-map-label">Poloha</div><div class="mini-map" id="mm-'+b.id+'"></div></div>'
       +'</div></div>';
