@@ -126,7 +126,7 @@ nav ul a:hover{color:var(--amber)}
 .map-header{padding:8rem 4rem 4rem;max-width:1100px;margin:0 auto;text-align:center}
 .map-header .section-heading{margin-bottom:3rem}
 .map-note{font-size:0.78rem;color:var(--cream-dim);margin-top:0;font-family:'DM Sans',sans-serif}
-#overview-map{height:500px;width:100%;border-top:1px solid var(--amber-dim)}
+#overview-map{height:700px;width:100%;border-top:1px solid var(--amber-dim)}
 #o-nas{padding:10rem 4rem;text-align:center;max-width:700px;margin:0 auto}
 #o-nas .section-heading{margin-bottom:2.5rem}
 #o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:'DM Sans',sans-serif}
@@ -202,11 +202,11 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
     <span class="nav-logo-text">SOBEER</span>
   </a>
   <ul>
-    <li><a href="#bary">Bary</a></li>
-    <li><a href="#mapa">Mapa</a></li>
-    <li><a href="#o-nas">O projektu</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#bary" onclick="navGoTo('#bary');return false;">Bary</a></li>
+    <li><a href="#mapa" onclick="navGoTo('#mapa');return false;">Mapa</a></li>
+    <li><a href="#o-nas" onclick="navGoTo('#o-nas');return false;">O projektu</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" onclick="showPage('home')">Přidat podnik</a></li>
+    <li><a href="#kontakt" onclick="navGoTo('#kontakt');return false;">Kontakt</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -215,11 +215,11 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <div id="mobile-menu">
   <ul>
-    <li><a href="#bary" onclick="closeMenu()">Bary</a></li>
-    <li><a href="#mapa" onclick="closeMenu()">Mapa</a></li>
-    <li><a href="#o-nas" onclick="closeMenu()">O projektu</a></li>
-    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" onclick="closeMenu()">Přidat podnik</a></li>
-    <li><a href="#kontakt" onclick="closeMenu()">Kontakt</a></li>
+    <li><a href="#bary" onclick="closeMenu();navGoTo('#bary');return false;">Bary</a></li>
+    <li><a href="#mapa" onclick="closeMenu();navGoTo('#mapa');return false;">Mapa</a></li>
+    <li><a href="#o-nas" onclick="closeMenu();navGoTo('#o-nas');return false;">O projektu</a></li>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" onclick="closeMenu();showPage('home')">Přidat podnik</a></li>
+    <li><a href="#kontakt" onclick="closeMenu();navGoTo('#kontakt');return false;">Kontakt</a></li>
   </ul>
 </div>
 
