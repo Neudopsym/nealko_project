@@ -71,7 +71,7 @@ function resetCookies(){
   try{localStorage.removeItem('sobeer_cookies');}catch(e){}
   document.getElementById('cookie-banner').style.display='flex';
   var oMap=document.getElementById('overview-map');
-  if(oMap){oMap.innerHTML='';oMap.style.height='700px';}
+  if(oMap){oMap.innerHTML='';}
 }
 function miniMapPlaceholder(id){
   var el=document.getElementById('mm-'+id);
@@ -218,6 +218,7 @@ function initOMap(){
   overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
   updateOMap();
+  setTimeout(function(){overviewMap.invalidateSize();updateOMap();},200);
 }
 
 function updateOMap(){
