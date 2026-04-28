@@ -267,7 +267,7 @@ function loadLeaflet(){
   document.head.appendChild(css);
   var s=document.createElement('script');
   s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  s.onload=function(){initOMap();if(openId)initMini(openId);};
+  s.onload=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){initOMap();if(openId)initMini(openId);});});};
   document.head.appendChild(s);
 }
 
