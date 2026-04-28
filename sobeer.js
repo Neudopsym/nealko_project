@@ -215,10 +215,11 @@ function initMini(id){
 
 function initOMap(){
   if(typeof L==='undefined')return;
-  overviewMap=L.map('overview-map',{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
+  var el=document.getElementById('overview-map');
+  el.style.height='350px';
+  overviewMap=L.map(el,{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
   updateOMap();
-  setTimeout(function(){overviewMap.invalidateSize();updateOMap();},200);
 }
 
 function updateOMap(){
