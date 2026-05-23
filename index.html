@@ -117,7 +117,7 @@ nav ul a:hover{color:var(--amber)}
 .mini-map-label{font-size:0.56rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);opacity:0.65;margin-bottom:0.6rem;font-family:'DM Sans',sans-serif}
 .mini-map{height:220px;min-height:220px;border:1px solid var(--amber-dim)}.mini-map{height:220px!important;min-height:220px!important}
 .no-results{display:none;text-align:center;padding:6rem 0;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.3rem;color:var(--cream-dim)}
-.cta-add{max-width:1100px;margin:0 auto;padding:5rem 4rem;text-align:center;border-top:1px solid var(--amber-dim)}
+.cta-add{max-width:1100px;margin:0 auto;padding:5rem 4rem;text-align:center}
 .cta-add p{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1rem,2vw,1.2rem);color:var(--cream-muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
 .cta-btn{display:inline-block;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);text-decoration:none;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;transition:all 0.3s}
 .cta-btn:hover{background:var(--amber);color:var(--bg)}
@@ -230,12 +230,13 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <p>Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé podniky. Znáš podnik, který bychom měli přidat? Pošli nám ho a pomoz nám vybudovat databázi SOBEER.</p>
   <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a>
 </div>
-  
+
+<section id="bary">
+
 <div id="mapa">
   <div id="overview-map"></div>
 </div>
 
-<section id="bary">
   <div class="search-wrap reveal"><input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/></div>
   <div class="filters reveal">
     <div class="filter-group"><span class="filter-label">Lokalita</span><select id="f-district"><option value="">Všechny lokality</option><option>Vršovice</option><option>Vinohrady</option><option>Dejvice</option><option>Karlín</option><option>Žižkov</option><option>Uhříněves</option><option>Libeň</option></select></div>
