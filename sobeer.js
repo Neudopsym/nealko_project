@@ -17,14 +17,13 @@ var BARS=[
 ];
 
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
-var cookiesAccepted=false;
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
 // AGE GATE
 function ageYes(){
   document.getElementById('age-gate').classList.add('hidden');
   try{sessionStorage.setItem('sobeer_age','1');}catch(e){}
-  showCookieBanner();
+  render();
 }
 function ageNo(){
   document.querySelector('.age-gate-btns').style.display='none';
@@ -34,49 +33,9 @@ function ageNo(){
   try{
     if(sessionStorage.getItem('sobeer_age')==='1'){
       document.getElementById('age-gate').classList.add('hidden');
-      showCookieBanner();
     }
   }catch(e){}
 })();
-
-// COOKIES
-function showCookieBanner(){
-  try{
-    var pref=localStorage.getItem('sobeer_cookies');
-    if(pref==='accepted'){cookiesAccepted=true;loadLeaflet();}
-    else if(pref==='rejected'){cookiesAccepted=false;renderMapPlaceholders();}
-    else{document.getElementById('cookie-banner').style.display='flex';}
-  }catch(e){document.getElementById('cookie-banner').style.display='flex';}
-}
-function acceptCookies(){
-  document.getElementById('cookie-banner').style.display='none';
-  cookiesAccepted=true;
-  try{localStorage.setItem('sobeer_cookies','accepted');}catch(e){}
-  loadLeaflet();
-}
-function rejectCookies(){
-  document.getElementById('cookie-banner').style.display='none';
-  cookiesAccepted=false;
-  try{localStorage.setItem('sobeer_cookies','rejected');}catch(e){}
-  renderMapPlaceholders();
-}
-function renderMapPlaceholders(){
-  var oMap=document.getElementById('overview-map');
-  if(oMap){
-    oMap.style.height='200px';
-    oMap.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()">Nastavení cookies</button></div>';
-  }
-}
-function resetCookies(){
-  try{localStorage.removeItem('sobeer_cookies');}catch(e){}
-  document.getElementById('cookie-banner').style.display='flex';
-  var oMap=document.getElementById('overview-map');
-  if(oMap){oMap.innerHTML='';}
-}
-function miniMapPlaceholder(id){
-  var el=document.getElementById('mm-'+id);
-  if(el){el.innerHTML='<div style="height:220px;background:rgba(0,0,0,0.2);border:1px solid rgba(196,138,42,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;position:relative"><p style="font-size:0.78rem;color:rgba(243,239,232,0.4);font-family:DM Sans,sans-serif;text-align:center;padding:0 1rem">Pro zobrazení mapy povolte cookies</p><button onclick="resetCookies()" style="padding:0.5rem 1.4rem;border:1px solid rgba(196,138,42,0.3);background:transparent;color:#C48A2A;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;font-family:DM Sans,sans-serif;cursor:pointer">Nastavení cookies</button></div>';}
-}
 
 // HAMBURGER
 function toggleMenu(){
@@ -122,6 +81,108 @@ function submitForm(e){
   .catch(function(){err.style.display='block';btn.textContent='Odeslat zprávu';btn.disabled=false;});
 }
 
+// GOOGLE MAPS
+function initGoogleMaps(){
+  var el=document.getElementById('overview-map');
+  if(!el)return;
+  overviewMap=new google.maps.Map(el,{
+    center:{lat:50.086,lng:14.42},
+    zoom:13,
+    styles:[
+      {elementType:'geometry',stylers:[{color:'#1C3F44'}]},
+      {elementType:'labels.text.fill',stylers:[{color:'#F3EFE8'}]},
+      {elementType:'labels.text.stroke',stylers:[{color:'#1C3F44'}]},
+      {featureType:'road',elementType:'geometry',stylers:[{color:'#2d5c63'}]},
+      {featureType:'road',elementType:'labels.text.fill',stylers:[{color:'#C48A2A'}]},
+      {featureType:'water',elementType:'geometry',stylers:[{color:'#0e2426'}]},
+      {featureType:'poi',stylers:[{visibility:'off'}]},
+      {featureType:'transit',stylers:[{visibility:'off'}]}
+    ],
+    mapTypeControl:false,
+    streetViewControl:false,
+    fullscreenControl:false
+  });
+
+  // Geolokace
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var userPos={lat:pos.coords.latitude,lng:pos.coords.longitude};
+      new google.maps.Marker({
+        position:userPos,
+        map:overviewMap,
+        icon:{path:google.maps.SymbolPath.CIRCLE,scale:8,fillColor:'#4285F4',fillOpacity:1,strokeColor:'#fff',strokeWeight:2},
+        title:'Vaše poloha'
+      });
+      overviewMap.setCenter(userPos);
+      overviewMap.setZoom(14);
+    },function(){});
+  }
+
+  updateOMap();
+}
+
+function updateOMap(){
+  if(!overviewMap)return;
+  oMarkers.forEach(function(m){m.setMap(null);});oMarkers=[];
+  var toShow=filtered.filter(function(b){return b.craft!=='Birell';});
+  // Pokud je aktivní filtr Birell, zobraz i Birell podniky
+  var cr=document.getElementById('f-craft')?document.getElementById('f-craft').value:'';
+  if(cr==='Birell')toShow=filtered;
+  if(!toShow.length)return;
+  var bounds=new google.maps.LatLngBounds();
+  toShow.forEach(function(b){
+    var marker=new google.maps.Marker({
+      position:{lat:b.lat,lng:b.lng},
+      map:overviewMap,
+      title:b.name,
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:7,fillColor:'#C48A2A',fillOpacity:1,strokeColor:'#F3EFE8',strokeWeight:2}
+    });
+    var mapsUrl='https://www.google.com/maps/search/?api=1&query='+b.lat+','+b.lng;
+    var iw=new google.maps.InfoWindow({
+      content:'<div style="font-family:sans-serif;color:#1C3F44;max-width:200px">'
+        +'<strong style="font-size:14px">'+b.name+'</strong>'
+        +'<p style="font-size:12px;margin:4px 0;color:#555">'+b.address+'</p>'
+        +'<a href="'+mapsUrl+'" target="_blank" style="font-size:12px;color:#C48A2A;font-weight:600">Otevřít v Google Maps →</a>'
+        +'</div>'
+    });
+    marker.addListener('click',function(){iw.open(overviewMap,marker);});
+    oMarkers.push(marker);
+    bounds.extend({lat:b.lat,lng:b.lng});
+  });
+  if(toShow.length>1)overviewMap.fitBounds(bounds);
+}
+
+function initMini(id){
+  if(miniMaps[id])return;
+  var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);
+  if(!bar||!el)return;
+  el.innerHTML='';
+  var m=new google.maps.Map(el,{
+    center:{lat:bar.lat,lng:bar.lng},
+    zoom:15,
+    styles:[
+      {elementType:'geometry',stylers:[{color:'#1C3F44'}]},
+      {elementType:'labels.text.fill',stylers:[{color:'#F3EFE8'}]},
+      {elementType:'labels.text.stroke',stylers:[{color:'#1C3F44'}]},
+      {featureType:'road',elementType:'geometry',stylers:[{color:'#2d5c63'}]},
+      {featureType:'road',elementType:'labels.text.fill',stylers:[{color:'#C48A2A'}]},
+      {featureType:'water',elementType:'geometry',stylers:[{color:'#0e2426'}]},
+      {featureType:'poi',stylers:[{visibility:'off'}]},
+      {featureType:'transit',stylers:[{visibility:'off'}]}
+    ],
+    mapTypeControl:false,
+    streetViewControl:false,
+    fullscreenControl:false,
+    zoomControl:false
+  });
+  new google.maps.Marker({
+    position:{lat:bar.lat,lng:bar.lng},
+    map:m,
+    icon:{path:google.maps.SymbolPath.CIRCLE,scale:7,fillColor:'#C48A2A',fillOpacity:1,strokeColor:'#F3EFE8',strokeWeight:2}
+  });
+  miniMaps[id]=m;
+}
+
 // BARS
 function render(){
   filtered=filtered.slice().sort(function(a,b){
@@ -136,7 +197,7 @@ function render(){
     return p(a)-p(b);
   });
   var list=document.getElementById('bars-list'),noRes=document.getElementById('no-results'),cnt=document.getElementById('results-count');
-  Object.values(miniMaps).forEach(function(m){m.remove();});miniMaps={};list.innerHTML='';
+  Object.keys(miniMaps).forEach(function(k){miniMaps[k].setMap&&miniMaps[k].setMap(null);});miniMaps={};list.innerHTML='';
   if(!filtered.length){noRes.style.display='block';cnt.innerHTML='';updateOMap();return;}
   noRes.style.display='none';
   var n=filtered.length;
@@ -167,10 +228,10 @@ function render(){
             +'<div class="detail-col">'
               +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div></div>'
               +'<div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
-            +'</div>'      
+            +'</div>'
             +'<div class="detail-col">'
-              +'<div><div class="dl-label">Čepované</div><div class="dl-value">'+(function(){var t=b.beers.filter(function(x){return x.serve==='Čepované'||x.serve==='Točené/Lahvové';});return t.length?t.map(function(x){return x.name;}).join('\n'):'Není v nabídce';})()+'</div></div>'
-              +'<div><div class="dl-label">Lahvové</div><div class="dl-value">'+(function(){var t=b.beers.filter(function(x){return x.serve==='Lahvové'||x.serve==='Točené/Lahvové';});return t.length?t.map(function(x){return x.name;}).join('\n'):'Není v nabídce';})()+'</div></div>'
+              +'<div><div class="dl-label">Čepované</div><div class="dl-value">'+(function(){var t=b.beers.filter(function(x){return x.serve==='Čepované';});return t.length?t.map(function(x){return x.name+' — '+x.cat;}).join('\n'):'Není v nabídce';})()+'</div></div>'
+              +'<div><div class="dl-label">Lahvové</div><div class="dl-value">'+(function(){var t=b.beers.filter(function(x){return x.serve==='Lahvové';});return t.length?t.map(function(x){return x.name+' — '+x.cat;}).join('\n'):'Není v nabídce';})()+'</div></div>'
               +'<div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div>'
               +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
             +'</div>'
@@ -181,12 +242,8 @@ function render(){
       +'</div></div>';
     list.appendChild(div);
   });
-  if(openId&&filtered.find(function(b){return b.id===openId;}))setTimeout(function(){
-    if(cookiesAccepted)initMini(openId);else miniMapPlaceholder(openId);
-  },60);
-  if(!cookiesAccepted)filtered.forEach(function(b){miniMapPlaceholder(b.id);});
+  if(openId&&filtered.find(function(b){return b.id===openId;}))setTimeout(function(){initMini(openId);},60);
   updateOMap();
-  if(!cookiesAccepted)renderMapPlaceholders();
 }
 
 function toggle(id){
@@ -197,43 +254,7 @@ function toggle(id){
     var detail=el.querySelector('.bar-detail');
     if(detail)detail.style.maxHeight=isOpen?detail.scrollHeight+'px':'0px';
   });
-  if(openId)setTimeout(function(){
-    if(cookiesAccepted)initMini(openId);else miniMapPlaceholder(openId);
-  },380);
-}
-
-function initMini(id){
-  if(miniMaps[id]||typeof L==='undefined')return;
-  var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);
-  if(!bar||!el)return;
-  el.innerHTML='';
-  var m=L.map(el,{zoomControl:false,attributionControl:false}).setView([bar.lat,bar.lng],15);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(m);
-  L.marker([bar.lat,bar.lng],{icon:L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]})}).addTo(m);
-  miniMaps[id]=m;
-  setTimeout(function(){m.invalidateSize();},150);
-}
-
-function initOMap(){
-  if(typeof L==='undefined')return;
-  var el=document.getElementById('overview-map');
-  el.style.height='350px';
-  overviewMap=L.map(el,{zoomControl:true,attributionControl:false}).setView([50.086,14.42],13);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19}).addTo(overviewMap);
-  updateOMap();
-}
-
-function updateOMap(){
-  if(!overviewMap)return;
-  oMarkers.forEach(function(m){overviewMap.removeLayer(m);});oMarkers=[];
-  if(!filtered.length)return;
-  var icon=L.divIcon({className:'',html:'<div class="custom-marker"></div>',iconSize:[10,10],iconAnchor:[5,5]});
-  filtered.forEach(function(b){
-    oMarkers.push(L.marker([b.lat,b.lng],{icon:icon})
-      .bindPopup('<strong>'+b.name+'</strong><br/><span style="font-size:0.72rem;opacity:0.55">'+b.address+'</span>')
-      .addTo(overviewMap));
-  });
-  overviewMap.fitBounds(L.featureGroup(oMarkers).getBounds().pad(0.25));
+  if(openId)setTimeout(function(){initMini(openId);},380);
 }
 
 function applyFilters(){
@@ -247,7 +268,7 @@ function applyFilters(){
     return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.name.toLowerCase().includes(s);}))
       &&(!d||b.district===d)
       &&(!t||b.type===t)
-      &&(!sv||b.beers.some(function(x){return x.serve===sv||x.serve==='Točené/Lahvové';}))
+      &&(!sv||b.beers.some(function(x){return x.serve===sv;}))
       &&(!cr||b.beers.some(function(x){return x.cat===cr;}))
       &&(!g||b.garden===g);
   });
@@ -266,15 +287,5 @@ document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 window.addEventListener('scroll',function(){
   document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
 });
-
-function loadLeaflet(){
-  var css=document.createElement('link');css.rel='stylesheet';
-  css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-  document.head.appendChild(css);
-  var s=document.createElement('script');
-  s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-  s.onload=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){initOMap();if(openId)initMini(openId);});});};
-  document.head.appendChild(s);
-}
 
 render();
