@@ -244,8 +244,12 @@ function applyFilters(){
       cr=document.getElementById('f-craft').value,
       g=document.getElementById('f-garden').value;
   filtered=BARS.filter(function(b){
-    return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.toLowerCase().includes(s);}))
-      &&(!d||b.district===d)&&(!t||b.type===t)&&(!sv||b.serve===sv)&&(!cr||b.craft===cr)&&(!g||b.garden===g);
+    return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.name.toLowerCase().includes(s);}))
+      &&(!d||b.district===d)
+      &&(!t||b.type===t)
+      &&(!sv||b.beers.some(function(x){return x.serve===sv||x.serve==='Točené/Lahvové';}))
+      &&(!cr||b.beers.some(function(x){return x.cat===cr;}))
+      &&(!g||b.garden===g);
   });
   openId=null;render();
 }
