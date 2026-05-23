@@ -125,7 +125,8 @@ nav ul a:hover{color:var(--amber)}
 .map-header{padding:8rem 4rem 4rem;max-width:1100px;margin:0 auto;text-align:center}
 .map-header .section-heading{margin-bottom:3rem}
 .map-note{font-size:0.78rem;color:var(--cream-dim);margin-top:0;font-family:'DM Sans',sans-serif}
-#overview-map{height:350px;width:100%;border-top:1px solid var(--amber-dim)}
+#overview-map{height:700px;width:100%;border-top:1px solid var(--amber-dim)}
+@media(max-width:900px){#overview-map{height:400px}}
 #o-nas{padding:10rem 4rem;text-align:center;max-width:700px;margin:0 auto}
 #o-nas .section-heading{margin-bottom:2.5rem}
 #o-nas p{font-size:0.95rem;line-height:1.9;color:var(--cream-muted);font-family:'DM Sans',sans-serif}
@@ -164,13 +165,10 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s,transform 0.7s}
 .reveal.visible{opacity:1;transform:none}
 .custom-marker{width:10px;height:10px;background:var(--amber);border-radius:50%;border:2px solid var(--cream)}
-.leaflet-container{background:#132a2e!important}
-.leaflet-popup-content-wrapper{background:var(--bg)!important;border:1px solid var(--amber-dim)!important;border-radius:0!important;color:var(--cream)!important}
-.leaflet-popup-tip{background:var(--bg)!important}
-.leaflet-popup-content{margin:0.9rem 1.1rem!important}
 @media(max-width:900px){nav{padding:1.2rem 1.5rem}nav ul{display:none}.hamburger{display:flex}#bary,.map-header,#o-nas,#kontakt,.legal-page,.cta-add{padding-left:1.5rem;padding-right:1.5rem}.filters{grid-template-columns:1fr 1fr}.bar-detail-inner{grid-template-columns:1fr;gap:2rem}.detail-cols{grid-template-columns:1fr}.detail-col:first-child{padding-right:0}.bar-header{padding:1.6rem 0;flex-wrap:wrap}.bar-header-right{width:100%;justify-content:space-between;margin-top:0.5rem}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}#cookie-banner{padding:1.2rem 1.5rem;flex-direction:column;text-align:center}.cookie-btns{justify-content:center}.mini-map{height:200px}}
 @media(max-width:560px){.filters{grid-template-columns:1fr}.pills{display:none}}
 </style>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBamFaNiV1DIVmyvzAj6Gs9_Rw7Uuly61w&callback=initGoogleMaps"></script>
 </head>
 <body>
 
@@ -232,10 +230,18 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 
 <section id="bary">
   <h2 class="section-heading reveal">Objev podniky s nabídkou nealko piv.</h2>
-
+  
 <div class="cta-add">
   <p>Tento portál je zatím v počátcích a je náročné zmapovat všechny skvělé podniky. Znáš podnik, který bychom měli přidat? Pošli nám ho a pomoz nám vybudovat databázi SOBEER.</p>
   <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank">Přidat podnik</a>
+</div>
+  
+<div id="mapa">
+  <div class="map-header">
+    <h2 class="section-heading reveal">Bary na mapě</h2>
+    <p class="map-note reveal">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
+  </div>
+  <div id="overview-map"></div>
 </div>
   
   <div class="search-wrap reveal"><input type="text" id="search-input" placeholder="Hledat bar, čtvrť, typ piva…"/></div>
@@ -250,14 +256,6 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
   <div class="bars-list" id="bars-list"></div>
   <div class="no-results" id="no-results">Žádné podniky neodpovídají vašemu hledání.</div>
 </section>
-
-<div id="mapa">
-  <div class="map-header">
-    <h2 class="section-heading reveal">Bary na mapě</h2>
-    <p class="map-note reveal">Zobrazeny jsou pouze aktuálně filtrované výsledky.</p>
-  </div>
-  <div id="overview-map"></div>
-</div>
 
 <section id="o-nas">
   <h2 class="section-heading reveal">O projektu</h2>
