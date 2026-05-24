@@ -19,6 +19,38 @@ var BARS=[
 var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
 
+var mapsAccepted=false;
+
+window.addEventListener('CookiebotOnAccept',function(){
+  if(Cookiebot.consent.preferences||Cookiebot.consent.statistics||Cookiebot.consent.marketing){
+    mapsAccepted=true;
+    loadGoogleMaps();
+  }
+},false);
+
+window.addEventListener('CookiebotOnDecline',function(){
+  mapsAccepted=false;
+  showMapPlaceholders();
+},false);
+
+function loadGoogleMaps(){
+  if(typeof google!=='undefined'&&typeof google.maps!=='undefined'){
+    initGoogleMaps();
+    return;
+  }
+  var s=document.createElement('script');
+  s.src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBamFaNiV1DIVmyvzAj6Gs9_Rw7Uuly61w&callback=initGoogleMaps';
+  document.head.appendChild(s);
+}
+
+function showMapPlaceholders(){
+  var oMap=document.getElementById('overview-map');
+  if(oMap){oMap.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy potvrďte cookies</p></div>';}
+  document.querySelectorAll('.mini-map').forEach(function(el){
+    el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy potvrďte cookies</p></div>';
+  });
+}
+
 // AGE GATE
 function ageYes(){
   document.getElementById('age-gate').classList.add('hidden');
