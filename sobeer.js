@@ -45,9 +45,9 @@ function loadGoogleMaps(){
 
 function showMapPlaceholders(){
   var oMap=document.getElementById('overview-map');
-  if(oMap){oMap.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy potvrďte cookies</p></div>';}
+  if(oMap){oMap.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy prosím potvrďte cookies v levém dolním rohu.</p></div>';}
   document.querySelectorAll('.mini-map').forEach(function(el){
-    el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy potvrďte cookies</p></div>';
+    el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy prosím potvrďte cookies v levém dolním rohu.</p></div>';
   });
 }
 
@@ -286,7 +286,13 @@ function toggle(id){
     var detail=el.querySelector('.bar-detail');
     if(detail)detail.style.maxHeight=isOpen?detail.scrollHeight+'px':'0px';
   });
-  if(openId)setTimeout(function(){initMini(openId);},380);
+  if(openId)setTimeout(function(){
+  if(mapsAccepted)initMini(openId);
+  else{
+    var el=document.getElementById('mm-'+openId);
+    if(el)el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy prosím potvrďte cookies v levém dolním rohu.</p></div>';
+  }
+},380);
 }
 
 function applyFilters(){
