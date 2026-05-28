@@ -159,10 +159,15 @@ function initGoogleMaps(){
 function updateOMap(){
   if(!overviewMap)return;
   oMarkers.forEach(function(m){m.setMap(null);});oMarkers=[];
-  var toShow=filtered.filter(function(b){return b.craft!=='Birell';});
-  // Pokud je aktivní filtr Birell, zobraz i Birell podniky
+  
   var cr=document.getElementById('f-craft')?document.getElementById('f-craft').value:'';
-  if(cr==='Birell')toShow=filtered;
+  var toShow=filtered.filter(function(b){
+    if(cr==='Birell')return true;
+    if(b.craft!=='Birell')return true;
+    // Birell podnik — zobraz jen pokud má čepované
+    return b.beers.some(function(x){return x.cat==='Birell'&&x.serve==='Čepované';});
+  });
+  
   if(!toShow.length)return;
   var bounds=new google.maps.LatLngBounds();
   toShow.forEach(function(b){
