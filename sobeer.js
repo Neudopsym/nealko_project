@@ -368,6 +368,8 @@ function applyFilters(){
       sv=document.getElementById('f-serve').value,
       cr=document.getElementById('f-craft').value,
       g=document.getElementById('f-garden').value;
+  var clearBtn=document.getElementById('search-clear');
+  if(clearBtn)clearBtn.classList.toggle('show',s.length>0);
   filtered=BARS.filter(function(b){
     return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.name.toLowerCase().includes(s);}))
       &&(!d||b.district===d)
@@ -377,6 +379,13 @@ function applyFilters(){
       &&(!g||b.garden===g);
   });
   openId=null;render();
+}
+
+function clearSearch(){
+  document.getElementById('search-input').value='';
+  applyFilters();
+  var sec=document.getElementById('bary');
+  if(sec)sec.scrollIntoView({behavior:'smooth'});
 }
 
 ['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
