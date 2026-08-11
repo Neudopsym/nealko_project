@@ -44,9 +44,7 @@ var BARS=[
   {id:23,name:"Betlemska club",district:"Staré Město",hood:"Praha 1",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Ne",craft:"Tradiční",beers:[{name:"Budvar nealko",cat:"Tradiční",serve:"Lahvové"},{name:"Maisels Weisse alkoholfrei",cat:"Tradiční",serve:"Lahvové"},{name:"Maisels Weisse alkoholfrei Ale",cat:"Tradiční",serve:"Lahvové"}],hours:"Pondělí 11–22\nÚterý 11–22\nStředa 11–22\nČtvrtek 11–22\nPátek 11–22\nSobota 11–22\nNeděle 11–22",address:"Betlémské nám. 5a, 110 00 Praha 1 – Staré Město",desc:"Osobitá umělecká kavárna a bar situovaná přímo v areálu Betlémské kaple. Nový multikulturní projekt v historickém centru Prahy spojuje skvělou kávu, večerní drinky a uvolněnou sousedskou atmosféru s pravidelnými jam sessions a komunitními akcemi.",lat:50.084483,lng:14.417897},
   {id:28,name:"Lampičky",district:"Žižkov",hood:"Praha 3",type:"Restaurace",serve:"Lahvové",garden:"Ano",food:"Ano",craft:"Tradiční",beers:[{name:"Krušovice nealko",cat:"Tradiční",serve:"Lahvové"}],hours:"Pondělí 11–23\nÚterý 11–23\nStředa 11–23\nČtvrtek 11–23\nPátek 11–23\nSobota 11–23\nNeděle 11–23",address:"Hartigova 1886/173, 130 00 Praha 3 – Žižkov",desc:"Příjemná restaurace na Žižkově v těsné blízkosti Jarovských kolejí, populární především pro své skvělé a šťavnaté burgry. Jako osvěžující nealko variantu nabízejí lahvové nealko Krušovice.",lat:50.092428,lng:14.481047},
   {id:30,name:"Cafe Barrandé",district:"Žižkov",hood:"Praha 3",type:"Hospoda",serve:"Lahvové",garden:"Ano",food:"Drobné občerstvení",craft:"Tradiční",beers:[{name:"Bakalář Nealko",cat:"Tradiční",serve:"Lahvové"}],hours:"Pondělí Zavřeno\nÚterý 16–22\nStředa 16–22\nČtvrtek 16–22\nPátek 16–22\nSobota Zavřeno\nNeděle Zavřeno",address:"Ježkova 8, 130 00 Praha 3 – Žižkov",desc:"Kouzelný rodinný bar s nostalgickou atmosférou, dobovým interiérem a swingovou hudbou. Pravidelně ožívá kulturními akcemi a v létě láká na klidnou zahrádku ve vnitrobloku. Nabízí poctivé koktejly, kvalitní vína a lahvového Bakaláře jako nealko variantu.",lat:50.081878,lng:14.446070},
-  {id:2,name:"Klub Petrohradská",district:"Vršovice",hood:"Praha 10",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Ne",craft:"Birell",beers:[{name:"Birrel",cat:"Birell",serve:"Lahvové"}],hours:"Pondělí 8:30–23:30\nÚterý 8:30–23:30\nStředa 8:30–23:30\nČtvrtek 8:30–23:30\nPátek 8:30–23:30\nSobota 16–23:30\nNeděle 16–22:30",address:"Petrohradská 438/13, 101 00 Praha 10 – Vršovice",desc:"Alternativní kulturní centrum a bar situovaný v areálu bývalé továrny, zaměřený na současné umění a komunitní akce. Nabízí syrový industriální interiér a rozlehlý dvůr, ideální pro neformální večerní setkávání a kulturní zážitky.",lat:50.0649507,lng:14.4523275},
   {id:7,name:"U Sadu",district:"Žižkov",hood:"Praha 3",type:"Hospoda",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Birell",beers:[{name:"Birrel",cat:"Birell",serve:"Lahvové"}],hours:"Pondělí 8–2\nÚterý 8–4\nStředa 8–4\nČtvrtek 8–4\nPátek 8–4\nSobota 8–4\nNeděle 8–2",address:"Škroupovo nám. 1282/5, 130 00 Praha 3 – Žižkov",desc:"Tradiční žižkovská restaurace a bar s téměř nepřetržitým provozem, který je kultovním místem pražské undergroundové scény. Nabízí unikátní interiér plný historických artefaktů, širokou nabídku české i mezinárodní kuchyně včetně snídaní.",lat:50.0805308,lng:14.4492094},
-  {id:8,name:"Kino Aero",district:"Žižkov",hood:"Praha 3",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Drobné občerstvení",craft:"Birell",beers:[{name:"Birell",cat:"Birell",serve:"Lahvové"}],hours:"Pondělí 14–0\nÚterý 14–0\nStředa 14–0\nČtvrtek 13–0\nPátek 14–0\nSobota 14–0\nNeděle 14–0",address:"Biskupcova 1733/31, 130 00 Praha 3 – Žižkov",desc:"Legendární artové kino s vlastním barem a prostorným dvorem, které slouží jako kulturní a společenský uzel na Žižkově. Nabízí uvolněnou atmosféru pro diváky i návštěvníky, kteří hledají nekonvenční prostor pro drink nebo diskusi po filmu.",lat:50.090083,lng:14.4718108},
   {id:10,name:"U Habásků",district:"Žižkov",hood:"Praha 3",type:"Bar",serve:"Lahvové",garden:"Ne",food:"Drobné občerstvení",craft:"Birell",beers:[{name:"Birell",cat:"Birell",serve:"Lahvové"}],hours:"Pondělí 16–0\nÚterý 16–0\nStředa 16–0\nČtvrtek 16–0\nPátek 16–2\nSobota 16–2\nNeděle 16–23",address:"Husinecká 29, 130 00 Praha 3 – Žižkov",desc:"Klasická žižkovská sousedská hospoda s domáckou atmosférou, která si zachovává ráz poctivého lokálního podniku. Nabízí tradiční výčep, jednoduchou kuchyni a klidné zázemí pro stálé hosty i návštěvníky hledající klid mimo hlavní turistické trasy.",lat:50.0858298,lng:14.4464288}
 ];
 
@@ -401,5 +399,98 @@ document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el);});
 window.addEventListener('scroll',function(){
   document.getElementById('nav').style.padding=window.scrollY>60?'1.2rem 4rem':'2rem 4rem';
 });
+
+// ============ TL;DR POČET PODNIKŮ ============
+(function(){
+  var el=document.getElementById('tldr-count');
+  if(!el)return;
+  var n=BARS.length;
+  var word=(n===1)?'podnik':(n>=2&&n<=4)?'podniky':'podniků';
+  el.textContent=n+' '+word;
+})();
+
+// ============ ITEMLIST SCHEMA (generováno z BARS) ============
+(function(){
+  var DAYS={'Pondělí':'Mo','Úterý':'Tu','Středa':'We','Čtvrtek':'Th','Pátek':'Fr','Sobota':'Sa','Neděle':'Su'};
+
+  function pad(t){
+    t=t.trim();
+    if(t.indexOf(':')>-1){
+      var p=t.split(':');
+      return (p[0].length<2?'0':'')+p[0]+':'+p[1];
+    }
+    return (t.length<2?'0':'')+t+':00';
+  }
+
+  function parseHours(str){
+    if(!str)return null;
+    var out=[];
+    str.split('\n').forEach(function(line){
+      line=line.trim();
+      if(!line)return;
+      var day=null;
+      for(var cz in DAYS){
+        if(line.indexOf(cz)===0){day=DAYS[cz];line=line.slice(cz.length).trim();break;}
+      }
+      if(!day)return;
+      if(line.toLowerCase().indexOf('zavřeno')>-1)return;
+      var parts=line.split(/[–-]/);
+      if(parts.length!==2)return;
+      out.push(day+' '+pad(parts[0])+'-'+pad(parts[1]));
+    });
+    return out.length?out:null;
+  }
+
+  function typeOf(t){
+    return (t==='Restaurace')?'Restaurant':'BarOrPub';
+  }
+
+  function splitAddress(a){
+    // "Sokolovská 81/55, 186 00 Praha 8 – Karlín"
+    var m=a.match(/^(.*?),\s*(\d{3}\s?\d{2})\s+(.*)$/);
+    if(m)return {street:m[1].trim(),zip:m[2].trim()};
+    return {street:a,zip:''};
+  }
+
+  var items=BARS.map(function(b,i){
+    var ad=splitAddress(b.address);
+    var beers=b.beers.map(function(x){return x.name;}).filter(function(v,k,arr){return arr.indexOf(v)===k;});
+    var item={
+      '@type':typeOf(b.type),
+      'name':b.name,
+      'description':b.desc,
+      'address':{
+        '@type':'PostalAddress',
+        'streetAddress':ad.street,
+        'addressLocality':'Praha',
+        'addressRegion':b.district,
+        'addressCountry':'CZ'
+      },
+      'geo':{'@type':'GeoCoordinates','latitude':b.lat,'longitude':b.lng},
+      'hasMenu':{'@type':'Menu','name':'Nealkoholická piva','description':beers.join(', ')},
+      'publicAccess':true
+    };
+    if(ad.zip)item.address.postalCode=ad.zip;
+    var oh=parseHours(b.hours);
+    if(oh)item.openingHours=oh;
+    if(b.food!=='Ne')item.servesCuisine='Česká kuchyně';
+    return {'@type':'ListItem','position':i+1,'item':item};
+  });
+
+  var schema={
+    '@context':'https://schema.org',
+    '@type':'ItemList',
+    'name':'Podniky s nealkoholickým pivem v Praze',
+    'description':'Přehled pražských barů, hospod a restaurací s nabídkou kvalitního nealkoholického piva.',
+    'numberOfItems':BARS.length,
+    'itemListOrder':'https://schema.org/ItemListOrderDescending',
+    'itemListElement':items
+  };
+
+  var s=document.createElement('script');
+  s.type='application/ld+json';
+  s.textContent=JSON.stringify(schema);
+  document.head.appendChild(s);
+})();
 
 render();
