@@ -32,7 +32,18 @@
   "foundingDate": "2026",
   "areaServed": {"@type": "City", "name": "Praha", "addressCountry": "CZ"},
   "knowsAbout": ["nealkoholické pivo","craft nealko pivo","nealko pivo Praha","čepované nealkoholické pivo","pivní kultura"],
-  "founder": {"@type": "Person", "name": "Filip Kubus"}
+  "sameAs": ["https://neudopsym.cz"],
+  "founder": {
+    "@type": "Person",
+    "name": "Filip Kubus",
+    "alternateName": "Neudopsym",
+    "url": "https://neudopsym.cz",
+    "sameAs": [
+      "https://neudopsym.cz",
+      "https://www.instagram.com/neudopsym.photo/",
+      "https://www.linkedin.com/in/filip-kubus/"
+    ]
+  }
 }
 </script>
 
@@ -225,6 +236,9 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 .footer-links a{text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);transition:color 0.3s;cursor:pointer;font-family:'DM Sans',sans-serif}
 .footer-links a:hover{color:var(--amber)}
 .footer-copy{font-size:0.66rem;color:rgba(243,239,232,0.22);font-family:'DM Sans',sans-serif}
+.footer-by{display:block;margin-top:0.4rem;font-family:'DM Serif Display',serif;font-style:italic;font-size:0.82rem;color:var(--cream-dim)}
+.footer-by a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-dim);transition:all 0.3s}
+.footer-by a:hover{color:var(--cream);border-color:var(--cream-dim)}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s,transform 0.7s}
 .reveal.visible{opacity:1;transform:none}
 @media(max-width:900px){
@@ -594,7 +608,10 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 </section>
 
 <footer>
-  <div><span class="footer-logo-text">SOBEER</span></div>
+  <div>
+    <span class="footer-logo-text">SOBEER</span>
+    <span class="footer-by">by <a href="https://neudopsym.cz" target="_blank" rel="noopener me">Neudopsym</a></span>
+  </div>
   <ul class="footer-links">
     <li><a href="#bary">Bary</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -602,7 +619,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener">Přidat podnik</a></li>
   </ul>
-  <span class="footer-copy">&copy; 2025 SOBEER · Provozuje <span itemprop="author">Filip Kubus</span> · Aktualizováno <time id="last-updated" datetime="2026-08-11">11. 8. 2026</time></span>
+  <span class="footer-copy">&copy; 2026 SOBEER · Brewed by <a href="https://neudopsym.cz" target="_blank" rel="noopener me" style="color:rgba(243,239,232,0.35);text-decoration:none;border-bottom:1px solid var(--amber-dim)">Neudopsym</a> · Aktualizováno <time id="last-updated" datetime="2026-08-11">11. 8. 2026</time></span>
 </footer>
 
 <script src="sobeer.js"></script>
