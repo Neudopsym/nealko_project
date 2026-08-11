@@ -165,6 +165,14 @@ nav ul a:hover{color:var(--amber)}
 .cta-btn{display:inline-block;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);text-decoration:none;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;transition:all 0.3s}
 .cta-btn:hover{background:var(--amber);color:var(--bg)}
 #mapa{padding:0}
+.tldr{font-size:0.98rem;line-height:1.85;color:var(--cream-muted);font-family:'DM Sans',sans-serif;max-width:760px;margin:0 auto 2.5rem;padding-left:1.2rem;border-left:2px solid var(--amber)}
+.tldr strong{color:var(--cream);font-weight:500}
+.tech-table{width:100%;border-collapse:collapse;margin:1.4rem 0 0.4rem;font-family:'DM Sans',sans-serif;font-size:0.82rem}
+.tech-table th{text-align:left;font-size:0.56rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);opacity:0.8;font-weight:400;padding:0 0.8rem 0.6rem 0;border-bottom:1px solid var(--amber-dim)}
+.tech-table td{padding:0.7rem 0.8rem 0.7rem 0;border-bottom:1px solid rgba(243,239,232,0.07);color:var(--cream-muted);vertical-align:top;line-height:1.5}
+.tech-table td:first-child{color:var(--cream)}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:700px){.tech-table{font-size:0.76rem;min-width:520px}}
 #overview-map{height:400px;width:100%;border-top:1px solid var(--amber-dim);margin-bottom:2rem}
 #faq{padding:5rem 4rem;max-width:900px;margin:0 auto}
 #faq .section-heading{margin-bottom:1rem}
@@ -293,6 +301,9 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
 </div>
 
 <section id="bary">
+  <h2 class="section-heading reveal">Kde v Praze dostanete nealko pivo</h2>
+
+  <p class="tldr reveal">SOBEER mapuje pražské bary, hospody a restaurace, kde nealkoholické pivo berou vážně. Aktuálně evidujeme <strong id="tldr-count">více než 40 podniků</strong> — od čepovaných řemeslných speciálů z Vinohradského pivovaru, Clocku nebo Zichovce až po klasický Birell. Filtrovat můžete podle čtvrti, typu podniku, způsobu podávání i kategorie piva.</p>
 
 <div id="mapa">
   <div id="overview-map"></div>
@@ -375,6 +386,22 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
         <li><strong>Alkohol odstranit z hotového piva</strong> — pivovar uvaří plnohodnotné pivo a alkohol z něj následně odebere. Buď mechanicky přes membránu (reverzní osmóza), nebo odpařením ve vakuu za nízké teploty.</li>
       </ul>
       <p>Většina piv vyrobených řízeným kvašením se musí <strong>pasterovat</strong> — v pivu zůstává hodně nezkvašeného cukru a bez pasterizace by hrozilo, že divoké kvasinky v plechovce dokvasí a alkohol stoupne.</p>
+      <div class="table-scroll">
+      <table class="tech-table">
+        <thead><tr><th>Pivovar</th><th>Metoda</th><th>Pasterizace</th><th>Typické pivo</th></tr></thead>
+        <tbody>
+          <tr><td>Vinohradský pivovar</td><td>Membránová filtrace (reverzní osmóza)</td><td>Ne</td><td>Vinohradská 12 Nealko</td></tr>
+          <tr><td>Zichovec</td><td>Řízené kvašení</td><td>Ano</td><td>Drink and Drive</td></tr>
+          <tr><td>Clock</td><td>Řízené kvašení</td><td>Ano</td><td>Krystus</td></tr>
+          <tr><td>Chříč</td><td>Řízené kvašení</td><td>Ano</td><td>Balanc</td></tr>
+          <tr><td>Sibeeria</td><td>Řízené kvašení</td><td>Ano</td><td>Good News NEIPA</td></tr>
+          <tr><td>Pivovar Uhříněves</td><td>Řízené kvašení</td><td>Ne — ani filtrace</td><td>Alois Šofér</td></tr>
+          <tr><td>Birell (Radegast)</td><td>Řízené kvašení</td><td>Ano</td><td>Birell světlý</td></tr>
+          <tr><td>Maisel</td><td>Vakuová destilace + míchání</td><td>Ano</td><td>Maisel's Weisse Alkoholfrei</td></tr>
+          <tr><td>Bavaria</td><td>Vakuová destilace / bioreaktor</td><td>Ano</td><td>Bavaria 0.0 % Original</td></tr>
+        </tbody>
+      </table>
+      </div>
     </div></div>
   </div>
 
@@ -575,7 +602,7 @@ footer{background:rgba(0,0,0,0.2);border-top:1px solid var(--amber-dim);padding:
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener">Přidat podnik</a></li>
   </ul>
-  <span class="footer-copy">&copy; 2025 SOBEER</span>
+  <span class="footer-copy">&copy; 2025 SOBEER · Provozuje <span itemprop="author">Filip Kubus</span> · Aktualizováno <time id="last-updated" datetime="2026-08-11">11. 8. 2026</time></span>
 </footer>
 
 <script src="sobeer.js"></script>
