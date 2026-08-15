@@ -401,6 +401,8 @@ window.addEventListener('scroll',function(){
 });
 
 // ============ TL;DR POČET PODNIKŮ ============
+// Na webu přesné číslo (43 podniků). V HTML zůstává statické "přes 40 podniků"
+// jako fallback pro crawlery, které nespouštějí JavaScript.
 (function(){
   var el=document.getElementById('tldr-count');
   if(!el)return;
