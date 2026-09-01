@@ -55,7 +55,7 @@ var BARS=[
   {id:54,name:"Andělský pivovar",district:"Smíchov",hood:"Praha 5",type:"Restaurace",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Andělský pivovar Nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 11–0\nNeděle 11–0",address:"Lidická 337/30, 150 00 Praha 5 – Smíchov",desc:"Andělský pivovar na Smíchově je craftový mikropivovar s restaurací přímo u Anděla, který kombinuje poctivě vařená řemeslná piva s moderní českou gastronomií. Vedle svých klasických ležáků a speciálů vaří i vlastní nealkoholické pivo, které nabízí plnou chmelovou chuť a skvělé osvěžení zcela bez alkoholu.",lat:50.072321,lng:14.405945}
 ];
 
-var filtered=BARS.slice(),openId=null,miniMaps={},overviewMap=null,oMarkers=[];
+var filtered=BARS.slice(),openId=null,overviewMap=null,oMarkers=[];
 var activeInfoWindow=null;
 var mapsAccepted=false;
 var SCRIPT_URL='https://script.google.com/macros/s/AKfycby9oixjNjwbY3yJMFOQh4W6Z43Vjt-4wZslqPh8GMCk5YMIVUKTcN2aR3bif73Erzs/exec';
@@ -88,7 +88,6 @@ function showMapPlaceholders(){
   var msg='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy prosím potvrďte cookies v levém dolním rohu.</p></div>';
   var oMap=document.getElementById('overview-map');
   if(oMap)oMap.innerHTML=msg;
-  document.querySelectorAll('.mini-map').forEach(function(el){el.innerHTML=msg;});
 }
 
 // ============ AGE GATE ============
@@ -260,28 +259,6 @@ function filterToBar(name){
   }
 }
 
-function initMini(id){
-  if(miniMaps[id]||typeof google==='undefined'||typeof google.maps==='undefined')return;
-  var bar=BARS.find(function(b){return b.id===id;}),el=document.getElementById('mm-'+id);
-  if(!bar||!el)return;
-  el.innerHTML='';
-  var m=new google.maps.Map(el,{
-    center:{lat:bar.lat,lng:bar.lng},
-    zoom:15,
-    styles:MAP_STYLE,
-    mapTypeControl:false,
-    streetViewControl:false,
-    fullscreenControl:false,
-    zoomControl:false
-  });
-  new google.maps.Marker({
-    position:{lat:bar.lat,lng:bar.lng},
-    map:m,
-    icon:{path:google.maps.SymbolPath.CIRCLE,scale:7,fillColor:'#C48A2A',fillOpacity:1,strokeColor:'#F3EFE8',strokeWeight:2}
-  });
-  miniMaps[id]=m;
-}
-
 // ============ BARS ============
 function render(){
   filtered=filtered.slice().sort(function(a,b){
@@ -296,7 +273,7 @@ function render(){
     return p(a)-p(b);
   });
   var list=document.getElementById('bars-list'),noRes=document.getElementById('no-results'),cnt=document.getElementById('results-count');
-  miniMaps={};list.innerHTML='';
+  list.innerHTML='';
   if(!filtered.length){noRes.style.display='block';cnt.innerHTML='';updateOMap();return;}
   noRes.style.display='none';
   var n=filtered.length;
@@ -324,28 +301,23 @@ function render(){
         +'</div>'
       +'</div>'
       +'<div class="bar-detail"><div class="bar-detail-inner">'
-        +'<div>'
-          +'<div class="detail-cols">'
-            +'<div class="detail-col">'
-              +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div></div>'
-              +'<div style="margin-bottom:1.8rem"><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
-            +'</div>'
-            +'<div class="detail-col">'
-              +'<div><div class="dl-label">Čepované</div><div class="dl-value">'+(tap.length?tap.map(function(x){return x.name;}).join('\n'):'Není v nabídce')+'</div></div>'
-              +'<div><div class="dl-label">Lahvové</div><div class="dl-value">'+(bot.length?bot.map(function(x){return x.name;}).join('\n'):'Není v nabídce')+'</div></div>'
-              +'<div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div>'
-              +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
-            +'</div>'
+        +'<div class="detail-cols">'
+          +'<div class="detail-col">'
+            +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div>'
+              +'<a class="map-btn" href="https://www.google.com/maps/search/?api=1&query='+b.lat+','+b.lng+'" target="_blank" rel="noopener">Otevřít v mapách</a></div>'
+            +'<div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
           +'</div>'
-          +'<div class="detail-desc">'+b.desc+'<span style="font-size:0.72rem;font-style:italic;color:rgba(243,239,232,0.25);margin-top:1.2rem;display:block;">* Informace o nabídce nealkoholických piv mají informativní charakter a mohou se měnit. Doporučujeme si dostupnost ověřit přímo v podniku.</span></div>'
+          +'<div class="detail-col">'
+            +'<div><div class="dl-label">Čepované</div><div class="dl-value">'+(tap.length?tap.map(function(x){return x.name;}).join('\n'):'Není v nabídce')+'</div></div>'
+            +'<div><div class="dl-label">Lahvové</div><div class="dl-value">'+(bot.length?bot.map(function(x){return x.name;}).join('\n'):'Není v nabídce')+'</div></div>'
+            +'<div><div class="dl-label">Zahrádka</div><div class="dl-value">'+b.garden+'</div></div>'
+            +'<div><div class="dl-label">Jídlo</div><div class="dl-value">'+b.food+'</div></div>'
+          +'</div>'
         +'</div>'
-        +'<div><div class="mini-map-label">Poloha</div><div class="mini-map" id="mm-'+b.id+'"></div></div>'
+        +'<div class="detail-desc">'+b.desc+'<span style="font-size:0.72rem;font-style:italic;color:rgba(243,239,232,0.25);margin-top:1.2rem;display:block;">* Informace o nabídce nealkoholických piv mají informativní charakter a mohou se měnit. Doporučujeme si dostupnost ověřit přímo v podniku.</span></div>'
       +'</div></div>';
     list.appendChild(div);
   });
-  if(openId&&filtered.find(function(b){return b.id===openId;}))setTimeout(function(){
-    if(mapsAccepted)initMini(openId);
-  },60);
   updateOMap();
 }
 
@@ -357,13 +329,6 @@ function toggle(id){
     var detail=el.querySelector('.bar-detail');
     if(detail)detail.style.maxHeight=isOpen?detail.scrollHeight+'px':'0px';
   });
-  if(openId)setTimeout(function(){
-    if(mapsAccepted)initMini(openId);
-    else{
-      var el=document.getElementById('mm-'+openId);
-      if(el)el.innerHTML='<div class="map-placeholder" style="height:100%"><p>Pro zobrazení mapy prosím potvrďte cookies v levém dolním rohu.</p></div>';
-    }
-  },380);
 }
 
 function applyFilters(){
