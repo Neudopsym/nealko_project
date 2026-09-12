@@ -214,10 +214,10 @@ nav ul a:hover{color:var(--amber)}
 .cf-field input,.cf-field-last textarea{width:100%;background:transparent;border:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:1rem;outline:none}
 .cf-field-last textarea{resize:vertical}
 .cf-field input::placeholder,.cf-field-last textarea::placeholder{color:var(--cream-dim)}
-.cf-consent{border:1px solid var(--amber-dim);border-top:none;padding:1.1rem 1.4rem;text-align:left}
-.cf-consent p{font-size:0.76rem;color:var(--cream-dim);font-family:'DM Sans',sans-serif;line-height:1.6}
-.cf-consent p+p{margin-top:0.6rem}
-.cf-consent a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-dim)}
+.cf-consent{border:1px solid var(--amber-dim);border-top:none;padding:1rem 1.4rem;display:flex;align-items:flex-start;gap:0.8rem;text-align:left}
+.cf-consent input[type=checkbox]{flex-shrink:0;margin-top:3px;accent-color:var(--amber);width:15px;height:15px;cursor:pointer}
+.cf-consent label{font-size:0.82rem;color:var(--cream-muted);font-family:'DM Sans',sans-serif;line-height:1.5;cursor:pointer}
+.cf-consent a{color:var(--amber);text-decoration:none}
 .cf-btn{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.3s}
 .cf-btn:hover{background:var(--amber);color:var(--bg)}
 .cf-msg{display:none;margin-top:1.5rem;font-family:'DM Sans',sans-serif;font-size:0.9rem}
@@ -226,6 +226,7 @@ nav ul a:hover{color:var(--amber)}
 .legal-page{display:none;padding:8rem 4rem;max-width:800px;margin:0 auto}
 .legal-page h2{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,2.8vw,2.1rem);font-weight:400;color:var(--cream);margin-bottom:3rem}
 .legal-page h3{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;margin-top:2rem}
+.legal-page h4{font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--cream);margin-bottom:0.6rem;margin-top:1.6rem;letter-spacing:0.02em}
 .legal-page p{font-size:0.9rem;line-height:1.9;color:var(--cream-muted);margin-bottom:1rem;font-family:'DM Sans',sans-serif}
 .legal-page ul{margin:0 0 1rem 1.4rem}
 .legal-page li{font-size:0.9rem;line-height:1.8;color:var(--cream-muted);font-family:'DM Sans',sans-serif;margin-bottom:0.4rem}
@@ -591,8 +592,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cf-field"><label for="cf-email">E-mail</label><input type="email" id="cf-email" required placeholder="vas@email.cz"/></div>
     <div class="cf-field-last"><label for="cf-message">Zpráva</label><textarea id="cf-message" required placeholder="Vaše zpráva…" rows="5"></textarea></div>
     <div class="cf-consent">
-      <p>Odesláním formuláře potvrzujete, že jste se seznámili s informacemi o zpracování osobních údajů. Uvedené údaje použiji výhradně k vyřízení vaší zprávy a odpovědi na ni.</p>
-      <p>Správcem osobních údajů je Filip Kubus, IČO 19553528. Údaje uchovávám nejdéle 12 měsíců od poslední komunikace. Máte právo požádat o přístup k údajům, jejich opravu nebo výmaz. Podrobnosti najdete v <a href="#" onclick="showPage('gdpr');return false;">Zásadách ochrany osobních údajů</a>.</p>
+      <input type="checkbox" id="cf-consent" required/>
+      <label for="cf-consent">Potvrzuji, že jsem se seznámil/-a se <a href="#" onclick="showPage('gdpr');return false;">zásadami zpracování osobních údajů</a>.</label>
     </div>
     <div style="text-align:center"><button type="submit" id="cf-btn" class="cf-btn">Odeslat zprávu</button></div>
     <div id="cf-ok" class="cf-msg cf-ok">Zpráva byla odeslána. Děkujeme!</div>
@@ -602,49 +603,101 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <section id="gdpr" class="legal-page">
-  <h2>Zásady ochrany osobních údajů</h2>
-  <p>Tento web si zakládá na ochraně vašeho soukromí a zpracovává pouze nezbytné osobní údaje v souladu s nařízením GDPR.</p>
+  <h2>Zásady zpracování osobních údajů</h2>
+  <p style="font-size:0.8rem;color:var(--cream-dim)">Datum účinnosti: 12. 09. 2026</p>
 
-  <h3>1. Správce osobních údajů</h3>
-  <p><strong style="color:var(--cream)">Filip Kubus</strong><br/>IČO: 19553528<br/>Sídlo: Záhřebská 562/41, Praha – Vinohrady, 120 00<br/>E-mail: f.kubus7@gmail.com</p>
+  <p>Podnikateli Filip Kubus, IČO: 19553528, se sídlem Záhřebská 562/41, 120 00 Praha 2 – Vinohrady (dále jen „správce“ nebo „my“) záleží na ochraně vašich osobních údajů, proto si prosím přečtěte, jak správce zpracovává vaše osobní údaje a jak s nimi nakládá.</p>
+  <p>Správce zpracovává osobní údaje v souladu s relevantními právními předpisy, jako je Nařízení Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES (obecné nařízení o ochraně osobních údajů) a zákon č. 110/2019 Sb., o zpracování osobních údajů, ve znění pozdějších předpisů.</p>
 
-  <h3>2. Jaké údaje zpracovávám, proč a na jakém základě</h3>
-  <p><strong style="color:var(--cream)">Kontaktní formulář.</strong> Zpracovávám jméno, e-mailovou adresu a obsah zprávy, které mi sami dobrovolně poskytnete. Údaje používám výhradně k tomu, abych vaši zprávu vyřídil a odpověděl vám.</p>
-  <p>Právním základem je můj oprávněný zájem odpovědět na zprávu, kterou mi sami zašlete (čl. 6 odst. 1 písm. f) GDPR). Pokud se zpráva týká nabídky spolupráce, je právním základem provedení opatření přijatých před uzavřením smlouvy na vaši žádost (čl. 6 odst. 1 písm. b) GDPR).</p>
-  <p><strong style="color:var(--cream)">Formulář „Přidat podnik".</strong> Formulář je provozován prostřednictvím služby Google Forms a slouží ke sběru tipů na podniky. Údaje o podniku samotném nejsou osobními údaji. Pokud v něm uvedete svůj kontakt, použiji ho pouze k případnému doplňujícímu dotazu k vašemu tipu, a to na základě oprávněného zájmu na ověření správnosti údajů zveřejněných na tomto webu.</p>
-  <p>Poskytnutí údajů je dobrovolné. Bez nich vás však nemohu zpětně kontaktovat ani na vaši zprávu odpovědět.</p>
+  <h3>Koho se tyto zásady zpracování osobních údajů týkají?</h3>
+  <p>Tyto zásady zpracování osobních údajů správcem (dále jen „zásady“) se vztahují na vás, pokud jste nám zaslal zprávu prostřednictvím kontaktního formuláře na našich internetových stránkách, odeslal tip na podnik prostřednictvím formuláře pro přidání podniku, kontaktoval nás e-mailem, nebo jste navštívil naše internetové stránky (dále jen „internetové stránky“).</p>
+  <p>SOBEER je nezávislý informační projekt mapující nabídku nealkoholických piv v pražských podnicích. Neprodáváme zboží ani služby a provoz internetových stránek není podnikatelskou činností zaměřenou na uzavírání smluv s návštěvníky.</p>
 
-  <h3>3. Doba uchování údajů</h3>
-  <p>Osobní údaje z kontaktního formuláře uchovávám nejdéle 12 měsíců od poslední komunikace. Poté je mažu.</p>
+  <h3>Jaké vaše osobní údaje zpracováváme a proč je zpracováváme?</h3>
+  <p>Uvědomujeme si, že jedním z pravidel příslušných právních předpisů ohledně ochrany osobních údajů je právě přiměřenost, proto zpracováváme vaše osobní údaje pouze v rozsahu, který je nezbytný pro předmětný účel.</p>
 
-  <h3>4. Příjemci a zpracovatelé údajů</h3>
-  <p>Vaše osobní údaje nepředávám třetím stranám pro marketingové účely a nikomu je neprodávám. K provozu webu využívám tyto služby:</p>
+  <h4>Rozsah zpracovávaných osobních údajů</h4>
+  <p>Pokud jste nás kontaktoval prostřednictvím kontaktního formuláře na internetových stránkách, zpracováváme vaše osobní údaje v rozsahu jméno, e-mailová adresa a obsah zprávy, kterou nám zašlete. Pokud nám do zprávy uvedete další údaje, například telefonní číslo, zpracováváme i je.</p>
+  <p>Pokud jste nám odeslal tip na podnik prostřednictvím formuláře pro přidání podniku, zpracováváme údaje o podniku, které nám sdělíte. Údaje vztahující se výlučně k podniku nejsou osobními údaji. Pokud nám ve formuláři uvedete svůj kontakt nebo jméno osoby spojené s podnikem, zpracováváme i tyto údaje.</p>
+  <p>Pokud jste nás kontaktoval e-mailem, zpracováváme vaši e-mailovou adresu, jméno, pokud jste jej uvedl, a obsah naší komunikace.</p>
+  <p>Při návštěvě našich internetových stránek také ukládáme různá cookies, a to nutná cookies pro provoz stránek a dále statistická cookies, která nám pomáhají mapovat vaše chování na stránkách a dále pak stránky zlepšovat a zlepšovat váš zážitek z nich. Součástí stránek jsou rovněž interaktivní mapy poskytované společností Google, které se načítají až po udělení vašeho souhlasu. Marketingová cookies nepoužíváme a na internetových stránkách nezobrazujeme reklamu. Více informací o cookies, včetně toho, jak lze nastavení kdykoliv změnit, naleznete v <a href="#" onclick="if(window.Cookiebot)Cookiebot.renew();return false;" style="color:var(--amber);text-decoration:none">nastavení cookies</a>, které lze kdykoliv otevřít odkazem v patičce webu.</p>
+
+  <h4>Přehled používaných cookies</h4>
+  <p>Níže naleznete aktuální seznam cookies, které tento web používá. Seznam se automaticky aktualizuje.</p>
+  <script id="CookieDeclaration" src="https://consent.cookiebot.com/0d995c75-9cc4-4f51-a0a2-799a61af53cb/cd.js" type="text/javascript" async></script>
+
+  <h4>Účely a právní základy zpracování</h4>
+  <p>Vaše osobní údaje zpracováváme z několika důvodů, které vám níže popíšeme. Každý z uvedených důvodů však musí být podložen ještě právním základem zpracování, aby bylo zpracování osobních údajů správcem zákonné a v souladu s příslušnými právními předpisy.</p>
+  <p>Níže jsme pro vás připravili přehled tzv. právních základů a účelů zpracování osobních údajů, tedy důvodů, proč osobní údaje zpracováváme.</p>
+  <p>Pokud jste nám zaslal zprávu prostřednictvím kontaktního formuláře nebo e-mailem, vaše osobní údaje zpracováváme pro účely:</p>
   <ul>
-    <li><strong style="color:var(--cream)">Google Apps Script a Gmail</strong> (Google LLC, USA) — odeslání a doručení zpráv z kontaktního formuláře</li>
-    <li><strong style="color:var(--cream)">Google Forms</strong> (Google LLC, USA) — formulář pro přidání podniku</li>
-    <li><strong style="color:var(--cream)">Google Maps</strong> (Google LLC, USA) — interaktivní mapy; načítají se až po vašem souhlasu s cookies</li>
-    <li><strong style="color:var(--cream)">Cookiebot</strong> (Usercentrics A/S, Dánsko) — správa souhlasu s cookies</li>
-    <li><strong style="color:var(--cream)">GitHub Pages</strong> (GitHub Inc., USA) — hosting webu</li>
+    <li>vyřízení vašeho dotazu, podnětu nebo připomínky a odpovědi na vaši zprávu, a to na základě právního titulu oprávněných zájmů správce, kterým je zájem odpovědět na zprávu, kterou nám sami zašlete,</li>
+    <li>vedení komunikace navazující na vaši zprávu, a to na základě právního titulu oprávněných zájmů správce,</li>
+    <li>pokud se vaše zpráva týká nabídky spolupráce, rovněž pro účely jednání o takové spolupráci, a to na základě právního titulu plnění smlouvy nebo přijetí opatření před uzavřením takové smlouvy na vaši žádost.</li>
   </ul>
-  <p>Zpracování na straně těchto služeb se řídí jejich vlastními podmínkami — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Google</a> a <a href="https://www.cookiebot.com/en/privacy-policy/" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none">Zásadami ochrany soukromí Cookiebot</a>.</p>
-
-  <h3>5. Cookies</h3>
-  <p>Web nepoužívá analytické ani marketingové cookies a nesleduje chování návštěvníků. Ukládá se pouze cookie nezbytná k zapamatování vašeho rozhodnutí o cookies a údaj o potvrzení plnoletosti po dobu vaší návštěvy.</p>
-  <p>Interaktivní mapy Google Maps načítají cookies třetích stran, a proto se zobrazí až poté, co k tomu dáte souhlas v cookie liště. Své rozhodnutí můžete kdykoli změnit vymazáním cookies v nastavení prohlížeče.</p>
-
-  <h3>6. Vaše práva</h3>
-  <p>Ve vztahu ke svým osobním údajům máte právo:</p>
+  <p>Pokud jste nám odeslal tip na podnik, vaše osobní údaje zpracováváme pro účely:</p>
   <ul>
-    <li>požadovat přístup k údajům, které o vás zpracovávám</li>
-    <li>požadovat jejich opravu nebo doplnění</li>
-    <li>požadovat jejich výmaz</li>
-    <li>požadovat omezení zpracování</li>
-    <li>vznést námitku proti zpracování založenému na oprávněném zájmu</li>
+    <li>ověření a zpracování vašeho tipu a případného doplňujícího dotazu k němu, a to na základě právního titulu oprávněných zájmů správce, kterým je zájem na správnosti údajů zveřejněných na internetových stránkách.</li>
   </ul>
-  <p>Stačí mi napsat na f.kubus7@gmail.com. Na vaši žádost odpovím bez zbytečného odkladu, nejpozději do jednoho měsíce od jejího obdržení.</p>
-  <p>Máte také právo podat stížnost u dozorového úřadu, kterým je <a href="https://www.uoou.gov.cz" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none">Úřad pro ochranu osobních údajů</a>.</p>
+  <p>Při návštěvě internetových stránek vaše údaje zpracováváme pro účely:</p>
+  <ul>
+    <li>zajištění provozu a základní funkčnosti internetových stránek, a to na základě právního titulu oprávněných zájmů správce,</li>
+    <li>měření návštěvnosti a zlepšování internetových stránek, a to na základě vašeho souhlasu uděleného prostřednictvím nastavení cookies,</li>
+    <li>zobrazení interaktivních map, a to na základě vašeho souhlasu uděleného prostřednictvím nastavení cookies.</li>
+  </ul>
+  <p>Vaše osobní údaje nepoužíváme k rozhodování na základě automatizovaného zpracování, ani profilování. Vaše osobní údaje neprodáváme ani nepředáváme třetím stranám pro marketingové účely.</p>
 
-  <p style="font-size:0.78rem;color:var(--cream-dim);margin-top:2.5rem">Poslední aktualizace: 12. srpna 2026</p>
+  <h3>Musíte nám osobní údaje poskytnout?</h3>
+  <p>Poskytnutí osobních údajů není zákonným ani smluvním požadavkem. Internetové stránky si můžete prohlížet, aniž byste nám jakékoliv osobní údaje poskytl.</p>
+  <p>Pokud nám však chcete zaslat zprávu prostřednictvím kontaktního formuláře nebo tip na podnik a přejete si, abychom vám odpověděli, potřebujeme vaše jméno a e-mailovou adresu. Bez nich vám nemůžeme odpovědět ani se na cokoliv doptat.</p>
+
+  <h3>Musíte nám dávat vždy souhlas ke zpracování svých osobních údajů?</h3>
+  <p>V některých případech můžeme potřebovat ke zpracování vašich osobních údajů váš souhlas se zpracováním osobních údajů. Ne vždy je však zpracování na souhlasu založeno, a proto budeme váš souhlas vyžadovat pouze tam, kde to bude nezbytné pro to, abychom mohli vaše osobní údaje zpracovávat.</p>
+  <p>Váš souhlas vyžadujeme u statistických cookies a u cookies třetích stran nezbytných pro zobrazení interaktivních map. Tento souhlas můžete kdykoliv odvolat prostřednictvím odkazu na nastavení cookies v patičce internetových stránek, a to stejně snadno, jako jste jej udělil. Odvolání souhlasu nemá vliv na zákonnost zpracování před jeho odvoláním.</p>
+
+  <h3>Jak dlouho budeme vaše osobní údaje uchovávat?</h3>
+  <p>Osobní údaje z kontaktního formuláře a z e-mailové komunikace uchováváme po dobu 1 roku od zaslání vaší zprávy, pokud spolu nadále nekomunikujeme nebo jsme nenavázali spolupráci.</p>
+  <p>Osobní údaje z formuláře pro přidání podniku uchováváme po dobu 1 roku od odeslání tipu. Údaje o podniku samotném, které nejsou osobními údaji, uchováváme po dobu, po kterou je podnik uveden na internetových stránkách.</p>
+  <p>V případě, že spolu navážeme spolupráci, uchováváme osobní údaje po dobu jejího trvání a dále po dobu nezbytnou k ochraně našich práv, nejdéle však po dobu 4 let od jejího ukončení. Daňové doklady jsme podle příslušných právních předpisů povinni uchovávat po dobu 5 let od konce zdaňovacího období, ve kterém se plnění uskutečnilo, a to včetně vašich osobních údajů na nich uvedených.</p>
+  <p>Záznam o udělení či odmítnutí souhlasu s cookies uchovává poskytovatel nástroje pro správu souhlasů po dobu stanovenou v jeho podmínkách, abychom byli schopni udělení souhlasu doložit.</p>
+  <p>Osobní údaje uchováváme vždy po dobu nezbytnou a přiměřenou k danému účelu, tj. důvodu, proč vaše osobní údaje zpracováváme. Doba uchování je určena zejména pomocí následující logiky:</p>
+  <ul>
+    <li>po dobu nezbytnou k vyřízení vašeho dotazu či podnětu,</li>
+    <li>po dobu nezbytnou k ochraně práv správce,</li>
+    <li>po dobu trvání oprávněných zájmů správce, pokud je taková doba přiměřená danému účelu zpracování,</li>
+    <li>po dobu určenou právními předpisy,</li>
+    <li>po dobu nezbytnou k určení, výkonu nebo obhajobě právních nároků.</li>
+  </ul>
+
+  <h3>Předáváme vaše osobní údaje nějakým dalším osobám?</h3>
+  <p>K osobním údajům má u nás přístup pouze správce a zpracovatelé. Pro provoz internetových stránek využíváme tyto zpracovatele:</p>
+  <ul>
+    <li><strong style="color:var(--cream)">Google Ireland Limited</strong> — odesílání a doručení zpráv z kontaktního formuláře, provoz formuláře pro přidání podniku, měření návštěvnosti a zobrazení interaktivních map</li>
+    <li><strong style="color:var(--cream)">Usercentrics A/S</strong> — správa a evidence souhlasů s cookies</li>
+    <li><strong style="color:var(--cream)">GitHub, Inc.</strong> — provoz a hosting internetových stránek</li>
+  </ul>
+  <p>Dále můžeme předávat vaše osobní údaje příslušným orgánům státní správy či veřejné moci, pokud nám to ukládá právní předpis, a našim právním zástupcům za účelem ochrany našich práv. Všichni tito příjemci vašich osobních údajů jsou povinni chránit vaše osobní údaje stejným způsobem jako my, tedy v souladu s platnými právními předpisy. Pokud tito příjemci zpracovávají osobní údaje jako zpracovatelé, máme s nimi uzavřené příslušné smlouvy.</p>
+  <p>Někteří naši zpracovatelé mohou osobní údaje zpracovávat i mimo Evropskou unii, zejména ve Spojených státech amerických. Předání probíhá na základě rozhodnutí Evropské komise o odpovídající úrovni ochrany, případně na základě standardních smluvních doložek schválených Evropskou komisí.</p>
+
+  <h3>Jaká práva vám náleží v souvislosti se zpracováním osobních údajů?</h3>
+  <p>Níže naleznete výčet práv, jež vám náleží v souvislosti se zpracováním osobních údajů.</p>
+  <ul>
+    <li><strong style="color:var(--cream)">Právo na přístup:</strong> Máte možnost nás požádat, abychom vám sdělili, jaké vaše osobní údaje zpracováváme a k těmto údajům vám může být umožněn i přístup, tedy poskytnuta kopie zpracovávaných osobních údajů.</li>
+    <li><strong style="color:var(--cream)">Právo na opravu:</strong> Můžete po nás požadovat také opravu nepřesných nebo doplnění neúplných osobních údajů.</li>
+    <li><strong style="color:var(--cream)">Právo na výmaz:</strong> Rovněž nás můžete požádat o výmaz vašich osobních údajů, za určitých podmínek jsme povinni pak tyto osobní údaje vymazat, ne však vždy, v některých případech si můžeme osobní údaje dále ponechat.</li>
+    <li><strong style="color:var(--cream)">Právo na omezení zpracování:</strong> Také máte za určitých podmínek právo požadovat omezení zpracování, např. pokud popíráte přesnost osobních údajů a my jejich přesnost ověřujeme.</li>
+    <li><strong style="color:var(--cream)">Právo na přenositelnost:</strong> Dále vám náleží tzv. právo na přenositelnost, tedy za určitých podmínek máte právo na to, abychom vám poskytli údaje ve strukturovaném, běžně používaném a strojově čitelném formátu.</li>
+    <li><strong style="color:var(--cream)">Právo odvolat udělený souhlas:</strong> V neposlední řadě máte právo odvolat udělený souhlas se zpracováním osobních údajů, a to kdykoliv bez uvedení jakéhokoliv důvodu.</li>
+    <li><strong style="color:var(--cream)">Právo podat stížnost a na účinnou soudní ochranu:</strong> V případě, že máte podezření, že při zpracování vašich osobních údajů porušujeme zákon, či jiné platné právní předpisy, máte možnost podat stížnost u <a href="https://www.uoou.gov.cz" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:none">Úřadu pro ochranu osobních údajů</a> a právo na účinnou soudní ochranu v této oblasti.</li>
+    <li>Další práva stanovená příslušnými právními předpisy.</li>
+  </ul>
+  <p>Kromě výše uvedených práv máte ještě právo vznést námitku proti zpracování týkající se vaší konkrétní situace, například pokud zpracováváme vaše osobní údaje pro naše oprávněné zájmy.</p>
+  <p>Vaši žádost vyřídíme bez zbytečného odkladu, nejpozději do jednoho měsíce od jejího obdržení.</p>
+
+  <h3>Kde se dozvíte o zpracování osobních údajů a vašich právech více informací?</h3>
+  <p>Aktuální informace o zpracování vašich osobních údajů se dozvíte vždy prostřednictvím těchto zásad. V úvodu je uvedeno datum účinnosti, a pokud bychom informace v těchto zásadách aktualizovali, zveřejníme zde aktualizované znění.</p>
+  <p>Pokud by pro vás výše uvedené nebylo dostačující a měli byste další otázky týkající se ochrany vašich osobních údajů, rádi vám je zodpovíme. Kontaktovat správce můžete na výše uvedené adrese sídla nebo prostřednictvím e-mailové adresy f.kubus7@gmail.com.</p>
+
   <span class="legal-back" onclick="showPage('home')">← Zpět na web</span>
 </section>
 
@@ -658,6 +711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#o-nas">O projektu</a></li>
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
+    <li><a href="#" onclick="if(window.Cookiebot)Cookiebot.renew();return false;">Nastavení cookies</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener">Přidat podnik</a></li>
   </ul>
   <span class="footer-copy">&copy; 2026 SOBEER · Brewed by <a href="https://neudopsym.cz" target="_blank" rel="noopener me" style="color:rgba(243,239,232,0.35);text-decoration:none;border-bottom:1px solid var(--amber-dim)">Neudopsym</a> · Aktualizováno <time id="last-updated" datetime="2026-08-12">12. 8. 2026</time></span>
