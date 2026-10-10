@@ -52,7 +52,30 @@ var BARS=[
   {id:51,name:"Sober CafeBar",district:"Vinohrady",hood:"Praha 2",type:"Bar",serve:"Čepované",garden:"Ne",food:"Ne",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"},{name:"Speciály (dle nabídky)",cat:"Craft",serve:"Čepované"},{name:"Bernard nealko",cat:"Craft",serve:"Čepované"},{name:"Bernard nealko - ochucený",cat:"Craft",serve:"Čepované"},{name:"Maisel´s Weisse alkoholfrei",cat:"Craft",serve:"Lahvové"},{name:"BRLO | Nealkoholické pivo naked",cat:"Craft",serve:"Lahvové"},{name:"Elektrárna Proovan IPA",cat:"Craft",serve:"Lahvové"},{name:"Sibeeria Hop Water",cat:"Craft",serve:"Lahvové"},{name:"NILIO ZERO POWER Pale Ale",cat:"Craft",serve:"Lahvové"},{name:"NILIO Great Warrior",cat:"Craft",serve:"Lahvové"},{name:"NILIO Yuzu Samurai",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 10:00–22:00\nÚterý 10:00–22:00\nStředa 10:00–22:00\nČtvrtek 10:00–22:00\nPátek 10:00–22:00\nSobota 10:00–22:00\nNeděle 10:00–22:00",address:"Italská 3, 120 00 Praha 2 – Vinohrady",desc:"Sober CafeBar kousek od Náměstí Míru je nově vzniklý koncept komplet nealkoholického baru, který se specializuje především na nealko drinky a moderní mixologii. V uvolněné atmosféře zde vedle vyladěných koktejlů nabízí i pestrou a širokou škálu nealko piv na čepu i v láhvích – od značek jako Bernard, NILIO, BRLO, Elektrárna, Sibeeria nebo Maisel. Představuje tak ideální místo pro každého, kdo si chce užít plnohodnotný barový zážitek a skvělé chutě zcela bez alkoholu.",lat:50.076450,lng:14.434991},
   {id:52,name:"poco.",district:"Vinohrady",hood:"Praha 2",type:"Bar",serve:"Čepované",garden:"Ne",food:"Ne",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí Zavřeno\nÚterý 18–1\nStředa 18–1\nČtvrtek 18–1\nPátek 18–1\nSobota 18–1\nNeděle Zavřeno",address:"Mánesova 1175/48, 120 00 Praha 2 – Vinohrady",desc:"poco. bar na Vinohradech je útulný a stylový bar a galerie s příjemnou sousedskou atmosférou, který spojuje lásku k umění s večerním drinkem. Na čepu servíruje poctivou nealkoholickou dvanáctku z nedalekého Vinohradského pivovaru, která nabízí plnou chmelovou chuť a skvělé osvěžení zcela bez alkoholu.",lat:50.077733,lng:14.441455},
   {id:53,name:"Kolektor",district:"Holešovice",hood:"Praha 7",type:"Bar",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Zichovec nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 9–22\nÚterý 9–22\nStředa 9–0\nČtvrtek 9–0\nPátek 9–0\nSobota 9–0\nNeděle 9–22",address:"Dukelských Hrdinů 530/47, 170 00 Praha 7 – Holešovice",desc:"Kolektor v Holešovicích, situovaný přímo v budově Veletržního paláce, je stylová kavárna, bar a kulturní prostor s jedinečnou industriální atmosférou, který je oblíbeným místem pro práci, setkávání i večerní drink. V nabídce zde myslí i na milovníky poctivého chmelu bez alkoholu a nabízí skvělé nealko z vyhlášeného řemeslného pivovaru Zichovec.",lat:50.101006,lng:14.432805},
-  {id:54,name:"Andělský pivovar",district:"Smíchov",hood:"Praha 5",type:"Restaurace",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Andělský pivovar Nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 11–0\nNeděle 11–0",address:"Lidická 337/30, 150 00 Praha 5 – Smíchov",desc:"Andělský pivovar na Smíchově je craftový mikropivovar s restaurací přímo u Anděla, který kombinuje poctivě vařená řemeslná piva s moderní českou gastronomií. Vedle svých klasických ležáků a speciálů vaří i vlastní nealkoholické pivo, které nabízí plnou chmelovou chuť a skvělé osvěžení zcela bez alkoholu.",lat:50.072321,lng:14.405945}
+  {id:54,name:"Andělský pivovar",district:"Smíchov",hood:"Praha 5",type:"Restaurace",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Andělský pivovar Nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 11–0\nNeděle 11–0",address:"Lidická 337/30, 150 00 Praha 5 – Smíchov",desc:"Andělský pivovar na Smíchově je craftový mikropivovar s restaurací přímo u Anděla, který kombinuje poctivě vařená řemeslná piva s moderní českou gastronomií. Vedle svých klasických ležáků a speciálů vaří i vlastní nealkoholické pivo, které nabízí plnou chmelovou chuť a skvělé osvěžení zcela bez alkoholu.",lat:50.072321,lng:14.405945},
+  {id:55,name:"NoD",district:"Staré Město",hood:"Praha 1",type:"Bar",serve:"Čepované",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"},{name:"Vinohradská Hazy Galaxy IPA",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 16–1\nÚterý 16–1\nStředa 16–1\nČtvrtek 16–1\nPátek 16–3\nSobota 16–3\nNeděle 16–0",address:"Dlouhá 33, 110 00 Praha 1 – Staré Město",desc:"Kulturní prostor, galerie a bar v jednom, schovaný kousek od rušné Dlouhé. Pod jednou střechou se tu potkává divadlo, výstavy i večerní posezení u drinku, takže atmosféra se mění podle toho, co se zrovna děje v sále. Ke kuchyni s poledním menu i večerními burgery čepují dvě nealka z Vinohradského pivovaru — dvanáctku a Hazy Galaxy IPA.",lat:50.090756,lng:14.425811},
+  {id:56,name:"ROESEL beer & food",district:"Malá Strana",hood:"Praha 1",type:"Restaurace",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"},{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 11–22\nÚterý 11–22\nStředa 11–22\nČtvrtek 11–22\nPátek 11–22\nSobota 11–22\nNeděle 12–20",address:"Mostecká 20, 118 00 Praha 1 – Malá Strana",desc:"Nenápadný bistro bar pár kroků od Karlova mostu, který navzdory poloze zůstal podnikem pro místní. Nabízí poctivou sezónní kuchyni, domácí pečivo a pečlivě vybraná česká piva. Nealko variantu tu najdete na čepu i v chladicím boxu, takže si vyberete podle nálady.",lat:50.087532,lng:14.405775},
+  {id:57,name:"Bike7",district:"Nové Město",hood:"Praha 2",type:"Bar",serve:"Čepované",garden:"Ano",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 14–0\nÚterý 14–0\nStředa 14–0\nČtvrtek 14–0\nPátek 14–0\nSobota 11–0\nNeděle 11–0",address:"Rašínovo nábřeží, Náplavka, 128 00 Praha 2 – Nové Město",desc:"Bar v jedné z kobek na pražské Náplavce, poznáte ho podle charakteristických kruhových skleněných dveří. Uvnitř panuje klubová atmosféra s dobrou hudbou, venku se sedí přímo nad Vltavou. Vedle domácích limonád tu na čepu běží nealko pivo z Vinohradského pivovaru.",lat:50.072749,lng:14.413854},
+  {id:58,name:"Jarda Mayer café",district:"Smíchov",hood:"Praha 5",type:"Bar",serve:"Čepované",garden:"Ne",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 16–1\nÚterý 16–1\nStředa 16–1\nČtvrtek 16–1\nPátek 16–1\nSobota 17–1\nNeděle 17–0",address:"Staropramenná 22, 150 00 Praha 5 – Smíchov",desc:"Malý sousedský bar kousek od Anděla s nezaměnitelným interiérem a vstřícnou obsluhou. Je to typ podniku, kde se po pár návštěvách znáte s personálem i se štamgasty. Pivo tu ošetřují pečlivě, a to včetně nealko dvanáctky z Vinohradského pivovaru.",lat:50.071944,lng:14.407222},
+  {id:59,name:"Gazpacho Bar",district:"Holešovice",hood:"Praha 7",type:"Bar",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 16–22\nÚterý 16–22\nStředa 16–22\nČtvrtek 16–22\nPátek 16–22\nSobota 16–22\nNeděle 16–22",address:"Ostrov Štvanice, 170 00 Praha 7 – Holešovice",desc:"Letní bar na Štvanici přímo u volejbalových kurtů, obklopený zelení uprostřed města. Grilují tu burgery, pouštějí hudbu z gramofonu a k tomu točí pivo včetně nealko varianty. Ideální zastávka po sportu nebo při procházce ostrovem.",lat:50.095917,lng:14.442310},
+  {id:60,name:"Bean House",district:"Karlín",hood:"Praha 8",type:"Restaurace",serve:"Čepované",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 11–21\nÚterý 11–21\nStředa 11–21\nČtvrtek 11–21\nPátek 11–21\nSobota 12–21\nNeděle 12–21",address:"Moláková 577/34, 186 00 Praha 8 – Karlín",desc:"Prostorná vietnamská restaurace u Invalidovny, kde se vaří poctivě a bez zbytečných kompromisů. K polévkám pho, závitkům i vegetariánským jídlům tu nabízejí domácí limonády a čepované pivo včetně nealko varianty. Klidné místo s rychlou obsluhou kousek od metra.",lat:50.097123,lng:14.465119},
+  {id:61,name:"Cafe DECADA",district:"Libeň",hood:"Praha 8",type:"Bar",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 9–0\nÚterý 9–0\nStředa 9–0\nČtvrtek 9–0\nPátek 9–0\nSobota 16–0\nNeděle 16–0",address:"Vacínova 876/10, 180 00 Praha 8 – Libeň",desc:"Kavárna a bar v jednom, který ráno otevírá u kávy a večer přechází do koktejlů a piva. V létě funguje příjemná zahrádka, uvnitř se střídají výstavy místních autorů. Nabídka nealko nápojů je tu nadstandardní a patří do ní i čepovaná nula z Vinohradského pivovaru.",lat:50.104539,lng:14.477205},
+  {id:62,name:"Diego Beer Bar",district:"Karlín",hood:"Praha 8",type:"Hospoda",serve:"Čepované",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Podle aktuální nabídky",cat:"Craft",serve:"Čepované"},{name:"Podle aktuální nabídky",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 11–0\nÚterý 11–0\nStředa 11–0\nČtvrtek 11–0\nPátek 11–0\nSobota 16:30–0\nNeděle 16:30–22",address:"Sokolovská 467/114, 186 00 Praha 8 – Karlín",desc:"Karlínský pivní bar s industriálním interiérem a širokou nabídkou piv z malých pivovarů. Kohoutky i lednice rotují a nealko řemeslná pípa mezi nimi nechybí, takže si vybere i ten, kdo řídí. Kuchyně sází na tex-mex, od burritos po nachos.",lat:50.094763,lng:14.455238},
+  {id:63,name:"Hedgehog café",district:"Hloubětín",hood:"Praha 9",type:"Bar",serve:"Čepované",garden:"Ano",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 15–21\nÚterý 15–21\nStředa 15–21\nČtvrtek 15–21\nPátek 15–21\nSobota 13–21\nNeděle 13–21",address:"Vozovna Hloubětín, 198 00 Praha 9 – Hloubětín",desc:"Kavárna a bar v areálu bývalé vozovny Hloubětín, přímo u skateparku Triangl Park. Prostorná venkovní terasa se stínem, promítací plátno a spousta místa pro děti i psy z ní dělají místo, kde se zdržíte déle, než jste plánovali. Na čepu je vedle klasiky i nealko pivo.",lat:50.106785,lng:14.527787},
+  {id:64,name:"Bistro Moje Místo",district:"Vršovice",hood:"Praha 10",type:"Restaurace",serve:"Čepované",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 9–23\nÚterý 9–23\nStředa 9–23\nČtvrtek 9–23\nPátek 9–23\nSobota 9–23\nNeděle 9–23",address:"28. pluku 119/33, 100 00 Praha 10 – Vršovice",desc:"Vršovické bistro otevřené od rána do večera, které zvládne snídani, oběd i večerní pivo. Kuchyně míchá burgery, tacos a vegetariánské varianty, k tomu je v nabídce poctivá káva. V létě láká na zahrádku, kde si dáte i čepované nealko.",lat:50.071769,lng:14.467644},
+  {id:65,name:"Kino Pilotů",district:"Vršovice",hood:"Praha 10",type:"Bar",serve:"Čepované",garden:"Ne",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"}],hours:"Pondělí 10–22:30\nÚterý 10–22:30\nStředa 10–22:30\nČtvrtek 10–22:30\nPátek 10–22:30\nSobota 10–22:30\nNeděle 10–22:30",address:"Donská 168/19, 100 00 Praha 10 – Vršovice",desc:"Jedno z posledních pražských kin staré školy, kde se promítají artové filmy, festivaly i dokumenty. Bar v předsálí patří ke zážitku stejně jako samotná projekce. Vedle limonád a kávy tu čepují i nealko pivo, takže si film vychutnáte s plnohodnotnou nulou.",lat:50.071394,lng:14.446830},
+  {id:66,name:"Pivní zastávka",district:"Vršovice",hood:"Praha 10",type:"Hospoda",serve:"Čepované",garden:"Ne",food:"Ne",craft:"Craft",beers:[{name:"Podle aktuální nabídky",cat:"Craft",serve:"Čepované"},{name:"Podle aktuální nabídky",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 15–22\nÚterý 15–22\nStředa 15–22\nČtvrtek 15–22\nPátek 15–22\nSobota Zavřeno\nNeděle Zavřeno",address:"28. pluku 11, 101 00 Praha 10 – Vršovice",desc:"Malá vršovická pivotéka se stovkou druhů piv v lednicích a rotující nabídkou na čepu. Personál rád poradí a trefí se i do náročnějšího vkusu. Nealko tu neberou jako nutné zlo — řemeslné nuly se objevují na čepu i v lednicích podle aktuální nabídky.",lat:50.070965,lng:14.461802},
+  {id:67,name:"Picoška Napoletana",district:"Brandýs nad Labem",hood:"Středočeský kraj",type:"Restaurace",serve:"Čepované",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"},{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí Zavřeno\nÚterý Zavřeno\nStředa 11:30–22\nČtvrtek 11:30–22\nPátek 11:30–22\nSobota 11:30–22\nNeděle 11:30–20",address:"Pekařská 12/2, Stará Boleslav, 250 01 Brandýs nad Labem",desc:"Pizzerie ve Staré Boleslavi, která dělá neapolskou pizzu podle všech pravidel a patří k nejlepším v okolí. Kromě pizzy stojí za pozornost i těstoviny a dezerty. K italské kuchyni tu nabízejí české pivo včetně nealko varianty na čepu i v plechovce.",lat:50.187055,lng:14.658204},
+  {id:68,name:"Baráčnická rychta",district:"Malá Strana",hood:"Praha 1",type:"Restaurace",serve:"Lahvové",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 11:30–22:30\nÚterý 11:30–22:30\nStředa 11:30–22:30\nČtvrtek 11:30–22:30\nPátek 11:30–22:30\nSobota 11:30–22:30\nNeděle 11:30–22:30",address:"Tržiště 23, 118 00 Praha 1 – Malá Strana",desc:"Historická malostranská restaurace s více než stoletou tradicí, schovaná kousek od turistických tras. Vaří poctivou českou klasiku od svíčkové po kachnu a v létě otevírá kouzelnou zahradu pod vzrostlými stromy. V chladicím boxu najdete i řemeslné nealko pivo.",lat:50.087963,lng:14.400164},
+  {id:69,name:"Přátelé coffee & wine friends",district:"Vinohrady",hood:"Praha 2",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 16–0\nÚterý 16–0\nStředa 16–0\nČtvrtek 16–0\nPátek 16–0\nSobota 16–0\nNeděle 16–23",address:"Rumunská 14/27, 120 00 Praha 2 – Vinohrady",desc:"Vinohradský vinný bar s útulným interiérem, houpačkou u prostředního stolu a klidným dvorkem. Personál se o víno i hosty zajímá a rád doporučí. K sýrovým prkénkům a olivám je v nabídce i řemeslné nealko pivo pro ty, kdo zrovna nepijí víno.",lat:50.074463,lng:14.434112},
+  {id:70,name:"Bistro Habibi",district:"Vyšehrad",hood:"Praha 2",type:"Restaurace",serve:"Lahvové",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí Zavřeno\nÚterý 17–22\nStředa 17–22\nČtvrtek 17–22\nPátek 17–22\nSobota 16–22\nNeděle Zavřeno",address:"Vratislavova 21/1, 128 00 Praha 2 – Vyšehrad",desc:"Rodinné bistro pod Vyšehradem s jordánskou a libanonskou kuchyní, které si rychle získalo pověst jednoho z nejpřátelštějších podniků v Praze. Mezze platter, hummus i čočková polévka tu chutnají jako doma. K jídlu se hodí vychlazené nealko pivo z lednice.",lat:50.066382,lng:14.419080},
+  {id:71,name:"Kavárna Kaaba",district:"Vinohrady",hood:"Praha 2",type:"Bar",serve:"Lahvové",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 8–0\nÚterý 8–0\nStředa 8–0\nČtvrtek 8–0\nPátek 8–0\nSobota 9–0\nNeděle 10–23",address:"Mánesova 1624, 120 00 Praha 2 – Vinohrady",desc:"Vinohradská kavárna s retro interiérem, která je od rána otevřená pro snídaně a večer se mění v příjemný bar. Domácí koláče, dobrá káva a vstřícná obsluha z ní udělaly stálici čtvrti. V nabídce nechybí ani řemeslné nealko pivo.",lat:50.078617,lng:14.436953},
+  {id:72,name:"better than clasico",district:"Žižkov",hood:"Praha 3",type:"Restaurace",serve:"Lahvové",garden:"Ne",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 12–15, 17–22\nÚterý Zavřeno\nStředa 12–15, 17–22\nČtvrtek 12–15, 17–22\nPátek 12–15, 17–22\nSobota 12–15, 17–22\nNeděle 12–15, 17–22",address:"Hartigova 2B, 130 00 Praha 3 – Žižkov",desc:"Žižkovské bistro s korejskou fusion kuchyní a výrazným minimalistickým interiérem. Obsluha se o hosty stará s nakažlivou energií, jídlo má čisté a odvážné chutě. K ssamjang kuřeti nebo tofu si dáte i chlazené nealko pivo.",lat:50.087228,lng:14.453594},
+  {id:73,name:"Never Enough",district:"Vinohrady",hood:"Praha 3",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Ne",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 12–19\nÚterý 12–19\nStředa 12–19\nČtvrtek 12–19\nPátek 12–19\nSobota 11–18\nNeděle 12–18",address:"nám. J. z Poděbrad 1573/18, 130 00 Praha 3 – Vinohrady",desc:"Streetwearová značka z Vinohrad a Žižkova, která svůj showroom na náměstí Jiřího z Poděbrad pojala jako otevřený prostor pro setkávání. Kolem značky budují komunitu lidí se zájmem o lidská práva a udržitelnost a podporují projekty, které jim dávají smysl. Zboží si prohlédnete u malého baru s posezením, kde si k tomu dáte pivo včetně poctivé nealko varianty.",lat:50.077683,lng:14.452443},
+  {id:74,name:"Naše maso Holešovická tržnice",district:"Holešovice",hood:"Praha 7",type:"Restaurace",serve:"Lahvové",garden:"Ano",food:"Ano",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí Zavřeno\nÚterý 12–21\nStředa 12–21\nČtvrtek 12–21\nPátek 10–21\nSobota 9–22\nNeděle 11–17",address:"Hala 28, Bubenské nábř. 306/13, 170 00 Praha 7 – Holešovice",desc:"Řeznictví a bistro v Hale 28 v Pražské tržnici, kde maso pochází z vlastního chovu a zpracovává se na místě. Tatarák, sekaná i burger patří ke špičce v Praze, venkovní posezení v areálu tržnice je příjemným bonusem. Vedle limonád tu najdete i nealko pivo.",lat:50.100378,lng:14.446105},
+  {id:75,name:"Galerie piva",district:"Vršovice",hood:"Praha 10",type:"Hospoda",serve:"Čepované",garden:"Ne",food:"Ne",craft:"Craft",beers:[{name:"Podle aktuální nabídky",cat:"Craft",serve:"Čepované"},{name:"Podle aktuální nabídky",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí 14–22\nÚterý 14–22\nStředa 14–22\nČtvrtek 14–22\nPátek 14–22\nSobota 14–22\nNeděle 14–22",address:"Krymská 138/36, 101 00 Praha 10 – Vršovice",desc:"Vršovická pivotéka a výčep v jednom, kde se na stěnách střídají díla místních výtvarníků a dají se i koupit. Nabídka na čepu rotuje, lednice jsou plné českých i zahraničních speciálů. Nealko craftu tu věnují stejnou pozornost jako alkoholickým pivům.",lat:50.070601,lng:14.450810},
+  {id:76,name:"Výčep Káraný",district:"Káraný",hood:"Středočeský kraj",type:"Bar",serve:"Čepované",garden:"Ano",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Čepované"},{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"},{name:"Vinohradská Hazy Galaxy IPA",cat:"Craft",serve:"Lahvové"}],hours:"Pondělí Zavřeno\nÚterý Zavřeno\nStředa 15–19\nČtvrtek 15–19\nPátek 15–19\nSobota 12–19\nNeděle 12–19",address:"U Vodárny 193, 250 75 Káraný",desc:"Výčep přímo v areálu druhého pivovaru Vinohradského pivovaru v Káraném, kde se vaří z místní podzemní vody filtrované štěrkopísky Jizery. Moderní budova s posezením uvnitř i venku je oblíbenou zastávkou cyklistů a výletníků. K domácím klobásám a sýru si dáte nealko dvanáctku z čepu i nealko Hazy Galaxy IPA v plechu.",lat:50.176888,lng:14.733979},
+  {id:77,name:"Kafé Vzlet",district:"Vršovice",hood:"Praha 10",type:"Bar",serve:"Lahvové",garden:"Ano",food:"Drobné občerstvení",craft:"Craft",beers:[{name:"Vinohradská 12 nealko",cat:"Craft",serve:"Lahvové"},{name:"Vinohradská Hazy Galaxy IPA",cat:"Craft",serve:"Lahvové"},{name:"Maisel´s IPA Alkoholfrei",cat:"Tradiční",serve:"Lahvové"},{name:"Maisel´s Weisse alkoholfrei",cat:"Tradiční",serve:"Lahvové"}],hours:"Pondělí 14–22\nÚterý 14–22\nStředa 14–22\nČtvrtek 14–22\nPátek 14–22\nSobota 14–22\nNeděle 14–22",address:"Holandská 669/1, 101 00 Praha 10 – Vršovice",desc:"Kulturní centrum ve zrekonstruované funkcionalistické budově bývalého kina a divadla, kde se pod jednou střechou potkává divadelní sál, galerie, co-workingové prostory i kavárna s barem. Velká venkovní terasa patří v teplých měsících k nejpříjemnějším místům ve Vršovicích a je vstřícná k dětem i psům. Nealko nabídka je nadstandardně široká: dvě craftové nuly z Vinohradského pivovaru a dvě německé pšeničné od Maisela, všechny v plechu nebo lahvi.",lat:50.069926,lng:14.454795}
 ];
 
 var filtered=BARS.slice(),openId=null,overviewMap=null,oMarkers=[];
@@ -246,8 +269,12 @@ function updateOMap(){
   if(toShow.length>1)overviewMap.fitBounds(bounds);
 }
 
+function trackMapsOpen(id){
+  track('bar_maps_open', barParams(BARS.find(function(x){return x.id===id;})));
+}
 function filterToBar(name){
   if(activeInfoWindow){activeInfoWindow.close();activeInfoWindow=null;}
+  track('bar_map_click', barParams(BARS.find(function(x){return x.name===name;})));
   document.getElementById('search-input').value=name;
   applyFilters();
   var first=document.querySelector('.bar-item');
@@ -259,6 +286,29 @@ function filterToBar(name){
   }
 }
 
+// ============ MĚŘENÍ UDÁLOSTÍ (dataLayer → GTM → GA4) ============
+// Události se odesílají vždy; GTM je přepošle do GA4 jen po souhlasu
+// se statistickými cookies.
+function track(name, params){
+  try{
+    window.dataLayer = window.dataLayer || [];
+    var d = {event:name};
+    for(var k in params){ if(params[k]!==undefined && params[k]!=='') d[k]=params[k]; }
+    window.dataLayer.push(d);
+  }catch(e){}
+}
+
+function barParams(b){
+  if(!b) return {};
+  return {
+    bar_name: b.name,
+    bar_district: b.district,
+    bar_hood: b.hood,
+    bar_type: b.type,
+    bar_craft: b.craft,
+    bar_serve: b.serve
+  };
+}
 // ============ BARS ============
 function render(){
   filtered=filtered.slice().sort(function(a,b){
@@ -304,7 +354,7 @@ function render(){
         +'<div class="detail-cols">'
           +'<div class="detail-col">'
             +'<div><div class="dl-label">Adresa</div><div class="dl-value">'+b.address+'</div>'
-              +'<a class="map-btn" href="https://www.google.com/maps/search/?api=1&query='+b.lat+','+b.lng+'" target="_blank" rel="noopener">Otevřít v mapách</a></div>'
+              +'<a class="map-btn" href="https://www.google.com/maps/search/?api=1&query='+b.lat+','+b.lng+'" target="_blank" rel="noopener" onclick="trackMapsOpen('+b.id+')">Otevřít v mapách</a></div>'
             +'<div><div class="dl-label">Otevírací doba</div><div class="dl-value">'+b.hours+'</div></div>'
           +'</div>'
           +'<div class="detail-col">'
@@ -322,7 +372,12 @@ function render(){
 }
 
 function toggle(id){
-  openId=(openId===id)?null:id;
+  var wasOpen = (openId===id);
+  openId = wasOpen ? null : id;
+  if(!wasOpen){
+    var b = BARS.find(function(x){return x.id===id;});
+    track('bar_detail_open', barParams(b));
+  }
   document.querySelectorAll('.bar-item').forEach(function(el){
     var isOpen=+el.dataset.id===openId;
     el.classList.toggle('open',isOpen);
@@ -349,6 +404,19 @@ function applyFilters(){
       &&(!g||b.garden===g);
   });
   openId=null;render();
+
+  // událost o použití filtru — jen když je něco nastavené
+  if(d||t||sv||cr||g||s){
+    track('filter_use', {
+      filter_district: d,
+      filter_type: t,
+      filter_serve: sv,
+      filter_craft: cr,
+      filter_garden: g,
+      filter_search: s,
+      filter_results: filtered.length
+    });
+  }
 }
 
 function clearSearch(){
@@ -408,9 +476,11 @@ window.addEventListener('scroll',function(){
       }
       if(!day)return;
       if(line.toLowerCase().indexOf('zavřeno')>-1)return;
-      var parts=line.split(/[–-]/);
-      if(parts.length!==2)return;
-      out.push(day+' '+pad(parts[0])+'-'+pad(parts[1]));
+      line.split(',').forEach(function(seg){
+        var parts=seg.trim().split(/[–-]/);
+        if(parts.length!==2)return;
+        out.push(day+' '+pad(parts[0])+'-'+pad(parts[1]));
+      });
     });
     return out.length?out:null;
   }
@@ -419,7 +489,18 @@ window.addEventListener('scroll',function(){
     return (t==='Restaurace')?'Restaurant':'BarOrPub';
   }
 
+  function cityOf(a){
+    // z adresy "… , 250 75 Káraný" nebo "…, 170 00 Praha 7 – Holešovice"
+    var m=a.match(/\d{3}\s?\d{2}\s+([^,]+)$/);
+    if(!m)return 'Praha';
+    var city=m[1].trim();
+    if(/^Praha/.test(city))return 'Praha';
+    city=city.split(/\s+[–-]\s+/)[0].trim();     // odřízne čtvrť za pomlčkou
+    return city;
+  }
+
   function splitAddress(a){
+
     // "Sokolovská 81/55, 186 00 Praha 8 – Karlín"
     var m=a.match(/^(.*?),\s*(\d{3}\s?\d{2})\s+(.*)$/);
     if(m)return {street:m[1].trim(),zip:m[2].trim()};
@@ -436,7 +517,7 @@ window.addEventListener('scroll',function(){
       'address':{
         '@type':'PostalAddress',
         'streetAddress':ad.street,
-        'addressLocality':'Praha',
+        'addressLocality':cityOf(b.address),
         'addressRegion':b.district,
         'addressCountry':'CZ'
       },
@@ -454,8 +535,8 @@ window.addEventListener('scroll',function(){
   var schema={
     '@context':'https://schema.org',
     '@type':'ItemList',
-    'name':'Podniky s nealkoholickým pivem v Praze',
-    'description':'Přehled pražských barů, hospod a restaurací s nabídkou kvalitního nealkoholického piva.',
+    'name':'Podniky s nealkoholickým pivem v Česku',
+    'description':'Přehled barů, hospod a restaurací v Česku s nabídkou kvalitního nealkoholického piva.',
     'numberOfItems':BARS.length,
     'itemListOrder':'https://schema.org/ItemListOrderDescending',
     'itemListElement':items
