@@ -727,6 +727,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <span class="footer-copy">&copy; 2026 SOBEER · Brewed by <a href="https://neudopsym.cz" target="_blank" rel="noopener me" style="color:rgba(243,239,232,0.35);text-decoration:none;border-bottom:1px solid var(--amber-dim)">Neudopsym</a> · Aktualizováno <time id="last-updated" datetime="2026-08-12">12. 8. 2026</time></span>
 </footer>
 
-<script src="sobeer.js"></script>
+<!-- data-cookieconsent="ignore" — sobeer.js je funkční kód webu (age gate, seznam
+     podniků, filtry, mapa). Cookiebot ho v režimu auto blokoval kvůli volání
+     dataLayer.push ve funkci track(), čímž přestala fungovat age gate.
+     Samotný track() nic neukládá, o odeslání do GA4 rozhoduje GTM podle souhlasu. -->
+<script src="sobeer.js" data-cookieconsent="ignore"></script>
 </body>
 </html>
