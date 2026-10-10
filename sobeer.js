@@ -104,6 +104,7 @@ function loadGoogleMaps(){
   }
   var s=document.createElement('script');
   s.src='https://maps.googleapis.com/maps/api/js?key='+MAPS_KEY+'&callback=initGoogleMaps';
+  s.onerror=function(){showMapError();};
   document.head.appendChild(s);
 }
 
@@ -112,6 +113,21 @@ function showMapPlaceholders(){
   var oMap=document.getElementById('overview-map');
   if(oMap)oMap.innerHTML=msg;
 }
+
+// Mapa se nenačetla — vyčerpaná kvóta, problém s klíčem nebo blokovaný skript.
+// Místo šedého overlaye od Googlu ukážeme vlastní hlášku; adresy a tlačítka
+// „Otevřít v mapách" u jednotlivých podniků fungují dál, ta na mapě nezávisí.
+function showMapError(){
+  var oMap=document.getElementById('overview-map');
+  if(!oMap)return;
+  oMap.innerHTML='<div class="map-placeholder" style="height:100%">'
+    +'<p>Mapu se teď nepodařilo načíst. Adresu i navigaci k jednotlivým podnikům '
+    +'najdete v seznamu níže po rozkliknutí detailu.</p></div>';
+}
+
+// Google volá tuhle funkci sám, když selže ověření klíče
+// (vyčerpaná kvóta, neplatný klíč, nepovolená doména).
+window.gm_authFailure=function(){showMapError();};
 
 // ============ AGE GATE ============
 function ageYes(){
