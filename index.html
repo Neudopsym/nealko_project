@@ -16,7 +16,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="SOBEER | Kam na čepované nealko pivo? Průvodce nealko pivní scénou v Praze i mimo ni. Bary, hospody a restaurace s nabídkou kvalitního nealko piva."/>
 <meta name="author" content="SOBEER"/>
 <meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://sobeer.cz"/>
+<link rel="canonical" href="https://sobeer.cz/"/>
+<link rel="alternate" hreflang="cs" href="https://sobeer.cz/"/>
+<link rel="alternate" hreflang="en" href="https://sobeer.cz/en/"/>
+<link rel="alternate" hreflang="x-default" href="https://sobeer.cz/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://sobeer.cz"/>
 <meta property="og:title" content="SOBEER — Nealkoholické pivo v Praze a celém Česku"/>
@@ -33,9 +36,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://sobeer.cz/#organization",
   "name": "SOBEER",
   "alternateName": "SOBEER — průvodce nealko pivní scénou",
-  "url": "https://sobeer.cz",
+  "url": "https://sobeer.cz/",
   "logo": "https://sobeer.cz/android-chrome-512x512.png",
   "description": "Nezávislý průvodce nealko pivní scénou v Česku. Mapuje bary, hospody a restaurace, kde nealkoholické pivo berou jako kvalitní řemeslný produkt.",
   "email": "f.kubus7@gmail.com",
@@ -300,6 +304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#o-nas" onclick="navGoTo('#o-nas');return false;">O projektu</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener" onclick="showPage('home')">Přidat podnik</a></li>
     <li><a href="#kontakt" onclick="navGoTo('#kontakt');return false;">Kontakt</a></li>
+    <li><a href="/en/" hreflang="en" lang="en">English</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -313,6 +318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#o-nas" onclick="closeMenu();navGoTo('#o-nas');return false;">O projektu</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener" onclick="closeMenu();showPage('home')">Přidat podnik</a></li>
     <li><a href="#kontakt" onclick="closeMenu();navGoTo('#kontakt');return false;">Kontakt</a></li>
+    <li><a href="/en/" hreflang="en" lang="en">English</a></li>
   </ul>
 </div>
 
@@ -720,17 +726,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="#bary">Bary</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#o-nas">O projektu</a></li>
+    <li><a href="/en/" hreflang="en" lang="en">English</a></li>
     <li><a onclick="showPage('gdpr')">GDPR</a></li>
     <li><a href="#" onclick="if(window.Cookiebot)Cookiebot.renew();return false;">Nastavení cookies</a></li>
     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc26oVWWcxfFnV0y05lJRbyJ8em-22vQaTlZAj0m_smpZfCNA/viewform?usp=publish-editor" target="_blank" rel="noopener">Přidat podnik</a></li>
   </ul>
-  <span class="footer-copy">&copy; 2026 SOBEER · Brewed by <a href="https://neudopsym.cz" target="_blank" rel="noopener me" style="color:rgba(243,239,232,0.35);text-decoration:none;border-bottom:1px solid var(--amber-dim)">Neudopsym</a> · Aktualizováno <time id="last-updated" datetime="2026-08-12">12. 8. 2026</time></span>
+  <span class="footer-copy">&copy; 2026 SOBEER · Brewed by <a href="https://neudopsym.cz" target="_blank" rel="noopener me" style="color:rgba(243,239,232,0.35);text-decoration:none;border-bottom:1px solid var(--amber-dim)">Neudopsym</a> · Aktualizováno <time id="last-updated" datetime="2026-10-11">11. 10. 2026</time></span>
 </footer>
 
-<!-- data-cookieconsent="ignore" — sobeer.js je funkční kód webu (age gate, seznam
-     podniků, filtry, mapa). Cookiebot ho v režimu auto blokoval kvůli volání
+<!-- data-cookieconsent="ignore" — bars.js a sobeer.js jsou funkční kód webu (age gate,
+     seznam podniků, filtry, mapa). Cookiebot je v režimu auto blokoval kvůli volání
      dataLayer.push ve funkci track(), čímž přestala fungovat age gate.
-     Samotný track() nic neukládá, o odeslání do GA4 rozhoduje GTM podle souhlasu. -->
+     Samotný track() nic neukládá, o odeslání do GA4 rozhoduje GTM podle souhlasu.
+     bars.js = sdílená data pro CZ i EN verzi, musí se načíst první. -->
+<script src="bars.js" data-cookieconsent="ignore"></script>
 <script src="sobeer.js" data-cookieconsent="ignore"></script>
 </body>
 </html>
