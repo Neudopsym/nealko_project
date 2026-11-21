@@ -27,7 +27,8 @@ var STR={
     schemaDesc:'Přehled barů, hospod a restaurací v Česku s nabídkou kvalitního nealkoholického piva.',
     cuisine:'Česká kuchyně',
     showing:function(n){return 'Zobrazeno <strong>'+n+'</strong> '+(n===1?'podnik':n<5?'podniky':'podniků');},
-    countWord:function(n){return n+' '+((n===1)?'podnik':(n>=2&&n<=4)?'podniky':'podniků');}
+    countWord:function(n){return n+' '+((n===1)?'podnik':(n>=2&&n<=4)?'podniky':'podniků');},
+    myLocation:'Vaše poloha'
   },
   en:{
     mapConsent:'To display the map, please accept cookies in the bottom left corner.',
@@ -44,7 +45,8 @@ var STR={
     schemaDesc:'A guide to bars, pubs and restaurants across Czechia serving quality alcohol-free beer.',
     cuisine:'Czech cuisine',
     showing:function(n){return 'Showing <strong>'+n+'</strong> '+(n===1?'venue':'venues');},
-    countWord:function(n){return n+' '+(n===1?'venue':'venues');}
+    countWord:function(n){return n+' '+(n===1?'venue':'venues');},
+    myLocation:'Your location'
   }
 };
 var T=STR[LANG]||STR.cs;
@@ -243,7 +245,7 @@ function initGoogleMaps(){
         position:userPos,
         map:overviewMap,
         icon:{path:google.maps.SymbolPath.CIRCLE,scale:8,fillColor:'#4285F4',fillOpacity:1,strokeColor:'#fff',strokeWeight:2},
-        title:'Vaše poloha'
+        title:T.myLocation
       });
       overviewMap.setCenter(userPos);
       overviewMap.setZoom(14);
