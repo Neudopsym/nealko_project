@@ -1,4 +1,4 @@
-# SOBEER — průvodce nealko pivní scénou v Praze
+# SOBEER — průvodce nealko pivní scénou v Česku
 # https://sobeer.cz
 
 User-agent: *
