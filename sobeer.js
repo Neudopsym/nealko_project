@@ -23,12 +23,14 @@ var STR={
     openInMaps:'Otevřít v mapách',
     pillCraft:'Craft', pillGarden:'Zahrádka', pillFood:'Jídlo',
     disclaimer:'* Informace o nabídce nealkoholických piv mají informativní charakter a mohou se měnit. Doporučujeme si dostupnost ověřit přímo v podniku.',
-    schemaName:'Podniky s nealkoholickým pivem v Česku',
-    schemaDesc:'Přehled barů, hospod a restaurací v Česku s nabídkou kvalitního nealkoholického piva.',
+    schemaName:'Podniky s nealkoholickým pivem v Praze, Brně a celém Česku',
+    schemaDesc:'Přehled barů, hospod a restaurací v Praze, Brně a dalších městech Česka s nabídkou kvalitního nealkoholického piva.',
     cuisine:'Česká kuchyně',
     showing:function(n){return 'Zobrazeno <strong>'+n+'</strong> '+(n===1?'podnik':n<5?'podniky':'podniků');},
     countWord:function(n){return n+' '+((n===1)?'podnik':(n>=2&&n<=4)?'podniky':'podniků');},
-    myLocation:'Vaše poloha'
+    myLocation:'Vaše poloha',
+    allCities:'Všechna města',
+    allDistricts:'Všechny lokality'
   },
   en:{
     mapConsent:'To display the map, please accept cookies in the bottom left corner.',
@@ -41,12 +43,14 @@ var STR={
     openInMaps:'Open in Maps',
     pillCraft:'Craft', pillGarden:'Garden', pillFood:'Food',
     disclaimer:'* Information about the alcohol-free beer on offer is indicative and may change. We recommend checking availability directly with the venue.',
-    schemaName:'Venues serving alcohol-free beer in Czechia',
-    schemaDesc:'A guide to bars, pubs and restaurants across Czechia serving quality alcohol-free beer.',
+    schemaName:'Venues serving alcohol-free beer in Prague, Brno and across Czechia',
+    schemaDesc:'A guide to bars, pubs and restaurants in Prague, Brno and other Czech cities serving quality alcohol-free beer.',
     cuisine:'Czech cuisine',
     showing:function(n){return 'Showing <strong>'+n+'</strong> '+(n===1?'venue':'venues');},
     countWord:function(n){return n+' '+(n===1?'venue':'venues');},
-    myLocation:'Your location'
+    myLocation:'Your location',
+    allCities:'All cities',
+    allDistricts:'All locations'
   }
 };
 var T=STR[LANG]||STR.cs;
@@ -415,8 +419,48 @@ function toggle(id){
   });
 }
 
+/* Filtry města a lokality se generují z BARS. Dřív byly oba seznamy
+   napsané natvrdo v obou HTML a při novém podniku v neznámé čtvrti se
+   na ně zapomínalo — podnik se zobrazil, ale nešlo na něj vyfiltrovat.
+   Teď to nemůže nastat: co je v datech, je ve filtru. */
+function optList(values, allLabel){
+  return '<option value="">'+allLabel+'</option>'
+    + values.map(function(v){
+        var e=String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+        return '<option value="'+e+'">'+e+'</option>';
+      }).join('');
+}
+function uniqSorted(pick, where){
+  var out=[];
+  BARS.forEach(function(b){
+    if(where && !where(b))return;
+    var v=pick(b);
+    if(v && out.indexOf(v)<0) out.push(v);
+  });
+  return out.sort(function(a,b){return a.localeCompare(b,'cs');});
+}
+function fillCityFilter(){
+  var sel=document.getElementById('f-city');
+  if(!sel)return;
+  var prev=sel.value;
+  sel.innerHTML=optList(uniqSorted(function(b){return b.city;}), T.allCities);
+  sel.value=prev;
+}
+/* Lokality se zúží na vybrané město. Bez města jsou tu všechny napříč městy. */
+function fillDistrictFilter(){
+  var sel=document.getElementById('f-district');
+  if(!sel)return;
+  var cityEl=document.getElementById('f-city');
+  var city=cityEl?cityEl.value:'';
+  var prev=sel.value;
+  var ds=uniqSorted(function(b){return b.district;}, city?function(b){return b.city===city;}:null);
+  sel.innerHTML=optList(ds, T.allDistricts);
+  sel.value=(prev && ds.indexOf(prev)>-1)?prev:'';
+}
+
 function applyFilters(){
   var s=document.getElementById('search-input').value.toLowerCase(),
+      c=(document.getElementById('f-city')||{value:''}).value,
       d=document.getElementById('f-district').value,
       t=document.getElementById('f-type').value,
       sv=document.getElementById('f-serve').value,
@@ -425,7 +469,8 @@ function applyFilters(){
   var clearBtn=document.getElementById('search-clear');
   if(clearBtn)clearBtn.classList.toggle('show',s.length>0);
   filtered=BARS.filter(function(b){
-    return(!s||b.name.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.name.toLowerCase().includes(s);}))
+    return(!s||b.name.toLowerCase().includes(s)||b.city.toLowerCase().includes(s)||b.district.toLowerCase().includes(s)||b.type.toLowerCase().includes(s)||b.beers.some(function(x){return x.name.toLowerCase().includes(s);}))
+      &&(!c||b.city===c)
       &&(!d||b.district===d)
       &&(!t||b.type===t)
       &&(!sv||b.beers.some(function(x){return x.serve===sv;}))
@@ -435,8 +480,9 @@ function applyFilters(){
   openId=null;render();
 
   // událost o použití filtru — jen když je něco nastavené
-  if(d||t||sv||cr||g||s){
+  if(c||d||t||sv||cr||g||s){
     track('filter_use', {
+      filter_city: c,
       filter_district: d,
       filter_type: t,
       filter_serve: sv,
@@ -454,6 +500,17 @@ function clearSearch(){
   var sec=document.getElementById('bary');
   if(sec)sec.scrollIntoView({behavior:'smooth'});
 }
+
+fillCityFilter();
+fillDistrictFilter();
+
+/* Změna města překreslí nabídku lokalit; pokud zvolená lokalita do nového
+   města nepatří, fillDistrictFilter ji sám vynuluje. */
+var cityEl=document.getElementById('f-city');
+if(cityEl)cityEl.addEventListener('change',function(){
+  fillDistrictFilter();
+  applyFilters();
+});
 
 ['search-input','f-district','f-type','f-serve','f-craft','f-garden'].forEach(function(id){
   var el=document.getElementById(id);
@@ -517,14 +574,17 @@ window.addEventListener('scroll',function(){
     return (t==='Restaurace')?'Restaurant':'BarOrPub';
   }
 
-  function cityOf(a){
-    // z adresy "… , 250 75 Káraný" nebo "…, 170 00 Praha 7 – Holešovice"
-    var m=a.match(/\d{3}\s?\d{2}\s+([^,]+)$/);
+  /* Město pro strukturovaná data. Bere se z pole city, protože adresa
+     obsahuje městskou část — u Brna "602 00 Brno-střed", což by do schématu
+     poslalo Brno-střed místo Brna. Parsování z adresy zůstává jen jako
+     záloha pro záznam bez pole city. */
+  function cityOf(b){
+    if(b.city)return b.city;
+    var m=b.address.match(/\d{3}\s?\d{2}\s+([^,]+)$/);
     if(!m)return 'Praha';
     var city=m[1].trim();
     if(/^Praha/.test(city))return 'Praha';
-    city=city.split(/\s+[–-]\s+/)[0].trim();     // odřízne čtvrť za pomlčkou
-    return city;
+    return city.split(/\s+[–-]\s+/)[0].trim();
   }
 
   function splitAddress(a){
@@ -545,7 +605,7 @@ window.addEventListener('scroll',function(){
       'address':{
         '@type':'PostalAddress',
         'streetAddress':ad.street,
-        'addressLocality':cityOf(b.address),
+        'addressLocality':cityOf(b),
         'addressRegion':b.district,
         'addressCountry':'CZ'
       },
